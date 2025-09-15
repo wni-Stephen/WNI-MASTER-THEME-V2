@@ -1,0 +1,129 @@
+/**
+* WebsiteNI Joints
+* WebsiteNI Starter Theme built on JointsWP; http://jointswp.com/.
+* Created by WebsiteNI.
+*/
+/**
+* _effects - Small.
+*/
+/* Wow. */
+.wow {
+    visibility: hidden;
+}
+.fadeIn {
+    @include fadeIn(
+        $function: cubic-bezier(0.51,0.18,0,0.88)
+    );
+}
+.fadeInUp {
+    @include fadeInUp(
+        $function: cubic-bezier(0.51,0.18,0,0.88)
+    );
+}
+.fadeInLeft {
+    @include fadeInLeft(
+         $function: cubic-bezier(0.51,0.18,0,0.88)
+    );
+}
+.fadeInRight {
+    @include fadeInRight(
+        $function: cubic-bezier(0.51, 0.18, 0, 0.88)
+    );
+}
+.flipInX {
+    @include flipInX(
+        $function: cubic-bezier(0.51, 0.18, 0, 0.88)
+    );
+}
+.zoomOut {
+    @include zoomOut(
+        $function: cubic-bezier(0.51,0.18,0,0.88)
+    );
+}
+.wrapper {
+    position: relative;
+    // perspective: 1000px; Search C.
+    overflow: hidden;
+    // .wrapper-preloader {
+    //     width: 100%;
+    //     height: 100%;
+    //     top: 0;
+    //     left: 0;
+    //     position: fixed;
+    //     background-color: $lightBlue;
+    //     opacity: 0;
+    //     visibility: hidden;
+    //     z-index: 2;
+    //     transition: .5s cubic-bezier(0.51, 0.18, 0, 0.88);
+    // }
+    .wrapper-inner {
+        // transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1);
+        position: relative;
+        opacity: 1;
+        visibility: visible;
+        transition: transform .8s cubic-bezier(.51,.18,0,.88),opacity .5s cubic-bezier(.51,.18,0,.88);
+    }
+    &.hamburger-is-active {
+        .navigation-overlay {
+            transform: translateX(0);
+            // box-shadow: 2.5px 0px 25px get-color(black);
+            opacity: 1;
+            visibility: visible;
+        }
+        .wrapper-inner {
+            // transform: translate3d(0px, 0px, 0px) scale3d(.95, .95, 1);
+            transform: translate3d(calc(100% - 25px - .625rem * 2), 0px, 0px) scale3d(1, 1, 1);
+        }
+    }
+    // Search B.
+    &.search-is-active {
+        .wrapper-inner {
+            transform: translate3d(0px, 0px, 0px) scale3d(.95, .98, 1);
+        }
+    }
+    // Search C.
+    // &.search-is-active {
+    //  height: 100vh;
+    //  pointer-events: none;
+    //  .wrapper-inner {
+    //      transform: translate3d(0px, 0px, -2500px) rotate3d(0, 0, 1, 3deg);
+    //  }
+    // }
+    &.fade-out {
+        // .wrapper-preloader {
+        //     opacity: 1;
+        //     visibility: visible;
+        // }
+        .wrapper-inner {
+            // transform: translate3d(0px, -250px, 0px) scale3d(1, 1, 1);
+            opacity: 0;
+            visibility: hidden;
+        }
+    }
+    // &.zoom-out {
+    //  .wrapper-inner {
+    //      transform: translate3d(0px, 0px, 0px) scale3d(.95, .95, 1);
+    //      opacity: 0;
+    //  }
+    // }
+}
+/**
+* _effects - Medium.
+*/
+@media screen and (min-width: 640px) {
+}
+/**
+* _effects - Large.
+*/
+@media screen and (min-width: 1024px) {
+}
+/**
+* _effects - XL.
+*/
+@media screen and (min-width: 1200px) {
+}
+/**
+* _effects - XXL.
+*/
+@media screen and (min-width: 1440px) {
+}

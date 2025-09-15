@@ -1,0 +1,84 @@
+/**
+* WebsiteNI Joints
+* WebsiteNI Starter Theme built on JointsWP; http://jointswp.com/.
+* Created by WebsiteNI.
+*/
+
+/**
+* Responsive Table.
+* Smaller than [change "max-width: 640px" to whatever you require].
+* Add class responsive-table to table element, e.g. <table class="responsive-table">.
+*/
+
+/**
+* _responsive-table - Small.
+*/
+
+
+/**
+* _responsive-table - Medium.
+*/
+@media screen and (min-width: 640px) {
+    /* Responsive Table. */
+	.responsive-table {
+		table,
+		thead,
+		tbody,
+		tr,
+		th,
+		td {
+			display: block;
+		}
+
+		th {
+			top: -9999px;
+			left: -9999px;
+			position: absolute;
+			font-weight: bold;
+		}
+
+		td {
+			position: relative;
+			text-align: right;
+
+			&:first-child {
+				/* Your code. */
+			}
+
+			&:nth-of-type(1) {
+				&:before {
+					content: "Title";
+					/* Your code. */
+				}
+			}
+
+			&:before {
+				width: 50%;
+				left: 0;
+				position: absolute;
+				text-align: left;
+			}
+		}
+	}
+}
+
+/**
+* _responsive-table - Large.
+*/
+@media screen and (min-width: 1024px) {
+    
+}
+
+/**
+* _responsive-table - XL.
+*/
+@media screen and (min-width: 1200px) {
+    
+}
+
+/**
+* _responsive-table - XXL.
+*/
+@media screen and (min-width: 1440px) {
+    
+}

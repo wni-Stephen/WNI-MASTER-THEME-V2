@@ -1,0 +1,215 @@
+$countDefault: 1 !default;
+$durationDefault: 1s !default;
+$delayDefault: 0s !default;
+$functionDefault: ease !default;
+$fillDefault: both;
+$visibilityDefault: hidden !default;
+
+@mixin count($count: 1) {
+	animation-iteration-count: $count;
+}
+
+@mixin duration($duration: 1s) {
+	animation-duration: $duration;
+}
+
+@mixin delay($delay: .2s) {
+	animation-delay: $delay;
+}
+
+@mixin function($function: ease) {
+	animation-timing-function: $function;
+}
+
+@mixin fill-mode($fill: both) {
+	animation-fill-mode: $fill;
+}
+
+@mixin visibility($visibility: hidden) {
+	backface-visibility: $visibility;
+}
+
+@mixin transform($property) {
+	transform: $property;
+}
+
+@mixin transform-origin($transform-origin: center center) {
+	transform-origin: $transform-origin;
+}
+
+@mixin transform-style($transform-style: flat) {
+	transform-style: $transform-style;
+}
+
+@mixin animation-name($animation-name) {
+	animation-name: $animation-name;
+}
+
+@mixin keyframes($animation-name) {
+	@keyframes #{$animation-name} {
+		@content;
+	}
+}
+
+@include keyframes(fadeIn) {
+	  0% {opacity: 0;}
+	100% {opacity: 1;}
+}
+
+@mixin fadeIn($count: $countDefault, $duration: $durationDefault, $delay: $delayDefault, $function: $functionDefault, $fill: $fillDefault, $visibility: $visibilityDefault) {
+	@include animation-name(fadeIn);
+	@include count($count);
+	@include duration($duration);
+	@include delay($delay);
+	@include function($function);
+	@include fill-mode($fill);
+	@include visibility($visibility);
+}
+
+@include keyframes(fadeInUp) {
+	0% {
+		opacity: 0;
+		@include transform(translateY(20px));
+	}
+
+	100% {
+		opacity: 1;
+		@include transform(translateY(0));
+	}
+}
+
+@mixin fadeInUp($count: $countDefault, $duration: $durationDefault, $delay: $delayDefault, $function: $functionDefault, $fill: $fillDefault, $visibility: $visibilityDefault) {
+	@include animation-name(fadeInUp);
+	@include count($count);
+	@include duration($duration);
+	@include delay($delay);
+	@include function($function);
+	@include fill-mode($fill);
+	@include visibility($visibility);
+}
+
+@include keyframes(fadeInLeft) {
+	0% {
+		opacity: 0;
+		@include transform(translateX(-20px));
+	}
+
+	100% {
+		opacity: 1;
+		@include transform(translateX(0));
+	}
+}
+
+@mixin fadeInLeft($count: $countDefault, $duration: $durationDefault, $delay: $delayDefault, $function: $functionDefault, $fill: $fillDefault, $visibility: $visibilityDefault) {
+	@include animation-name(fadeInLeft);
+	@include count($count);
+	@include duration($duration);
+	@include delay($delay);
+	@include function($function);
+	@include fill-mode($fill);
+	@include visibility($visibility);
+}
+
+@include keyframes(fadeInRight) {
+	0% {
+		opacity: 0;
+		@include transform(translateX(20px));
+	}
+
+	100% {
+		opacity: 1;
+		@include transform(translateX(0));
+	}
+}
+
+@mixin fadeInRight($count: $countDefault, $duration: $durationDefault, $delay: $delayDefault, $function: $functionDefault, $fill: $fillDefault, $visibility: $visibilityDefault) {
+	@include animation-name(fadeInRight);
+	@include count($count);
+	@include duration($duration);
+	@include delay($delay);
+	@include function($function);
+	@include fill-mode($fill);
+	@include visibility($visibility);
+}
+
+@include keyframes(flipInX) {
+	0% {
+		opacity: 0;
+		@include transform(perspective(400px) rotateX(90deg));
+	}
+
+	40% {
+		@include transform(perspective(400px) rotateX(-10deg));
+	}
+
+	70% {
+		@include transform(perspective(400px) rotateX(10deg));
+	}
+
+	100% {
+		opacity: 1;
+		@include transform(perspective(400px) rotateX(0deg));
+	}
+}
+
+@mixin flipInX($count: $countDefault, $duration: $durationDefault, $delay: $delayDefault, $function: $functionDefault, $fill: $fillDefault, $visibility: $visibilityDefault) {
+	@include animation-name(flipInX);
+	@include count($count);
+	@include duration($duration);
+	@include delay($delay);
+	@include function($function);
+	@include fill-mode($fill);
+	@include visibility($visibility);
+}
+
+@include keyframes(flipInY) {
+	0% {
+		opacity: 0;
+		@include transform(perspective(400px) rotateY(90deg));
+	}
+
+	40% {
+		@include transform(perspective(400px) rotateY(-10deg));
+	}
+
+	70% {
+		@include transform(perspective(400px) rotateY(10deg));
+	}
+
+	100% {
+		opacity: 1;
+		@include transform(perspective(400px) rotateY(0deg));
+	}
+}
+
+@mixin flipInY($count: $countDefault, $duration: $durationDefault, $delay: $delayDefault, $function: $functionDefault, $fill: $fillDefault, $visibility: $visibilityDefault) {
+	@include animation-name(flipInY);
+	@include count($count);
+	@include duration($duration);
+	@include delay($delay);
+	@include function($function);
+	@include fill-mode($fill);
+	@include visibility($visibility);
+}
+
+@include keyframes(zoomOut) {
+	0% {
+        opacity: 1;
+        @include transform(scale3d(1.03, 1.03, 1.03));
+    }
+
+    100% {
+        opacity: 1;
+        @include transform(scale3d(1, 1, 1));
+    }
+}
+
+@mixin zoomOut($count: $countDefault, $duration: $durationDefault, $delay: $delayDefault, $function: $functionDefault, $fill: $fillDefault, $visibility: $visibilityDefault) {
+	@include animation-name(zoomOut);
+	@include count($count);
+	@include duration($duration);
+	@include delay($delay);
+	@include function($function);
+	@include fill-mode($fill);
+	@include visibility($visibility);
+}

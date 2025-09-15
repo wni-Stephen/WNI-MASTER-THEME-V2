@@ -1,0 +1,197 @@
+/**
+* WebsiteNI Joints
+* WebsiteNI Starter Theme built on JointsWP; http://jointswp.com/.
+* Created by WebsiteNI.
+*/
+
+/**
+* Import Vendors.
+*/
+@import "vendor/animate/animate";
+
+/**
+* Import Helpers.
+*/
+@import "helper/variables";
+@import "helper/colours";
+@import "helper/fonts";
+
+@import "helper/mixins";
+
+@import "helper/classes";
+@import "helper/effects";
+@import "helper/forms";
+// @import "helper/responsive-table";
+@import "helper/search";
+
+/**
+* Import Partials.
+*/
+@import "partial/front-page";
+// @import "partial/page-contact";
+@import "partial/404";
+
+/**
+* Import Layouts.
+*/
+@import "layout/footer";
+@import "layout/header";
+
+/**
+* Global Styles - Small.
+*/
+/* Prevent Horizontal Scrollbar. */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.button {
+    width: initial;
+    display: table;
+    min-width: 130px;
+    line-height: 1;
+    height: 45px;
+    background-color: get-color(primary);
+    border-radius: 45px;
+    text-align: center;
+    font-size: 14px;
+    color: get-color(white);
+    transition: $transition;
+    margin: 0;
+    padding: 16px 30px;
+    &:hover, &:active, &:focus {
+        border-color: get-color(secondary);
+        background-color: get-color(secondary);
+        color: get-color(white);
+    }
+    &.center {
+        margin: 0 auto;
+    }
+    &.right {
+        margin: 0 0 0 auto;
+    }
+    &.spacingtop {
+        margin-top: 40px;
+    }
+    &.inverse {
+        background-color: get-color(secondary);
+        &:hover, &:active, &:focus {
+            background-color: get-color(white);
+            border-color: get-color(secondary);
+            color: get-color(secondary);
+        }
+    }
+    &.inverseoutline {
+        background-color: transparent;
+        border: 1px solid get-color(secondary);
+        color: get-color(secondary);
+        &:hover, &:active, &:focus {
+            background-color: get-color(secondary);
+            border-color: get-color(secondary);
+            color: get-color(white);
+        }
+    }
+    &.whiteoutline {
+        background-color: transparent;
+        border: 1px solid get-color(white);
+        color: get-color(white);
+        &:hover, &:active, &:focus {
+            background-color: get-color(secondary);
+            border-color: get-color(secondary);
+            color: get-color(white);
+        }
+    }    
+}
+
+img.alignright { float: right; margin: 0 0 25px 25px; }
+img.alignleft { float: left; margin: 0 25px 25px 0; }
+img.aligncenter { display: block; margin-left: auto; margin-right: auto; }
+.alignright { float: right; }
+.alignleft { float: left; }
+.aligncenter { display: block; margin-left: auto; margin-right: auto; }
+
+.imghovermove {
+    .image {
+        position: relative;
+        top: 0;
+        transition: $transition;
+    }
+    &:hover {
+        .image {
+            box-shadow: 0 0 10px 0 (rgba(0,0,0,0.4));
+            top: -6px;
+        }
+    }
+}
+
+/* Magnific Popup. */
+.mfp-fade {
+    &.mfp-bg {
+        opacity: 0;
+        transition: .5s cubic-bezier(0.51, 0.18, 0, 0.88);
+
+        &.mfp-ready {
+            opacity: .75;
+        }
+
+        &.mfp-removing {
+            opacity: 0;
+        }
+    }
+
+    &.mfp-wrap {
+        .mfp-content {
+            opacity: 0;
+            transition: .5s cubic-bezier(0.51, 0.18, 0, 0.88);
+        }
+
+        &.mfp-ready {
+            .mfp-content {
+                opacity: 1;
+            }
+        }
+
+        &.mfp-removing {
+            .mfp-content {
+                opacity: 0;
+            }
+        }
+    }
+}
+
+.mfp-iframe-holder {
+    .mfp-close {
+        padding: 0;
+        top: -50px;
+        right: 0;
+    }
+}
+
+/**
+* Global Styles - Medium.
+*/
+@media screen and (min-width: 640px) {
+        
+}
+
+/**
+* Global Styles - Large.
+*/
+@media screen and (min-width: 1024px) {
+        
+}
+
+/**
+* Global Styles - XL.
+*/
+@media screen and (min-width: 1200px) {
+        
+}
+
+/**
+* Global Styles - XXL.
+*/
+@media screen and (min-width: 1440px) {
+        
+}

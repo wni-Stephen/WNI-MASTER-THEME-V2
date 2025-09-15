@@ -1,0 +1,99 @@
+/**
+* WebsiteNI Joints
+* WebsiteNI Starter Theme built on JointsWP; http://jointswp.com/.
+* Created by WebsiteNI.
+*/
+
+/**
+* _mixins - Small.
+*/
+/* Clearfix. */
+@mixin clearfix {
+    &:after {
+        display: table;
+        clear: both;
+        content: '';
+    }
+}
+
+/* Pseudo (when using :before and :after you'll always need these three, so we're saving two lines of code every time you use this). */
+@mixin pseudo($position: absolute, $display: block, $content: '') {
+	position: $position;
+	display: $display;
+	content: $content;
+}
+
+/*.example {
+	&:before {
+		@include pseudo;
+	}
+}*/
+
+/* Truncate. */
+@mixin truncate($truncation-boundary) {
+    max-width: $truncation-boundary;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+/* Responsive Ratio. */
+@mixin responsive-ratio($x, $y, $pseudo: false) {
+    $padding: unquote(($y / $x) * 100 + '%');
+
+    @if $pseudo {
+        &:before {
+            @include pseudo($position: relative);
+
+            width: 100%;
+            padding-top: $padding;
+        }
+    } @else {
+        padding-top: $padding;
+    }
+}
+
+/* Give Placeholder Text a Custom Colour. */
+@mixin placeholder {
+	::-webkit-input-placeholder {@content};
+	:-moz-placeholder           {@content};
+	::-moz-placeholder          {@content};
+	:-ms-input-placeholder      {@content};
+}
+
+/* Hardware Acceleration. */
+@mixin hardware-acceleration($backface: true, $perspective: 1000) {
+    @if $backface {
+        backface-visibility: hidden;
+    }
+
+    perspective: $perspective;
+}
+
+/**
+* _mixins - Medium.
+*/
+@media screen and (min-width: 640px) {
+    
+}
+
+/**
+* _mixins - Large.
+*/
+@media screen and (min-width: 1024px) {
+    
+}
+
+/**
+* _mixins - XL.
+*/
+@media screen and (min-width: 1200px) {
+    
+}
+
+/**
+* _mixins - XXL.
+*/
+@media screen and (min-width: 1440px) {
+    
+}

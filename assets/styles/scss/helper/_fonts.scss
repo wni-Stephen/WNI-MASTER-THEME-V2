@@ -1,0 +1,101 @@
+/**
+* WebsiteNI Joints
+* WebsiteNI Starter Theme built on JointsWP; http://jointswp.com/.
+* Created by WebsiteNI.
+*/
+
+/**
+* _fonts - Small.
+*/
+/* Fonts. */
+
+$heading : '';
+$body: '';
+
+
+h1 {
+	line-height: 1;
+}
+h2,h3,h4,h5,h6 {
+	line-height: 1.1;
+}
+h1,h2,h3,h4,h5,h6 {
+	margin-bottom: 25px;
+	&.uppercase {
+		text-transform: uppercase;
+	}
+	&.nomarginbottom {
+		margin-bottom: 0px;
+	}
+	&.marginbottomsml {
+		margin-bottom: 10px;
+	}
+	&.marginbottomlrg {
+		margin-bottom: 35px;
+	}
+}
+#content .cell {
+	p div iframe {
+		margin-top: 15px;
+		margin-bottom: 15px;
+	}
+	p img {
+		margin-top: 15px;
+		margin-bottom: 15px;
+		// width: 100%;
+	}
+	ul + p {
+		margin-top: 20px;
+	}
+	p + h1, p + h2, p + h3, p + h4, p + h5, p + h6, ul + h1, ul + h2, ul + h3, ul + h4, ul + h5, ul + h6 {
+		margin-top: 40px;
+	}
+}
+// body {
+// 	font-size: 16px;
+// }
+p {
+	margin-bottom: 20px;
+	line-height: 1.6;
+}
+.pfirstof p:first-of-type {
+	font-size: 20px;
+	line-height: 1.2;
+}
+.plastof p:last-of-type {
+	margin-bottom: 0px;
+}
+.fontcolourwhite {
+	color: get-color(white);
+}
+
+
+/**
+* _fonts - Medium.
+*/
+@media screen and (min-width: 640px) {
+	.pfirstof p:first-of-type {
+		font-size: 22px;
+	}
+}
+
+/**
+* _fonts - Large.
+*/
+@media screen and (min-width: 1024px) {
+    
+}
+
+/**
+* _fonts - XL.
+*/
+@media screen and (min-width: 1200px) {
+    
+}
+
+/**
+* _fonts - XXL.
+*/
+@media screen and (min-width: 1440px) {
+    
+}
