@@ -1,23 +1,30 @@
 /**
-* WebsiteNI Joints
-* WebsiteNI Starter Theme built on JointsWP; http://jointswp.com/.
-* Created by WebsiteNI.
-*/
+ * WebsiteNI Joints
+ * WebsiteNI Starter Theme built on JointsWP; http://jointswp.com/.
+ * Created by WebsiteNI.
+ */
 
 /**
-* Import Vendors.
-*/
+ * Import Vendors.
+ */
 @import "vendor/animate/animate.scss";
 
 /**
-* Import Helpers.
-*/
+ * Import Settings first, because it contains $breakpoints, $spacing, etc.
+ */
+@import "settings.scss";
+
+/**
+ * Import Mixins next, so @include breakpoint() is available everywhere else
+ */
+@import "helper/mixins";
+
+/**
+ * Import Helpers that use the mixins
+ */
 @import "helper/variables";
 @import "helper/colours";
 @import "helper/fonts";
-
-@import "helper/mixins";
-
 @import "helper/classes";
 @import "helper/effects";
 @import "helper/forms";
@@ -25,18 +32,17 @@
 @import "helper/search";
 
 /**
-* Import Partials.
-*/
+ * Import Partials.
+ */
 @import "partial/front-page";
 // @import "partial/page-contact";
 @import "partial/404";
 
 /**
-* Import Layouts.
-*/
+ * Import Layouts.
+ */
 @import "layout/footer";
 @import "layout/header";
-
 /**
 * Global Styles - Small.
 */

@@ -31,23 +31,25 @@
 		}
 		
 
-		  // First Swiper - mySwiper-1
-				if ($('.mySwiper-1').length) {
-					var swiper1 = new Swiper('.mySwiper-1', {
+		  // First Swiper - banner-swiper
+				if ($('.bannerSwiper').length) {
+					var swiper1 = new Swiper('.bannerSwiper', {
 						slidesPerView: 1,
 						spaceBetween: 20,
 						loop: true,
+						 effect: 'fade', // Add fade effect
+							fadeEffect: {
+								crossFade: true // Smooth crossfade
+							},
 						pagination: {
-							el: '.mySwiper-1 .swiper-pagination',
+							el: '.bannerSwiper .swiper-pagination',
 							clickable: true,
 						},
 						navigation: {
-							nextEl: '.mySwiper-1 .swiper-button-next',
-							prevEl: '.mySwiper-1 .swiper-button-prev',
+							nextEl: '.bannerSwiper .swiper-button-next',
+							prevEl: '.bannerSwiper .swiper-button-prev',
 						},
-						autoplay: {
-							delay: 4000,
-						},
+						autoplay:false
 					});
     }
 

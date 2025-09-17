@@ -20,25 +20,10 @@ $transition: 0.4s cubic-bezier(0.51,0.18,0,0.88);
 $imgTransition: 0.6s cubic-bezier(0.51,0.18,0,0.88);
 
 /**
- * Responsive breakpoints mixin
- */
-@mixin respond($breakpoint) {
-  @if $breakpoint == sm {
-    @media screen and (min-width: 640px) { @content; }
-  } @else if $breakpoint == lg {
-    @media screen and (min-width: 1024px) { @content; }
-  } @else if $breakpoint == xl {
-    @media screen and (min-width: 1200px) { @content; }
-  } @else if $breakpoint == xxl {
-    @media screen and (min-width: 1440px) { @content; }
-  }
-}
-
-/**
  * Padding utilities (mobile-first)
  * Usage: .ptop-xs, .pbottom-lrg, etc.
  */
-@each $size, $value in (xsml: $spacingXSmall, sml: $spacingSmall, med: $spacingMedium, lrg: $spacingLarge, xlrg: $spacingXLarge) {
+@each $size, $value in (xs: $spacingXSmall, sml: $spacingSmall, med: $spacingMedium, lrg: $spacingLarge, xlrg: $spacingXLarge) {
   .ptop#{$size} { padding-top: $value; }
   .pbottom#{$size} { padding-bottom: $value; }
 }
@@ -47,7 +32,7 @@ $imgTransition: 0.6s cubic-bezier(0.51,0.18,0,0.88);
  * Margin utilities (mobile-first)
  * Usage: .mtop-xs, .mbottom-lrg, etc.
  */
-@each $size, $value in (xsml: $spacingXSmall, sml: $spacingSmall, med: $spacingMedium, lrg: $spacingLarge, xlrg: $spacingXLarge) {
+@each $size, $value in (xs: $spacingXSmall, sml: $spacingSmall, med: $spacingMedium, lrg: $spacingLarge, xlrg: $spacingXLarge) {
   .mtop#{$size} { margin-top: $value; }
   .mbottom#{$size} { margin-bottom: $value; }
 }
@@ -55,27 +40,28 @@ $imgTransition: 0.6s cubic-bezier(0.51,0.18,0,0.88);
 // No bottom margin utility
 .mb-none { margin-bottom: 0; }
 
-
 /**
  * Mobile-only / small screen specific utilities
  * Usage: .mtop-xs-only, .mbottom-sml-only
  */
-@each $size, $value in (xsml: $spacingXSmall, sml: $spacingSmall) {
+@each $size, $value in (xs: $spacingXSmall, sml: $spacingSmall) {
   .mtop#{$size}-only { margin-top: $value; }
   .mbottom#{$size}-only { margin-bottom: $value; }
 
-  @include respond(sm) {
-    .mtop#{$size}-only, .mbottom-#{$size}-only { margin: 0; } // remove for larger screens
+  @include breakpoint(medium) {
+    .mtop#{$size}-only,
+    .mbottom#{$size}-only {
+      margin: 0; // remove for larger screens
+    }
   }
 }
-
 
 /**
  * Responsive overrides for padding & margin
  */
 
-// Small screens (sm)
-@include respond(sm) {
+// Medium screens
+@include breakpoint(medium) {
   @each $size, $value in (med: $spacingMedium, lrg: $spacingMedium, xlrg: $spacingMedium) {
     .ptop#{$size} { padding-top: $value; }
     .pbottom#{$size} { padding-bottom: $value; }
@@ -84,8 +70,8 @@ $imgTransition: 0.6s cubic-bezier(0.51,0.18,0,0.88);
   }
 }
 
-// Large screens (lg)
-@include respond(lg) {
+// Large screens
+@include breakpoint(large) {
   @each $size, $value in (lrg: $spacingLarge, xlrg: $spacingXLarge) {
     .ptop#{$size} { padding-top: $value; }
     .pbottom#{$size} { padding-bottom: $value; }
@@ -94,43 +80,35 @@ $imgTransition: 0.6s cubic-bezier(0.51,0.18,0,0.88);
   }
 }
 
-// Extra large screens (xl)
-@include respond(xl) {
+// Extra large screens
+@include breakpoint(xlarge) {
   // Add XL-specific overrides here if needed
 }
 
-// Extra extra large screens (xxl)
-@include respond(xxl) {
+// Extra extra large screens
+@include breakpoint(xxlarge) {
   // Add XXL-specific overrides here if needed
 }
 
 /**
- * Gap variables
+ * Gap utilities
  */
-$gaps: (
-  sm: 10px,
-  md: 20px,
-  lg: 30px,
-  xl: 50px
-);
-
-
 $gap-classes: (
   gap-default: (
-    sm: 10px,   // Mobile
-    lg: 30px,   // Desktop large screens
-    xl: 50px    // Extra-large screens
+    small: 10px,
+    large: 30px,
+    xlarge: 50px
   ),
   gap-md: (
-    sm: 5px,
-    lg: 20px
+    small: 5px,
+    large: 20px
   )
 );
 
 @each $class-name, $sizes in $gap-classes {
   .#{$class-name} {
     @each $bp, $gap-value in $sizes {
-      @include respond($bp) {
+      @include breakpoint($bp) {
         gap: $gap-value;
       }
     }

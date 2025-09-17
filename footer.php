@@ -2,7 +2,7 @@
 
     <!-- Main Footer Content -->
     <div class="grid-container">
-        <div class="grid-x grid-padding-x">
+        <div class="grid-x grid-padding-x ptoplrg">
 
             <!-- Company Logo -->
             <div class="cell small-6 large-3 wni-flex wni-flex-justify-start wni-flex-align-center">
@@ -11,15 +11,6 @@
                     <img src="<?php echo get_template_directory_uri(); ?>/assets/images/header/companylogo.svg"
                          alt="<?php bloginfo('name'); ?>" />
                 </a>
-            </div>
-
-            <!-- Optional Footer Widgets -->
-            <div class="cell small-12 large-9">
-                <?php if ( is_active_sidebar( 'footer-1' ) ) : ?>
-                    <div class="footer-widgets">
-                        <?php dynamic_sidebar( 'footer-1' ); ?>
-                    </div>
-                <?php endif; ?>
             </div>
 
         </div>

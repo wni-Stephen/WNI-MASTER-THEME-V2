@@ -1,36 +1,105 @@
-/**
-* WebsiteNI Joints
-* WebsiteNI Starter Theme built on JointsWP; http://jointswp.com/.
-* Created by WebsiteNI.
-*/
+// Hero Wrapper
+.hero-slider-wrapper {
+  width: 100%;
+  height: 100vh;
+  min-height: 400px;
+  overflow: hidden;
+  position: relative;
 
-/**
-* _front-page - Small.
-*/
+  // Slider
+  &.hero-slider-wrapper {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
 
-/**
-* _front-page - Medium.
-*/
-@media screen and (min-width: 640px) {
+    .swiper {
+      width: 100%;
+      height: 100%;
+    }
+
+    .swiper-wrapper {
+      height: 100%;
+    }
+
+    .swiper-slide {
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-start;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+
+      &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: rgba(0,0,0,0.3);
+        z-index: 1;
+      }
+
+      .hero-content-wrapper {
+        display: flex;
+        flex-direction: column;
+        padding: $spacingMedium;
+        z-index: 2;
+      }
+    }
+  }
+
+  
 }
 
-/**
-* _front-page - Large.
-*/
-@media screen and (min-width: 1024px) {
-    
-}
-
-/**
-* _front-page - XL.
-*/
-@media screen and (min-width: 1200px) {
-    
-}
-
-/**
-* _front-page - XXL.
-*/
-@media screen and (min-width: 1440px) {
-    
+.homebanner {
+    position: relative;
+    height: 650px;
+    // height: 100vh;
+    overflow: hidden;
+    .arrow-tr {
+        position: absolute;
+        z-index: 1;
+        top: 40px;
+        right: 0px;
+        mix-blend-mode: overlay;
+        height: calc(100% - 40px);
+        width: 100%;
+        object-position: top right;
+        object-fit: contain;
+        // height: calc(100vh - 40px);
+    }
+    &:before {
+        content: '';
+        background-color: $black;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.5;
+    }
+    video {
+        width: 100%;
+        display: block;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+    .banner-content {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        right: 0;
+        margin: 0 auto;
+        z-index: 9;
+        &.grid-container {
+            padding: 0 30px;
+        }
+        h1,h2,h3 {
+            margin-bottom: 0;
+        }
+        p {
+            margin-top: 30px;
+        }
+    }
 }

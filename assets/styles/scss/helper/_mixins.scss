@@ -8,6 +8,19 @@
 * _mixins - Small.
 */
 /* Clearfix. */
+
+
+// Place this in _mixins.scss or at the top of your main SCSS
+@mixin breakpoint($size) {
+  @if map-has-key($breakpoints, $size) {
+    @media screen and (min-width: map-get($breakpoints, $size)) {
+      @content;
+    }
+  } @else {
+    @warn "Breakpoint `#{$size}` is not defined in $breakpoints map!";
+  }
+}
+
 @mixin clearfix {
     &:after {
         display: table;
