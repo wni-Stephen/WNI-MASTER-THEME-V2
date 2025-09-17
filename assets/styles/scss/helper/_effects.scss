@@ -64,6 +64,9 @@
         transition: transform .8s cubic-bezier(.51,.18,0,.88),opacity .5s cubic-bezier(.51,.18,0,.88);
     }
     &.hamburger-is-active {
+        position: fixed;
+        width: 100%;
+        top: 0;
         .navigation-overlay {
             transform: translateX(0);
             // box-shadow: 2.5px 0px 25px get-color(black);

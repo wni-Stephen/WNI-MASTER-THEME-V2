@@ -1,4 +1,4 @@
-@import "settings";
+@import "settings.scss";
 
 @import "../../../node_modules/foundation-sites/scss/foundation";
 
@@ -45,4 +45,4 @@
 @include foundation-visibility-classes;
 @include foundation-float-classes;
 
-@import "custom";
+@import "custom.scss";

@@ -7,7 +7,7 @@
 /**
 * Import Vendors.
 */
-@import "vendor/animate/animate";
+@import "vendor/animate/animate.scss";
 
 /**
 * Import Helpers.
@@ -71,8 +71,14 @@ html, body {
     &.right {
         margin: 0 0 0 auto;
     }
-    &.spacingtop {
+     &.spacingtop {
         margin-top: 40px;
+    }
+    &.spacingtop-res {
+        margin-top: 30px;
+    }
+    &.resbutton {
+        width: 100%;
     }
     &.inverse {
         background-color: get-color(secondary);
@@ -179,7 +185,14 @@ img.aligncenter { display: block; margin-left: auto; margin-right: auto; }
 * Global Styles - Large.
 */
 @media screen and (min-width: 1024px) {
-        
+    .button {
+        &.spacingtop-res {
+            margin-top: 40px;
+        }
+        &.resbutton {
+            width: fit-content;
+        }
+    }    
 }
 
 /**

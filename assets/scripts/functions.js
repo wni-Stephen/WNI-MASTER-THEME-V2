@@ -10,6 +10,75 @@
 	});
 
 	function afterPageLoad() {
+
+		  // Initialize all your animations
+        if (window.initAnimations) {
+            initAnimations();
+        }
+
+		 // --- GSAP Smooth Scroll ---
+        if (typeof gsap !== 'undefined' && typeof ScrollSmoother !== 'undefined') {
+            gsap.registerPlugin(ScrollSmoother);
+
+            if (ScrollSmoother.isSupported()) {
+                ScrollSmoother.create({
+                    wrapper: '.wrapper',         // outer container
+                    content: '.wrapper-inner',   // inner content container
+                    smooth: 1.2,                 // smoothness factor
+                    effects: true                // enable data-speed / data-lag effects
+                });
+            }
+		}
+		
+
+		  // First Swiper - mySwiper-1
+				if ($('.mySwiper-1').length) {
+					var swiper1 = new Swiper('.mySwiper-1', {
+						slidesPerView: 1,
+						spaceBetween: 20,
+						loop: true,
+						pagination: {
+							el: '.mySwiper-1 .swiper-pagination',
+							clickable: true,
+						},
+						navigation: {
+							nextEl: '.mySwiper-1 .swiper-button-next',
+							prevEl: '.mySwiper-1 .swiper-button-prev',
+						},
+						autoplay: {
+							delay: 4000,
+						},
+					});
+    }
+
+					// Second Swiper - mySwiper-2
+					// if ($('.mySwiper-2').length) {
+					//     var swiper2 = new Swiper('.mySwiper-2', {
+					//         slidesPerView: 3,
+					//         spaceBetween: 30,
+					//         loop: false,
+					//         pagination: {
+					//             el: '.mySwiper-2 .swiper-pagination',
+					//             clickable: true,
+					//         },
+					//         navigation: {
+					//             nextEl: '.mySwiper-2 .swiper-button-next',
+					//             prevEl: '.mySwiper-2 .swiper-button-prev',
+					//         },
+					//         breakpoints: {
+					//             640: {
+					//                 slidesPerView: 2,
+					//                 spaceBetween: 20,
+					//             },
+					//             1024: {
+					//                 slidesPerView: 3,
+					//                 spaceBetween: 30,
+					//             },
+					//         },
+					//     });
+					// }
+
+
 		/* Make WordPress, Foundation and AJAX (Page Transition) play nice together. */
 		var body = $('body'), _window = $(window);
 
@@ -31,7 +100,7 @@
 		// 	$('.navigation-overlay').toggleClass('is-active');
 		// 	$('.wrapper').toggleClass('hamburger-is-active');
 		// });
-		$('.navigation-overlay .primary-menu').prepend('<a class="close" href="#"><img src="/site/wp-content/themes/websiteni-joints/assets/images/header/close.svg"/></a>');
+		$('.navigation-overlay .primary-menu').prepend('<a class="close" href="#"><img src="/site/wp-content/themes/websiteni-joints/assets/images/header/close.svg" alt="Close menu"/></a>');
 
 		$('.navigation-overlay .close').click(function() {
 			$('.navigation-overlay').removeClass('is-active');
@@ -51,14 +120,14 @@
 		});
 
 		/* Cookie Policy. */
-		// if (localStorage.getItem('popState') != 'shown') {
-		// 	$('.cookie-policy').delay(2500).fadeIn();
-		// 	localStorage.setItem('popState', 'shown');
-		// }
+		if (localStorage.getItem('popState') != 'shown') {
+			$('.cookie-policy').delay(2500).fadeIn();
+			localStorage.setItem('popState', 'shown');
+		}
 
-		// $('.cookie-policy, .cookie-policy-close').click(function(event) {
-		// 	$('.cookie-policy').fadeOut();
-		// });
+		$('.cookie-policy, .cookie-policy-close').click(function(event) {
+			$('.cookie-policy').fadeOut();
+		});
 
 		/* Search (including Voice Search). */
 		$('.search-open').on('click', function() {
@@ -73,55 +142,6 @@
 			$('.wrapper').removeClass('search-is-active');
 		});
 
-		// var $searchForm				=	$('.search-form');
-		// var $searchInput 			=	$('.search-input');
-		// var $searchVoiceTrigger		=	$('.search-voice-trigger');
-		// var $searchTerms				=	$('.search-terms');
-
-		// window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-
-		// if (window.SpeechRecognition) {
-		// 	var speechRecognition = new SpeechRecognition();
-
-		// 	speechRecognition.interimResults = true;
-		// 	speechRecognition.addEventListener('result', _transcriptHandler);
-
-		// 	speechRecognition.onerror = function(event) {
-		// 		console.log(event.error);
-
-		// 		if (event.error == 'no-speech') {
-		// 			$searchVoiceTrigger.removeClass('is-active');
-		// 			$searchInput.attr('placeholder', 'Search...');
-		// 		}
-		// 	}
-		// } else {
-		// 	$searchVoiceTrigger.remove();
-		// }
-
-		// $searchVoiceTrigger.on('click touch', listenStart);
-
-		// function listenStart(event) {
-		// 	event.preventDefault();
-
-		// 	$searchInput.attr('placeholder', 'Listening...');
-		// 	$searchVoiceTrigger.addClass('is-active');
-
-		// 	recognition.start();
-		// }
-
-		// function _parseTranscript(event) {
-		// 	return Array.from(event.results).map(result => result[0]).map(result => result.transcript).join('')
-		// }
-
-		// function _transcriptHandler(event) {
-		// 	var speechOutput = _parseTranscript(event);
-
-		// 	$searchInput.val(speechOutput);
-
-		// 	if (event.results[0].isFinal) {
-		// 		$searchForm.submit();
-		// 	}
-		// }
 
 		$('.mfp_gallery_image').magnificPopup({
 			type: 'image',
@@ -179,67 +199,11 @@
 			fixedContentPos: true
 		});
 
-		/* Wow. */
-		var wow = new WOW({mobile: false});
+		// /* Wow. */
+		// var wow = new WOW({mobile: false});
 
-		wow.init();
+		// wow.init();
 	}
 
-	/* AJAX (Page Transition). */
-	// function blacklist() {
-	// 	$('a').each(function() {
-	// 		if (this.href.indexOf('/wp-admin/') !== -1 || this.href.indexOf('/wp-login.php') !== -1) {
-	// 			$(this).addClass('blacklist');
-	// 		}
-	// 	});
-	// }
-
-	// $(function() {
-	// 	var settings = {
-	// 		anchors: 'a',
-	// 		blacklist: '.blacklist, a.bx-pager-link, form',
-	// 		scroll: false,
-	// 		onStart: {
-	// 			duration: 0,
-	// 			render: function($container) {
-	// 				$container.addClass('animation-class');
-	// 				$('.hamburger').removeClass('is-active');
-	// 				$('.wrapper').removeClass('hamburger-is-active');
-
-	// 				if ('scrollPosition' in history) {
-	// 					history.scrollPosition = 'manual';
-	// 				}
-	// 			}
-	// 		},
-	// 		onReady: {
-	// 			duration: 0,
-	// 			render: function($container, $newContent) {
-	// 				$container.html($newContent);
-
-	// 				$('html, body').animate({
-	// 					scrollTop: 0
-	// 				}, 0);
-
-	// 				var $hash = $(window.location.hash);
-
-	// 				if ($hash.length !== 0) {
-	// 					var offsetTop = $hash.offset().top;
-	// 					$('html, body').animate({
-	// 						scrollTop: (offsetTop - 50),
-	// 					}, {
-	// 						duration: 400
-	// 					});
-	// 				}
-	// 			}
-	// 		},
-	// 		onAfter: function($container) {
-	// 			afterPageLoad();
-	// 			blacklist();
-
-	// 			$container.removeClass('animation-class');
-	// 		}
-	// 	};
-
-	// 	$('#wrapper').smoothState(settings);
-	// });
+	
 }) (jQuery);

@@ -1,46 +1,314 @@
-/**
-* WebsiteNI Joints
-* WebsiteNI Starter Theme built on JointsWP; http://jointswp.com/.
-* Created by WebsiteNI.
-*/
+.formstyling {
+    select.controls {
+        border: 1px solid white;
+        border-radius: 0;
+        box-shadow: none;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: get-color(white);  
+        background-position: right 0 center;
+        background-size:  8px 12px;  
+        background-image: url('../images/main/form-dropdown.svg');   
+        padding-left: 51px;
+        height: 50px;
 
-/**
-* _forms - Small.
-*/
-/* Forms. */
-// input,
-// textarea {
+        &.pale {
+            background-color: rgba(24, 23, 23, 0.05);
+            border: 1px solid get-color(secondary);       
+            color: get-color(secondary); 
+            option {
+                color: get-color(secondary); 
+            }
+        }
+    }
 
-// }
+    #frm_form_1_container, 
+    #frm_form_2_container,
+    #frm_form_3_container,
+    #frm_form_4_container,
+    #frm_form_5_container,
+    [id^="frm_form_"][id$="_container"] {
+        &.frm_forms,
+        &.with_frm_style,
+        &.frm_style_formidable-style {
+            .form-field {
+                margin-bottom: 30px;
+            }
 
-// @include placeholder {
-// 	color: $mediumGrey;
-// }
+            .frm_form_fields > fieldset { 
+                padding-bottom:0 !important;    
+            }
 
-/**
-* _forms - Medium.
-*/
+            .frm_required {
+                color: get-color(white); 
+            }
+
+            .frm_primary_label {
+                color: get-color(white);
+                font-size: 16px;
+                line-height: 1.16;
+                font-weight: 600;
+                letter-spacing: -0.32px;
+                text-transform: uppercase;
+                font-family: 'mundial-narrow-variable', sans-serif;
+                margin-bottom: 20px;
+                padding-bottom: 0;
+            }    
+
+            input, textarea, select {
+                border: 1px solid white;
+                border-radius: 25px;
+                box-shadow: none;
+                background-color: rgba(255, 255, 255, 0.1);
+                color: get-color(white);  
+                padding: 16px 14px;
+                padding-left: 30px;
+
+                &::placeholder {
+                    color: get-color(white); 
+                    font-size: 16px;
+                    line-height: 1;
+                    letter-spacing: -0.2px;
+                }
+
+                &:focus, &:focus-visible, &:active {
+                    border: 1px solid get-color(primary);  
+                    background-color: rgba(255, 255, 255, 0.1);
+                }
+
+                option {
+                    font-size: 16px;
+                }
+            }
+
+            textarea {
+                height: 200px;
+                resize: none;  
+                border-radius: 10px;
+            }
+
+            select {
+                background-color: rgba(255, 255, 255, 0.1); 
+                font-size: 14px;
+                line-height: unset !important; 
+                background-position: right 0 center;
+                background-size: 8px 12px;
+                background-image: url('../images/main/form-dropdown.svg');    
+                padding-top: 0;
+                padding-bottom: 0; 
+                padding-right: 30px;
+            }
+
+            input:not([type="checkbox"]), select {
+                height: 50px;
+            }
+
+            input[type="checkbox"], #frm_field_9_container > .frm_opt_container > .frm_checkbox > .frm_checkbox > label > input[type="checkbox"] {
+                border-radius: 5px; 
+                box-shadow: none !important;
+                font-family: 'mundial-narow-variable', sans-serif;
+            }
+
+            .frm_checkbox {
+                label {
+                    color: get-color(white);
+                    font-size: 12px;
+                    position: relative;
+                    margin-left: 30px;
+                    margin-bottom: 0;
+                    width: 93%;
+
+                    input {
+                        padding: initial; 
+                        margin: 0;
+                        position: absolute;  
+                        top: 0px;
+                        left: -30px;
+
+                        &[type="checkbox"]:not([disabled]):checked {
+                            background-color: get-color(primary) !important; 
+                            border-color: get-color(primary) !important;   
+                        }
+                    }
+                }
+            } 
+
+            .frm_dropzone.frm_single_upload {
+                border-radius: 10px;
+                border: 1px solid white;
+                max-width: unset;
+                background: transparent;
+
+                .dz-message {
+                    margin-bottom: 0;
+                    height: 140px;
+                    color: get-color(white);
+                    background: rgba(255, 255, 255, 0.1);
+                    border: 0;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: end;
+                    position: relative;
+
+                    * {
+                        text-align: left;
+                    }
+
+                    .frm_upload_text, .frm_small_text {
+                        display: flex;
+                        font-size: 14px;
+                    }
+
+                    .frm_upload_text {
+                        position: relative;
+                        margin-top: 20px;
+
+                        &::before {
+                            content: '';
+                            position: absolute;
+                            background-image: url('../images/main/file.svg');
+                            background-repeat: no-repeat;
+                            background-position: center left;
+                            height: 16px;
+                            width: 13px;
+                            margin-bottom: 20px;  
+                            top: -36px;
+                        }
+                    }
+
+                    .frm_icon_font, .frm_upload_icon {
+                        position: absolute;
+                        top: 10px;
+                    }
+
+                    .frmsvg, .frm-svg-icon {
+                        display: none; 
+                    }
+                }
+
+                .dz-preview {
+                    border-radius: 0;
+                    border: 0;
+                    background: rgba(255, 255, 255, 0.1);
+
+                    .dz-image {
+                        width: 20%;
+
+                        img {
+                            margin: 0 20px;
+                        } 
+                    }
+
+                    .dz-column {
+                        width: 68%;
+                        margin-right: 20px;
+
+                        .dz-details {
+                            .dz-size > span, .dz-filename > span, .frm_icon_font::before {
+                                color: get-color(white); 
+                            } 
+                        } 
+                    }
+
+                    .dz-progress .dz-upload,
+                    &.dz-complete .dz-progress {
+                        background: get-color(primary) !important;  
+                    }
+                }
+            }
+
+            .frm_dropzone .frm_upload_icon::before {
+                color: get-color(white); 
+                font-size: 30px;
+            }
+
+            .frm_submit {
+                button.frm_button_submit {
+                    width: initial;
+                    display: table;
+                    min-width: 130px;
+                    line-height: 1.2;
+                    height: 50px;
+                    border-radius: 45px;
+                    text-align: center;
+                    font-size: 14px;
+                    font-weight: 600;
+                    color: get-color(primary);
+                    transition: $transition;
+                    margin: 0; 
+                    padding: 15px 28px;
+                    background-color: get-color(white); 
+                    border: 1px solid get-color(primary);
+                    box-shadow: none !important;
+
+                    &:hover, &:active, &:focus {
+                        border-color: get-color(primary);
+                        background-color: get-color(secondary);
+                        color: get-color(white);
+                    } 
+                }
+            }
+
+            .frm_error {
+                color: red;
+                margin-top: 4px;
+            }
+
+            .frm_error_style, 
+            .frm_error_style p {
+                color: red;  
+                border-radius: 4px;
+            }
+
+            .frm_error_style > p, .frm_error_style p {
+                margin-bottom: 0 !important;     
+            } 
+
+            #frm_field_27_container, #frm_field_54_container {
+                margin-bottom: 0; 
+            }  
+        }
+    }
+}
+
+// Media queries remain the same but nested inside .formstyling
 @media screen and (min-width: 640px) {
-        
+    .formstyling #frm_form_1_container, 
+    .formstyling #frm_form_2_container,
+    .formstyling #frm_form_3_container,
+    .formstyling #frm_form_4_container {
+        &.frm_forms,
+        &.with_frm_style,
+        &.frm_style_formidable-style {
+             #frm_field_21_container {
+                max-width: 50%;    
+            }
+        }
+    }  
 }
 
-/**
-* _forms - Large.
-*/
 @media screen and (min-width: 1024px) {
-        
+    .formstyling #frm_form_1_container, 
+    .formstyling #frm_form_2_container,
+    .formstyling #frm_form_3_container,
+    .formstyling #frm_form_4_container {
+        &.frm_forms,
+        &.with_frm_style,
+        &.frm_style_formidable-style {
+             .frm_checkbox {
+                label {
+                    input {
+                        top: 2px; 
+                    }
+                }
+            } 
+        }
+    }      
 }
 
-/**
-* _forms - XL.
-*/
 @media screen and (min-width: 1200px) {
-        
+    /* XL styles remain inside .formstyling if needed */
 }
 
-/**
-* _forms - XXL.
-*/
 @media screen and (min-width: 1440px) {
-        
+    /* XXL styles remain inside .formstyling if needed */
 }

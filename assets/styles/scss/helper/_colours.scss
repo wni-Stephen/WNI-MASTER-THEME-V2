@@ -3,6 +3,7 @@
 * WebsiteNI Starter Theme built on JointsWP; http://jointswp.com/.
 * Created by WebsiteNI.
 */
+@import 'settings'; // adjust path if needed
 
 /**
 * _colours - Small.
@@ -12,8 +13,78 @@ $white: 			#FFFFFF;
 $mediumGrey: 		#CCCCCC;
 $black: 			#0A0A0A;
 
+
 .fontcolourwhite {
-	color: $white;	
+	h1, h2, h3, h4, h5, h6, p, span, a, li, div, strong, em {
+		color: $white;	
+	}
+}
+
+// Function to get color by name
+@function color($name) {
+  @return map-get($foundation-palette, $name);
+}
+
+// ------------------------
+// Base Utility Classes
+// ------------------------
+
+// Background colors
+@each $name, $value in $foundation-palette {
+  .bg-#{$name} { background-color: $value !important; }
+}
+
+// Text colors
+@each $name, $value in $foundation-palette {
+  .text-#{$name} { color: $value !important; }
+}
+
+// Border colors
+@each $name, $value in $foundation-palette {
+  .border-#{$name} { border-color: $value !important; }
+}
+
+// ------------------------
+// Hover Utilities
+// ------------------------
+@each $name, $value in $foundation-palette {
+  .hover\:bg-#{$name}:hover { background-color: $value !important; }
+  .hover\:text-#{$name}:hover { color: $value !important; }
+  .hover\:border-#{$name}:hover { border-color: $value !important; }
+}
+
+// ------------------------
+// Background gradient utilities (optional)
+// ------------------------
+@each $name, $value in $foundation-palette {
+  .bg-gradient-#{$name} {
+    background: linear-gradient(45deg, $value 0%, lighten($value, 15%) 100%);
+  }
+}
+
+// ------------------------
+// Border utilities
+// ------------------------
+@each $name, $value in $foundation-palette {
+  .border-t-#{$name} { border-top-color: $value !important; }
+  .border-r-#{$name} { border-right-color: $value !important; }
+  .border-b-#{$name} { border-bottom-color: $value !important; }
+  .border-l-#{$name} { border-left-color: $value !important; }
+}
+
+// ------------------------
+// Background + text + padding/margin combined
+// ------------------------
+@each $name, $value in $foundation-palette {
+  .bg-#{$name}-text-white { background-color: $value !important; color: color(white) !important; }
+  .bg-#{$name}-text-black { background-color: $value !important; color: color(black) !important; }
+}
+
+// ------------------------
+// Text decoration utilities
+// ------------------------
+@each $name, $value in $foundation-palette {
+  .underline-#{$name} { text-decoration-color: $value !important; }
 }
 
 // $companyColour:		#;

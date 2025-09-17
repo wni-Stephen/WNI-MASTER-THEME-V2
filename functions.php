@@ -131,30 +131,25 @@ if( function_exists('acf_add_options_page') ) {
 * Enqueue Styles, Scripts and Non-Google Fonts.
 */
 function websiteni_joints_styles_and_scripts() {
-	wp_enqueue_style('css', get_template_directory_uri() . '/assets/styles/style.css', array());
-	wp_enqueue_script('js', get_template_directory_uri() . '/assets/scripts/script.js', array('jquery'), '', true);
-	
-	wp_enqueue_script('wow', 'https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js', array('jquery'), '', true);
-	wp_enqueue_script('slick', 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js', array('jquery'), '', true);
-	wp_enqueue_script('magnific', 'https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js', array('jquery'), '', true);
-	wp_enqueue_script('functions', get_template_directory_uri() . '/assets/scripts/functions.js', array('jquery'), '', true);
-	// wp_enqueue_style('fonts', get_template_directory_uri() . '/assets/fonts/fonts.css', array());
+    wp_enqueue_style('css', get_template_directory_uri() . '/assets/styles/style.css', array(), filemtime(get_template_directory() . '/assets/styles/style.css'));
+    wp_enqueue_script('js', get_template_directory_uri() . '/assets/scripts/script.js', array('jquery'), filemtime(get_template_directory() . '/assets/scripts/script.js'), true);
 
-	// Example of how to load Styles and Scripts Conditionally.
-	// Specify the Condition.
-	// if (is_front_page()) {
-	// if (is_page('example')) {
-	// if (is_single('example')) {
-		// If Condition is met load these Styles and Scripts.
-		// wp_enqueue_style('css', get_template_directory_uri() . '/assets/styles/specific-style.css', array());
-		// wp_enqueue_script('js', get_template_directory_uri() . '/assets/scripts/specific-script.js', array('jquery'), '', true);
-	// } else {
-		// If Condition is not met load Global Styles and Scripts.
-		// wp_enqueue_style('css', get_template_directory_uri() . '/assets/styles/global-style.css', array());
-		// wp_enqueue_script('js', get_template_directory_uri() . '/assets/scripts/global-script.js', array('jquery'), '', true);
-	// }
+    wp_enqueue_script('wow', 'https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js', array('jquery'), '1.1.2', true);
+    wp_enqueue_script('magnific', 'https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js', array('jquery'), '1.1.0', true);
+    wp_enqueue_script('functions', get_template_directory_uri() . '/assets/scripts/functions.js', array('jquery'), filemtime(get_template_directory() . '/assets/scripts/functions.js'), true);
+
+    wp_enqueue_style('swiper-css', 'https://unpkg.com/swiper/swiper-bundle.min.css', array(), '8.4.5');
+    wp_enqueue_script('swiper-js', 'https://unpkg.com/swiper/swiper-bundle.min.js', array('jquery'), '8.4.5', true);
+    wp_enqueue_script('swiper-init', get_template_directory_uri() . '/assets/scripts/swiper-init.js', array('swiper-js', 'jquery'), filemtime(get_template_directory() . '/assets/scripts/swiper-init.js'), true);
+
+    wp_enqueue_script('gsap', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js', array(), '3.12.2', true);
+    wp_enqueue_script('gsap-scrolltrigger', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js', array('gsap'), '3.12.2', true);
+    wp_enqueue_script('gsap-scrollsmoother', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollSmoother.min.js', array('gsap', 'gsap-scrolltrigger'), '3.12.2', true);
+
+    wp_enqueue_script('animations', get_template_directory_uri() . '/assets/scripts/animations.js', array('gsap', 'gsap-scrolltrigger', 'jquery'), filemtime(get_template_directory() . '/assets/scripts/animations.js'), true);
 }
 add_action('wp_enqueue_scripts', 'websiteni_joints_styles_and_scripts');
+
 
 /**
 * Preconnect and Enqueue Google Fonts.

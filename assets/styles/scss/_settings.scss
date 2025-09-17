@@ -62,17 +62,31 @@
 // 1. Global
 // ---------
 $global-font-size: 100%;
-$global-width: rem-calc(1320);
+$global-width: rem-calc(1740);
 $global-lineheight: 1.5;
 $foundation-palette: (
-	primary: #1779ba,
-	secondary: #767676,
-	success: #3adb76,
-	warning: #ffae00,
-	alert: #cc4b37,
-	black: #0a0a0a,
-	white: #ffffff,
+  // Brand colors
+  primary: #88BD4A,
+  secondary: #767676,
+  tertiary: #FF6B6B,
+  quaternary: #4D96FF,
+  quinary: #FFB74D,
+  senary: #8E44AD,
+
+  // Semantic colors
+  success: #3adb76,
+  warning: #ffae00,
+  alert: #cc4b37,
+  info: #5bc0de,
+
+  // Base / neutral colors
+  black: #0a0a0a,
+  white: #ffffff,
+  gray-light: #f5f5f5,
+  gray: #cccccc,
+  gray-dark: #666666
 );
+
 $light-gray: #e6e6e6;
 $medium-gray: #cacaca;
 $dark-gray: #8a8a8a;
@@ -107,9 +121,10 @@ $breakpoints: (
 	large: 1024px,
 	xlarge: 1200px,
 	xxlarge: 1440px,
+	xxxlarge: 1740px
 );
 $print-breakpoint: large;
-$breakpoint-classes: (small medium large);
+$breakpoint-classes: (small medium large xlarge xxlarge xxxlarge);
 
 // 3. The Grid
 // -----------
@@ -803,7 +818,7 @@ $grid-container: $global-width;
 $grid-columns: 12;
 $grid-margin-gutters: (
 	small: 20px,
-	medium: 30px
+	medium: 20px
 );
 $grid-padding-gutters: $grid-margin-gutters;
 $grid-container-padding: $grid-padding-gutters;

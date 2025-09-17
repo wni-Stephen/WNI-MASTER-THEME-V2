@@ -15,7 +15,7 @@ get_header();
 			<?php while (have_posts()) : the_post(); ?>
 				<div class="grid-container full">
 					<div class="grid-container">
-						<div class="grid-x grid-padding-x">
+						<div class="grid-x grid-padding-x ptopxlrg pbottomxlrg">
 							<div class="cell">
 
 							</div>

@@ -1,204 +1,138 @@
 /**
-* WebsiteNI Joints
-* WebsiteNI Starter Theme built on JointsWP; http://jointswp.com/.
-* Created by WebsiteNI.
-*/
+ * WebsiteNI Joints
+ * WebsiteNI Starter Theme built on JointsWP; http://jointswp.com/.
+ * Created by WebsiteNI.
+ */
+
 /**
-* _variables - Small.
-*/
+ * Spacing variables
+ */
+$spacingXSmall: 30px;
 $spacingSmall: 50px;
-$spacingMedium: 70px;
-$spacingLarge: 85px;
-$spacingXLarge: 140px;
+$spacingMedium: 60px;
+$spacingLarge: 80px;
+$spacingXLarge: 120px;
 
+/**
+ * Transition variables
+ */
 $transition: 0.4s cubic-bezier(0.51,0.18,0,0.88);
-$imgTransition: .6s cubic-bezier(0.51,0.18,0,0.88);
+$imgTransition: 0.6s cubic-bezier(0.51,0.18,0,0.88);
 
-//PADDING SPACING
-.paddingtopsml {
-	padding-top: $spacingSmall;
-}
-.paddingbottomsml {
-	padding-bottom: $spacingSmall;
-}
-.paddingtopmed {
-	padding-top: $spacingSmall;
-}
-.paddingbottommed {
-	padding-bottom: $spacingSmall;
-}
-.paddingtoplrg {
-	padding-top: $spacingSmall;
-}
-.paddingbottomlrg {
-	padding-bottom: $spacingSmall;
-}
-.paddingtopxlrg {
-	padding-top: $spacingSmall;
-}
-.paddingbottomxlrg {
-	padding-bottom: $spacingSmall;
-}
-
-//MARGIN SPACING
-.margintopsml {
-	margin-top: $spacingSmall;
-}
-.marginbottomsml {
-	margin-bottom: $spacingSmall;
-}
-.margintopmed {
-	margin-top: $spacingSmall;
-}
-.marginbottommed {
-	margin-bottom: $spacingSmall;
-}
-.margintoplrg {
-	margin-top: $spacingSmall;
-}
-.marginbottomlrg {
-	margin-bottom: $spacingSmall;
-}
-.margintopxlrg {
-	margin-top: $spacingSmall;
-}
-.marginbottomxlrg {
-	margin-bottom: $spacingSmall;
-}
-.nomarginbottom {
-	margin-bottom: 0;
-}
-
-//USEFUL FOR MOBILE RESPONSIVENESS
-.marginbottomsmlscreens {
-	margin-bottom: $spacingSmall;
-}
-.margintopsmlscreens {
-	margin-bottom: $spacingSmall;
-}
-.marginbottomsmlscreensonly {
-	margin-bottom: $spacingSmall;
-}
-.margintopsmlscreensonly {
-	margin-bottom: $spacingSmall;
-}
 /**
-* _variables - Medium.
-*/
-@media screen and (min-width: 640px) {
-	//USEFUL FOR MOBILE RESPONSIVENESS
-	.marginbottomsmlscreensonly {
-		margin-bottom: 0;
-	}
-	.margintopsmlscreensonly {
-		margin-bottom: 0;
-	}
-	//PADDING SPACING
-	.paddingtopmed {
-		padding-top: $spacingMedium;
-	}
-	.paddingbottommed {
-		padding-bottom: $spacingMedium;
-	}
-	.paddingtoplrg {
-		padding-top: $spacingMedium;
-	}
-	.paddingbottomlrg {
-		padding-bottom: $spacingMedium;
-	}
-	.paddingtopxlrg {
-		padding-top: $spacingMedium;
-	}
-	.paddingbottomxlrg {
-		padding-bottom: $spacingMedium;
-	}
-	.paddingbottomlrglrgscreen {
-		padding-bottom: $spacingMedium;
-	}
-
-	//MARGIN SPACING
-	.margintopmed {
-		margin-top: $spacingMedium;
-	}
-	.marginbottommed {
-		margin-bottom: $spacingMedium;
-	}
-	.margintoplrg {
-		margin-top: $spacingMedium;
-	}
-	.marginbottomlrg {
-		margin-bottom: $spacingMedium;
-	}
-	.margintopxlrg {
-		margin-top: $spacingMedium;
-	}
-	.marginbottomxlrg {
-		margin-bottom: $spacingMedium;
-	}
+ * Responsive breakpoints mixin
+ */
+@mixin respond($breakpoint) {
+  @if $breakpoint == sm {
+    @media screen and (min-width: 640px) { @content; }
+  } @else if $breakpoint == lg {
+    @media screen and (min-width: 1024px) { @content; }
+  } @else if $breakpoint == xl {
+    @media screen and (min-width: 1200px) { @content; }
+  } @else if $breakpoint == xxl {
+    @media screen and (min-width: 1440px) { @content; }
+  }
 }
-/**
-* _variables - Large.
-*/
-@media screen and (min-width: 1024px) {
-	//USEFUL FOR MOBILE RESPONSIVENESS
-	.marginbottomsmlscreens {
-		margin-bottom: 0;
-	}
-	.margintopsmlscreens {
-		margin-bottom: 0;
-	}
-	//PADDING SPACING
-	.paddingtoplrg {
-		padding-top: $spacingLarge;
-	}
-	.paddingbottomlrg {
-		padding-bottom: $spacingLarge;
-	}
-	.paddingtopxlrg {
-		padding-top: $spacingXLarge;
-	}
-	.paddingbottomxlrg {
-		padding-bottom: $spacingXLarge;
-	}
 
-	//MARGIN SPACING
-	.margintoplrg {
-		margin-top: $spacingLarge;
-	}
-	.marginbottomlrg {
-		margin-bottom: $spacingLarge;
-	}
-	.margintopxlrg {
-		margin-top: $spacingXLarge;
-	}
-	.marginbottomxlrg {
-		margin-bottom: $spacingXLarge;
-	}
-	.margingbottomlrglrgscreenonly {
-		margin-bottom: $spacingLarge;
-	}
+/**
+ * Padding utilities (mobile-first)
+ * Usage: .ptop-xs, .pbottom-lrg, etc.
+ */
+@each $size, $value in (xsml: $spacingXSmall, sml: $spacingSmall, med: $spacingMedium, lrg: $spacingLarge, xlrg: $spacingXLarge) {
+  .ptop#{$size} { padding-top: $value; }
+  .pbottom#{$size} { padding-bottom: $value; }
+}
 
-	//USEFUL FOR DESKTOP RESPONSIVENESS
-	.marginbottomsml_lrgscreensonly {
-		margin-bottom: $spacingSmall;
-	}
-	.margintopsml_lrgscreensonly {
-		margin-bottom: $spacingSmall;
-	}
-	.marginbottomlrg_lrgscreensonly {
-		margin-bottom: $spacingLarge;
-	}
-	.margintoplrg_lrgscreensonly {
-		margin-bottom: $spacingLarge;
-	}
-}
 /**
-* _variables - XL.
-*/
-@media screen and (min-width: 1200px) {
+ * Margin utilities (mobile-first)
+ * Usage: .mtop-xs, .mbottom-lrg, etc.
+ */
+@each $size, $value in (xsml: $spacingXSmall, sml: $spacingSmall, med: $spacingMedium, lrg: $spacingLarge, xlrg: $spacingXLarge) {
+  .mtop#{$size} { margin-top: $value; }
+  .mbottom#{$size} { margin-bottom: $value; }
 }
+
+// No bottom margin utility
+.mb-none { margin-bottom: 0; }
+
+
 /**
-* _variables - XXL.
-*/
-@media screen and (min-width: 1440px) {
+ * Mobile-only / small screen specific utilities
+ * Usage: .mtop-xs-only, .mbottom-sml-only
+ */
+@each $size, $value in (xsml: $spacingXSmall, sml: $spacingSmall) {
+  .mtop#{$size}-only { margin-top: $value; }
+  .mbottom#{$size}-only { margin-bottom: $value; }
+
+  @include respond(sm) {
+    .mtop#{$size}-only, .mbottom-#{$size}-only { margin: 0; } // remove for larger screens
+  }
+}
+
+
+/**
+ * Responsive overrides for padding & margin
+ */
+
+// Small screens (sm)
+@include respond(sm) {
+  @each $size, $value in (med: $spacingMedium, lrg: $spacingMedium, xlrg: $spacingMedium) {
+    .ptop#{$size} { padding-top: $value; }
+    .pbottom#{$size} { padding-bottom: $value; }
+    .mtop#{$size} { margin-top: $value; }
+    .mbottom#{$size} { margin-bottom: $value; }
+  }
+}
+
+// Large screens (lg)
+@include respond(lg) {
+  @each $size, $value in (lrg: $spacingLarge, xlrg: $spacingXLarge) {
+    .ptop#{$size} { padding-top: $value; }
+    .pbottom#{$size} { padding-bottom: $value; }
+    .mtop#{$size} { margin-top: $value; }
+    .mbottom#{$size} { margin-bottom: $value; }
+  }
+}
+
+// Extra large screens (xl)
+@include respond(xl) {
+  // Add XL-specific overrides here if needed
+}
+
+// Extra extra large screens (xxl)
+@include respond(xxl) {
+  // Add XXL-specific overrides here if needed
+}
+
+/**
+ * Gap variables
+ */
+$gaps: (
+  sm: 10px,
+  md: 20px,
+  lg: 30px,
+  xl: 50px
+);
+
+
+$gap-classes: (
+  gap-default: (
+    sm: 10px,   // Mobile
+    lg: 30px,   // Desktop large screens
+    xl: 50px    // Extra-large screens
+  ),
+  gap-md: (
+    sm: 5px,
+    lg: 20px
+  )
+);
+
+@each $class-name, $sizes in $gap-classes {
+  .#{$class-name} {
+    @each $bp, $gap-value in $sizes {
+      @include respond($bp) {
+        gap: $gap-value;
+      }
+    }
+  }
 }

@@ -7,15 +7,17 @@
 
 get_header();
 ?>
-<main id="content" class="wow fadeIn">
+<main id="content" class="">
 	<?php if (have_posts()) : ?>
 		<?php while (have_posts()) : the_post(); ?>
 			<div class="grid-container full">
 				<div class="grid-container">
 					<div class="grid-x grid-padding-x">
 						<div class="cell">
+
 						</div>
 					</div>
+					
 				</div>
 			</div>
 		<?php endwhile; ?>

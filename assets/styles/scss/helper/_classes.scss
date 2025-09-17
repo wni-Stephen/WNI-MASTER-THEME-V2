@@ -1,133 +1,99 @@
 /**
-* WebsiteNI Joints
-* WebsiteNI Starter Theme built on JointsWP; http://jointswp.com/.
-* Created by WebsiteNI.
-*/
+ * WebsiteNI Joints
+ * WebsiteNI Starter Theme built on JointsWP; http://jointswp.com/.
+ * Created by WebsiteNI.
+ */
 
 /**
-* _classes - Small.
-*/
-/* General Classes. */
+ * _classes - Small
+ */
+/* General Classes */
 #skip-navigation-link {
-	a {
-		width: 1px;
-		height: 1px;
-		top: auto;
-		left: -10000px;
-		position: absolute;
-		overflow: hidden;
+  a {
+    width: 1px;
+    height: 1px;
+    top: auto;
+    left: -10000px;
+    position: absolute;
+    overflow: hidden;
 
-		&:focus {
-			width: auto;
-			height: auto;
-			position: static;
-		}
-	}
+    &:focus {
+      width: auto;
+      height: auto;
+      position: static;
+    }
+  }
 }
-.bgcetnter {
-	background-size: cover;
-	background-repeat: no-repeat;
-	background-position: center;
+
+.bg-center {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
-.relative {
-	position: relative;
-}
-.absolute {
-	position: absolute;
-}
-.websiteni-flex {
-	display: flex;
-	flex-direction: row;
-}
-.websiteni-flex-alt {
-	display: flex;
-	flex-direction: column;
-}
-.websiteni-flex-hs-sm {
-	justify-content: flex-start;
-}
-.websiteni-flex-hc-sm {
-	justify-content: center;
-}
-.websiteni-flex-sb-sm {
-	justify-content: space-between;
-}
-.websiteni-flex-he-sm {
-	justify-content: flex-end;
-}
-.websiteni-flex-vt-sm {
-	align-items: flex-start;
-}
-.websiteni-flex-vc-sm {
-	align-items: center;
-}
-.websiteni-flex-vb-sm {
-	align-items: flex-end;
-}
-.text-left-sm {
-	text-align: left;
-}
-.text-center-sm {
-	text-align: center;
-}
-.text-right-sm {
-	text-align: right;
-}
-.hide-for-xl {
-	display: inline-block;
-}
-.hide-for-xxl {
-	display: inline-block;
-}
-.show-for-xl {
-	display: none;
-}
-.show-for-xxl {
-	display: none;
-}
+
+.relative { position: relative; }
+.absolute { position: absolute; }
+
+/* Flex Utilities */
+.wni-flex { display: flex; flex-direction: row; }
+.wni-flex-col { display: flex; flex-direction: column; }
+
+.wni-flex-justify-start { justify-content: flex-start; }
+.wni-flex-justify-center { justify-content: center; }
+.wni-flex-justify-between { justify-content: space-between; }
+.wni-flex-justify-end { justify-content: flex-end; }
+
+.wni-flex-align-start { align-items: flex-start; }
+.wni-flex-align-center { align-items: center; }
+.wni-flex-align-end { align-items: flex-end; }
+
+/* Flex Align-Content Utilities (for multi-line flex containers) */
+.wni-flex-content-start { align-content: flex-start; }
+.wni-flex-content-center { align-content: center; }
+.wni-flex-content-end { align-content: flex-end; }
+.wni-flex-content-between { align-content: space-between; }
+.wni-flex-content-around { align-content: space-around; }
+.wni-flex-content-evenly { align-content: space-evenly; }
+
+/* Text Alignment */
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+
+/* Visibility */
+.hide-for-xl { display: inline-block; }
+.hide-for-xxl { display: inline-block; }
+.show-for-xl { display: none; }
+.show-for-xxl { display: none; }
+
 /**
-* _classes - Medium.
-*/
+ * _classes - Medium
+ */
 @media screen and (min-width: 640px) {
-
+  /* Medium-specific overrides can be added here */
 }
 
 /**
-* _classes - Large.
-*/
+ * _classes - Large
+ */
 @media screen and (min-width: 1024px) {
-	.text-left-lg {
-		text-align: left;
-	}
-	.text-center-lg {
-		text-align: center;
-	}
-	.text-right-lg {
-		text-align: right;
-	}
-	
+  .text-left-lg { text-align: left; }
+  .text-center-lg { text-align: center; }
+  .text-right-lg { text-align: right; }
 }
 
 /**
-* _classes - XL.
-*/
+ * _classes - XL
+ */
 @media screen and (min-width: 1200px) {
-	.hide-for-xl {
-		display: none;
-	}
-	.show-for-xl {
-		display: inline-block;
-	}
+  .hide-for-xl { display: none; }
+  .show-for-xl { display: inline-block; }
 }
 
 /**
-* _classes - XXL.
-*/
+ * _classes - XXL
+ */
 @media screen and (min-width: 1440px) {
-	.hide-for-xxl {
-		display: none;
-	}
-	.show-for-xxl {
-		display: inline-block;
-	}
+  .hide-for-xxl { display: none; }
+  .show-for-xxl { display: inline-block; }
 }

@@ -8,7 +8,7 @@
 get_header();
 $current_cat = get_queried_object();
 ?>
-<main id="content" class="wow fadeIn">
+<main id="content" class="">
 	<section class="grid-container full wow fadeIn internalbanner" data-wow-delay=".2s">
 		<div class="grid-container paddingtopmed">
 			<div class="grid-x grid-padding-x paddingtopmed paddingbottommed">

@@ -7,6 +7,27 @@
 /**
 * _header - Small.
 */
+
+
+.cookie{
+	img{
+		height: 30px;   
+		width: 30px;
+	}
+}
+.cookie-policy{
+	width: calc(100% - .625rem* 2);
+    max-width: 480px;
+    padding: 20px;
+    left: .625rem; 
+    bottom: .625rem;
+    position: fixed;
+    background-color: $white;
+    box-shadow: 3px 3px 12px rgba(0, 0, 0, .5);
+    z-index: 9999999;    
+}
+
+
 .navigation {
 	padding: 10px 0px;
 	background-color: get-color(primary);
