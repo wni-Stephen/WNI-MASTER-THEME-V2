@@ -1,105 +1,109 @@
-// Hero Wrapper
-.hero-slider-wrapper {
+// Hero Slider Wrapper
+.homebanner {
   width: 100%;
-  height: 100vh;
+  height: 100vh; // full viewport height
   min-height: 400px;
   overflow: hidden;
   position: relative;
 
-  // Slider
-  &.hero-slider-wrapper {
+  .swiper {
+    width: 100%;
+    height: 100%;
+  }
+
+  .swiper-wrapper {
+    height: 100%;
+  }
+
+  // Each slide is now a grid-container full
+  .swiper-slide {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     display: flex;
-    align-items: flex-end;
+    align-items: flex-end; // content aligned to bottom
     justify-content: flex-start;
+    position: relative;
 
-    .swiper {
-      width: 100%;
-      height: 100%;
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.3); // dark overlay
+      z-index: 1;
     }
 
-    .swiper-wrapper {
-      height: 100%;
+    .banner-content {
+      position: relative; // always relative for slider text
+      z-index: 2;
+      padding: 2rem;
+      color: #fff;
+      max-width: 1200px;
     }
 
-    .swiper-slide {
-      display: flex;
-      align-items: flex-end;
-      justify-content: flex-start;
-      width: 100%;
-      height: 100%;
-      background-size: cover;
-      background-position: center;
-
-      &::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: rgba(0,0,0,0.3);
-        z-index: 1;
+    .cell {
+      h1,
+      p {
+        margin: 0 0 1rem 0;
       }
 
-      .hero-content-wrapper {
-        display: flex;
-        flex-direction: column;
-        padding: $spacingMedium;
-        z-index: 2;
+      a.button {
+        margin-right: 1rem;
       }
     }
   }
-
-  
 }
 
-.homebanner {
-    position: relative;
-    height: 650px;
-    // height: 100vh;
-    overflow: hidden;
-    .arrow-tr {
-        position: absolute;
-        z-index: 1;
-        top: 40px;
-        right: 0px;
-        mix-blend-mode: overlay;
-        height: calc(100% - 40px);
-        width: 100%;
-        object-position: top right;
-        object-fit: contain;
-        // height: calc(100vh - 40px);
+// Video banner
+.videobanner {
+  position: relative;
+  width: 100%;
+  height: 80vh;
+  min-height: 400px;
+  overflow: hidden;
+
+  video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 1;
+  }
+
+  .banner-content {
+    position: absolute;
+    bottom: 60px;
+    left: 0;
+    width: 100%;
+    z-index: 2;
+
+    .grid-container {
+      width: 100%;
     }
-    &:before {
-        content: '';
-        background-color: $black;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        opacity: 0.5;
+
+    .grid-x {
+      display: flex; /* enforce flex behavior */
+      flex-wrap: wrap;
+      width: 100%;
     }
-    video {
-        width: 100%;
-        display: block;
-        height: 100%;
-        object-fit: cover;
-        object-position: center;
+
+    .cell {
+      p {
+        margin-top: 1rem;
+      }
+      a.button {
+        margin-right: 1rem;
+      }
     }
-    .banner-content {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        right: 0;
-        margin: 0 auto;
-        z-index: 9;
-        &.grid-container {
-            padding: 0 30px;
-        }
-        h1,h2,h3 {
-            margin-bottom: 0;
-        }
-        p {
-            margin-top: 30px;
-        }
-    }
+  }
 }

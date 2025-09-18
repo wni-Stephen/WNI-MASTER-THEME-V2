@@ -7,7 +7,18 @@
 /**
 * _footer - Small.
 */
-
+footer {
+    * {
+        font-size: 12px;
+    }
+    
+    .sub-footer {
+        padding: 10px;
+        p {
+        margin-bottom: 0;
+    }
+    }
+}
 
 /**
 * _footer - Medium.
