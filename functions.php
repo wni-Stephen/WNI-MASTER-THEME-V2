@@ -140,13 +140,11 @@ function websiteni_joints_styles_and_scripts() {
 
     wp_enqueue_style('swiper-css', 'https://unpkg.com/swiper/swiper-bundle.min.css', array(), '8.4.5');
     wp_enqueue_script('swiper-js', 'https://unpkg.com/swiper/swiper-bundle.min.js', array('jquery'), '8.4.5', true);
-    wp_enqueue_script('swiper-init', get_template_directory_uri() . '/assets/scripts/swiper-init.js', array('swiper-js', 'jquery'), filemtime(get_template_directory() . '/assets/scripts/swiper-init.js'), true);
 
     wp_enqueue_script('gsap', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js', array(), '3.12.2', true);
     wp_enqueue_script('gsap-scrolltrigger', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js', array('gsap'), '3.12.2', true);
     wp_enqueue_script('gsap-scrollsmoother', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollSmoother.min.js', array('gsap', 'gsap-scrolltrigger'), '3.12.2', true);
 
-    wp_enqueue_script('animations', get_template_directory_uri() . '/assets/scripts/animations.js', array('gsap', 'gsap-scrolltrigger', 'jquery'), filemtime(get_template_directory() . '/assets/scripts/animations.js'), true);
 }
 add_action('wp_enqueue_scripts', 'websiteni_joints_styles_and_scripts');
 

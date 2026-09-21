@@ -102,7 +102,6 @@
 		// 	$('.navigation-overlay').toggleClass('is-active');
 		// 	$('.wrapper').toggleClass('hamburger-is-active');
 		// });
-		$('.navigation-overlay .primary-menu').prepend('<a class="close" href="#"><img src="/site/wp-content/themes/websiteni-joints/assets/images/header/close.svg" alt="Close menu"/></a>');
 
 		$('.navigation-overlay .close').click(function() {
 			$('.navigation-overlay').removeClass('is-active');

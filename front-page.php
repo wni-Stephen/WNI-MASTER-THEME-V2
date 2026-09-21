@@ -8,6 +8,6 @@
     get_header();
     ?> 
 <main id="content" class="">
-  
+
 </main>
 <?php get_footer(); ?>
