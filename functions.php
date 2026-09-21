@@ -145,6 +145,14 @@ function websiteni_joints_styles_and_scripts() {
     wp_enqueue_script('gsap-scrolltrigger', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js', array('gsap'), '3.12.2', true);
     wp_enqueue_script('gsap-scrollsmoother', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollSmoother.min.js', array('gsap', 'gsap-scrolltrigger'), '3.12.2', true);
 
+	wp_enqueue_script(
+	'animations',
+	get_template_directory_uri() . '/assets/scripts/js/animations.js',
+	array('gsap', 'gsap-scrolltrigger', 'jquery'),
+	filemtime(get_template_directory() . '/assets/scripts/js/animations.js'),
+	true
+);
+
 }
 add_action('wp_enqueue_scripts', 'websiteni_joints_styles_and_scripts');
 
@@ -196,16 +204,6 @@ function websiteni_joints_disable_emoji_tinymce($plugins) {
 	return is_array($plugins) ? array_diff($plugins, array('wpemoji')) : array();
 }
 
-/**
-* Remove Query Strings.
-*/
-function websiteni_joints_remove_query_strings($src) {
-	$parts = explode('?ver', $src);
-	return $parts[0];
-}
-
-add_filter('style_loader_src', 'websiteni_joints_remove_query_strings', 15, 1);
-add_filter('script_loader_src', 'websiteni_joints_remove_query_strings', 15, 1);
 
 /**
 * Remove Type Attributes.
