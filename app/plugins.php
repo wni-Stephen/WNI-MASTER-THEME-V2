@@ -2,7 +2,7 @@
 /**
  * Theme plugin configuration.
  *
- * Registers plugins recommended for WebsiteNI projects.
+ * Registers recommended plugins for WebsiteNI projects.
  */
 
 defined('ABSPATH') || exit;
@@ -16,73 +16,55 @@ require_once get_template_directory()
 
 
 /**
- * Register WebsiteNI starter plugins.
+ * Register recommended WebsiteNI plugins.
  */
-function websiteni_joints_bundled_plugins() {
+function websiteni_joints_register_plugins() {
 
 	$plugins = array(
 
+		/**
+		 * Formidable Forms.
+		 */
 		array(
-			'name'   => 'Advanced Custom Fields Pro',
-			'slug'   => 'advanced-custom-fields-pro',
-			'source' => get_stylesheet_directory()
-				. '/modules/tgm/advanced-custom-fields-pro.zip',
+			'name'     => 'Formidable Forms',
+			'slug'     => 'formidable',
+			'required' => false,
 		),
 
+		/**
+		 * Yoast SEO.
+		 */
 		array(
-			'name'   => 'Formidable Forms',
-			'slug'   => 'formidable',
-			'source' => get_stylesheet_directory()
-				. '/modules/tgm/formidable.zip',
+			'name'     => 'Yoast SEO',
+			'slug'     => 'wordpress-seo',
+			'required' => false,
 		),
 
+		/**
+		 * Custom Post Type UI.
+		 */
 		array(
-			'name'   => 'Formidable Forms Pro',
-			'slug'   => 'formidable-forms-pro',
-			'source' => get_stylesheet_directory()
-				. '/modules/tgm/formidable-pro.zip',
+			'name'     => 'Custom Post Type UI',
+			'slug'     => 'custom-post-type-ui',
+			'required' => false,
 		),
 
+		/**
+		 * LiteSpeed Cache.
+		 */
 		array(
-			'name'   => 'WPMU DEV Dashboard',
-			'slug'   => 'wpmu-dev-dashboard',
-			'source' => get_stylesheet_directory()
-				. '/modules/tgm/wpmu-dev-dashboard.zip',
+			'name'     => 'LiteSpeed Cache',
+			'slug'     => 'litespeed-cache',
+			'required' => false,
 		),
 
+		/**
+		 * Show Current Template.
+		 */
 		array(
-			'name'   => 'Yoast SEO',
-			'slug'   => 'yoast-seo',
-			'source' => get_stylesheet_directory()
-				. '/modules/tgm/yoast-seo.zip',
-		),
-
-		array(
-			'name'   => 'Smush Pro',
-			'slug'   => 'smush-pro',
-			'source' => get_stylesheet_directory()
-				. '/modules/tgm/smush-pro.zip',
-		),
-
-		array(
-			'name'   => 'Custom Post Type UI',
-			'slug'   => 'custom-post-type-ui',
-			'source' => get_stylesheet_directory()
-				. '/modules/tgm/custom-post-type-ui.zip',
-		),
-
-		array(
-			'name'   => 'LiteSpeed Cache',
-			'slug'   => 'litespeed-cache',
-			'source' => get_stylesheet_directory()
-				. '/modules/tgm/litespeed-cache.zip',
-		),
-
-		array(
-			'name'   => 'Show Current Template',
-			'slug'   => 'show-current-template',
-			'source' => get_stylesheet_directory()
-				. '/modules/tgm/show-current-template.zip',
+			'name'     => 'Show Current Template',
+			'slug'     => 'show-current-template',
+			'required' => false,
 		),
 	);
 
@@ -94,9 +76,7 @@ function websiteni_joints_bundled_plugins() {
 		'capability'   => 'edit_theme_options',
 		'has_notices'  => true,
 		'dismissable'  => true,
-		'dismiss_msg'  => '',
 		'is_automatic' => false,
-		'message'      => '',
 	);
 
 	tgmpa(
@@ -107,5 +87,5 @@ function websiteni_joints_bundled_plugins() {
 
 add_action(
 	'tgmpa_register',
-	'websiteni_joints_bundled_plugins'
+	'websiteni_joints_register_plugins'
 );
