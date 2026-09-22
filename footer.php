@@ -1,78 +1,236 @@
+<?php
+/**
+ * WebsiteNI Starter Theme
+ * Footer.
+ */
+defined('ABSPATH') || exit;
+$site_name = get_bloginfo(
+    'name',
+    'display'
+);
+$custom_logo_id = get_theme_mod(
+    'custom_logo'
+);
+/**
+ * Global company details.
+ */
+$company_name = function_exists('get_field')
+    ? get_field('company_name', 'option')
+    : '';
+$company_address = function_exists('get_field')
+    ? get_field('company_address', 'option')
+    : '';
+$company_phone = function_exists('get_field')
+    ? get_field('company_phone', 'option')
+    : '';
+$company_email = function_exists('get_field')
+    ? get_field('company_email', 'option')
+    : '';
+/**
+ * Fall back to WordPress site name.
+ */
+if (!$company_name) {
+    $company_name = $site_name;
+}
+/**
+ * Telephone href-safe value.
+ */
+$company_phone_href = preg_replace(
+    '/[^0-9+]/',
+    '',
+    $company_phone
+);
+?>
 <footer class="footer bg-primary">
     <!-- Main Footer Content -->
-    <div class="grid-container">
-        <div class="grid-x grid-padding-x ptoplrg">
-            <!-- Company Logo -->
-            <div class="cell small-6 large-3 wni-flex wni-flex-justify-start wni-flex-align-center">
-                <a class="company-logo" href="<?php echo esc_url(home_url('/')); ?>"
-                    title="<?php echo esc_attr(get_bloginfo('name', 'display')); ?>" rel="home">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/header/companylogo.svg"
-                    alt="<?php bloginfo('name'); ?>" />
-                </a>
-            </div>
-        </div>
-        <!-- Contact Details -->
-        <div class="grid-x grid-padding-x pbottommed">
-            <div class="cell small-12 medium-4">
-                <div class="footer-contact wni-flex wni-gap-default">
-                    <?php /* ?>
-                    <?php if ( get_field('company_address', 'options') ): ?>
-                    <p><?php the_field('company_address', 'options'); ?></p>
-                    <?php endif; ?>
-                    <?php if ( get_field('company_email', 'options') ): ?>
-                    <p>Email: <a
-                        href="mailto:<?php the_field('company_email', 'options'); ?>"><?php the_field('company_email', 'options'); ?></a>
-                    </p>
-                    <?php endif; ?>
-                    <?php if ( get_field('company_phone', 'options') ): ?>
-                    <p>Phone: <a
-                        href="tel:<?php the_field('company_phone', 'options'); ?>"><?php the_field('company_phone', 'options'); ?></a>
-                    </p>
-                    <?php endif; ?>
-                    <?php */ ?>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- Main Footer Content -->
+
+<div class="grid-container">
+
+	<div class="grid-x grid-padding-x footer-main">
+
+		<div
+			class="cell small-12 medium-6 large-4 footer-company"
+		>
+
+			<!-- Company Logo -->
+
+			<div class="footer-logo">
+
+				<a
+					class="company-logo"
+					href="<?php echo esc_url(
+						home_url('/')
+					); ?>"
+					title="<?php echo esc_attr(
+						$site_name
+					); ?>"
+					rel="home"
+				>
+
+					<?php if ($custom_logo_id) : ?>
+
+						<?php
+						echo wp_get_attachment_image(
+							$custom_logo_id,
+							'full',
+							false,
+							array(
+								'class' => 'custom-logo',
+								'alt'   => $site_name,
+							)
+						);
+						?>
+
+					<?php else : ?>
+
+						<img
+							src="<?php echo esc_url(
+								get_template_directory_uri()
+								. '/assets/images/header/companylogo.svg'
+							); ?>"
+							alt="<?php echo esc_attr(
+								$site_name
+							); ?>"
+						>
+
+					<?php endif; ?>
+
+				</a>
+
+			</div>
+
+
+			<!-- Contact Details -->
+
+			<div class="footer-contact">
+
+				<?php if ($company_address) : ?>
+
+					<p class="footer-address">
+
+						<?php echo wp_kses_post(
+							nl2br(
+								esc_html(
+									$company_address
+								)
+							)
+						); ?>
+
+					</p>
+
+				<?php endif; ?>
+
+
+				<?php if ($company_email) : ?>
+
+					<p class="footer-email">
+
+						Email:
+
+						<a
+							href="mailto:<?php echo esc_attr(
+								$company_email
+							); ?>"
+						>
+							<?php echo esc_html(
+								$company_email
+							); ?>
+						</a>
+
+					</p>
+
+				<?php endif; ?>
+
+
+				<?php if ($company_phone) : ?>
+
+					<p class="footer-phone">
+
+						Phone:
+
+						<a
+							href="tel:<?php echo esc_attr(
+								$company_phone_href
+							); ?>"
+						>
+							<?php echo esc_html(
+								$company_phone
+							); ?>
+						</a>
+
+					</p>
+
+				<?php endif; ?>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
     <!-- Sub Footer -->
-    <div class="grid-container full sub-footer bg-secondary ptopxsml pbottomxsml">
+    <div class="grid-container full sub-footer bg-secondary">
         <div class="grid-container">
-            <div class="grid-x grid-padding-x ">
-                <!-- Left: Company + Privacy + Terms -->
-                <div class="cell small-12 medium-auto footer-left ">
-                    <!-- Mobile: Company Name on top -->
-                    <div class="cell small-12 hide-for-large">
-                        <p>Company Name mobile</p>
+            <div class="grid-x grid-padding-x sub-footer-inner">
+                <!-- Left -->
+                <div class="cell small-12 large-auto footer-left">
+                    <div class="footer-mobile-company hide-for-large">
+                        <p>
+                            &copy;
+                            <?php echo esc_html(
+                                wp_date('Y')
+                            ); ?>
+                            <?php echo esc_html(
+                                $company_name
+                            ); ?>
+                        </p>
                     </div>
-                    <!-- Links row -->
-                    <div class="cell small-12  wni-flex">
-                        <span class="show-for-large ">&copy; <?php echo date('Y'); ?> Company Name </span>
-                        <a class="" href="<?php echo site_url('/privacy-policy'); ?>">Privacy Policy</a>
-                        <a class="" href="<?php echo site_url('/terms-and-conditions'); ?>">Terms & Conditions</a>
-                        <p class="hide-for-large">Created by <a href="https://www.websiteni.com" target="_blank" rel="noopener">WebsiteNI</a></p>
+                    <div class="footer-links wni-flex">
+                        <span class="show-for-large">
+                            &copy;
+                            <?php echo esc_html(
+                                wp_date('Y')
+                            ); ?>
+                            <?php echo esc_html(
+                                $company_name
+                            ); ?>
+                        </span>
+                        <a href="<?php echo esc_url(
+                            home_url('/privacy-policy/')
+                        ); ?>">
+                            Privacy Policy
+                        </a>
+                        <a href="<?php echo esc_url(
+                            home_url('/terms-and-conditions/')
+                        ); ?>">
+                            Terms &amp; Conditions
+                        </a>
+                        <p class="footer-credit-mobile hide-for-large">
+                            Created by
+                            <a href="https://www.websiteni.com" target="_blank" rel="noopener noreferrer">
+                                WebsiteNI
+                            </a>
+                        </p>
                     </div>
                 </div>
-                <!-- Right: Created by (desktop only) -->
-                <div class="cell small-12 medium-shrink footer-right text-left medium-text-right show-for-large">
-                    Created by <a href="https://www.websiteni.com" target="_blank" rel="noopener">WebsiteNI</a>
+                <!-- Right -->
+                <div class="cell small-12 large-shrink footer-right show-for-large">
+                    Created by
+                    <a href="https://www.websiteni.com" target="_blank" rel="noopener noreferrer">
+                        WebsiteNI
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 </footer>
-
 <?php get_search_form(); ?>
-
-			</div><!-- #wrapper-inner -->
-
-	</div><!-- #wrapper -->
-
+</div><!-- #wrapper-inner -->
+</div><!-- #wrapper -->
 </div><!-- #smooth-content -->
-
 </div><!-- #smooth-wrapper -->
-
 <?php wp_footer(); ?>
-
 </body>
-
 </html>
