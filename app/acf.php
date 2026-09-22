@@ -9,40 +9,72 @@ defined('ABSPATH') || exit;
 /**
  * Register ACF Options pages.
  */
-if (function_exists('acf_add_options_page')) {
+function websiteni_joints_register_acf_options_pages() {
 
+	if (!function_exists('acf_add_options_page')) {
+		return;
+	}
+
+
+	/**
+	 * Global Settings parent menu.
+	 */
 	acf_add_options_page(
 		array(
 			'page_title' => 'Global Settings',
 			'menu_title' => 'Global Settings',
-			'menu_slug'  => 'general-settings',
+			'menu_slug'  => 'global-settings',
+			'redirect'   => true,
 		)
 	);
 
+
+	/**
+	 * General Settings.
+	 */
 	acf_add_options_sub_page(
 		array(
 			'page_title'  => 'General Settings',
 			'menu_title'  => 'General Settings',
-			'parent_slug' => 'general-settings',
+			'menu_slug'   => 'general-settings',
+			'parent_slug' => 'global-settings',
 		)
 	);
 
+
+	/**
+	 * Footer Settings.
+	 */
 	acf_add_options_sub_page(
 		array(
 			'page_title'  => 'Footer Settings',
 			'menu_title'  => 'Footer Settings',
-			'parent_slug' => 'general-settings',
+			'menu_slug'   => 'footer-settings',
+			'parent_slug' => 'global-settings',
 		)
 	);
 }
 
+add_action(
+	'acf/init',
+	'websiteni_joints_register_acf_options_pages'
+);
+
 
 /**
- * Save ACF field groups to the theme.
+ * Save ACF Local JSON field groups
+ * to the starter theme.
+ *
+ * @param string $path Default save path.
+ *
+ * @return string
  */
-function websiteni_joints_acf_json_save_point($path) {
+function websiteni_joints_acf_json_save_point(
+	$path
+) {
 
-	return get_template_directory() . '/acf-json';
+	return get_template_directory()
+		. '/acf-json';
 }
 
 add_filter(
@@ -52,11 +84,27 @@ add_filter(
 
 
 /**
- * Load ACF field groups from the theme.
+ * Load ACF Local JSON field groups
+ * from the starter theme.
+ *
+ * @param array $paths Existing ACF JSON paths.
+ *
+ * @return array
  */
-function websiteni_joints_acf_json_load_point($paths) {
+function websiteni_joints_acf_json_load_point(
+	$paths
+) {
 
-	$paths[] = get_template_directory() . '/acf-json';
+	$theme_path = get_template_directory()
+		. '/acf-json';
+
+	if (!in_array(
+		$theme_path,
+		$paths,
+		true
+	)) {
+		$paths[] = $theme_path;
+	}
 
 	return $paths;
 }
