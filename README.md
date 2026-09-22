@@ -14,7 +14,7 @@ The theme uses WordPress, Foundation, SCSS and JavaScript, with Vite handling fr
 - Node.js
 - npm
 
-After cloning the theme, install dependencies:
+After adding the theme to a project, install the front-end dependencies:
 
 ```bash
 npm install
@@ -25,14 +25,22 @@ npm install
 Run Vite in watch mode while developing:
 
 ```bash
+npm run watch
+```
+
+Vite will automatically rebuild the compiled CSS and JavaScript whenever the source SCSS or JavaScript files are changed.
+
+A development watch command is also available:
+
+```bash
 npm run dev
 ```
 
-Vite will rebuild the CSS and JavaScript whenever the source SCSS or JavaScript files are changed.
+Both `dev` and `watch` currently run Vite in watch mode.
 
 ### Production Build
 
-Create a production build with:
+Create a one-off production build with:
 
 ```bash
 npm run build
@@ -44,9 +52,60 @@ Compiled assets are generated inside:
 assets/dist/
 ```
 
-The `assets/dist` directory is committed to Git so deployed WordPress websites do not require Node.js or npm to build the theme.
+The `assets/dist` directory is included with the theme so deployed WordPress websites do not require Node.js or npm simply to load the existing compiled assets.
 
 Do not manually edit files inside `assets/dist`.
+
+---
+
+## WebsiteNI Client Site Workflow
+
+Client websites are typically developed directly on the WebsiteNI development server using VS Code Remote Explorer over SSH.
+
+Typical WordPress theme paths include:
+
+```text
+public_html/site/wp-content/themes/web
+```
+
+or:
+
+```text
+public_html/newsite/wp-content/themes/web
+```
+
+After adding the WebsiteNI starter theme to a client website:
+
+```bash
+npm install
+```
+
+While developing:
+
+```bash
+npm run watch
+```
+
+Vite will watch the source SCSS and JavaScript files and automatically rebuild:
+
+```text
+assets/dist/style.css
+assets/dist/script.js
+```
+
+For a one-off build:
+
+```bash
+npm run build
+```
+
+For a seven-hour watch session:
+
+```bash
+timeout -k 10 7h npm run watch
+```
+
+Git is used for maintaining the master starter theme, but is not required for normal client-site development.
 
 ---
 
@@ -92,6 +151,8 @@ assets/dist/script.js.map
 ```
 
 WordPress loads the compiled CSS and JavaScript through `functions.php`.
+
+Do not manually edit files inside `assets/dist`.
 
 ---
 
@@ -824,6 +885,12 @@ functions.js
 While developing:
 
 ```bash
+npm run watch
+```
+
+A one-off watch command is also available:
+
+```bash
 npm run dev
 ```
 
@@ -837,7 +904,11 @@ Always make changes to the source files rather than editing `assets/dist` direct
 
 ---
 
-## Git
+## Master Theme Git Workflow
+
+Git is used to maintain and version the WebsiteNI master starter theme.
+
+Normal client-site development does not require Git.
 
 Do not commit:
 
@@ -846,7 +917,7 @@ node_modules/
 .DS_Store
 ```
 
-The following should be committed:
+The following should be committed in the master starter theme:
 
 ```text
 package.json
@@ -856,7 +927,7 @@ postcss.config.mjs
 assets/dist/
 ```
 
-Compiled Vite assets are deliberately kept in Git so the theme can be deployed directly to WordPress without running a production build on the server.
+Compiled Vite assets are deliberately kept in the master theme so it can be added directly to a WordPress project with working CSS and JavaScript already available.
 
 ---
 
@@ -868,4 +939,11 @@ Major starter-theme changes should be documented in:
 CHANGELOG.md
 ```
 
-Use the changelog for architectural changes, dependency upgrades and changes that future WebsiteNI developers need to know about.
+Use the changelog for:
+
+- Build-system changes
+- Dependency upgrades
+- Theme architecture changes
+- Removed legacy functionality
+- New reusable WebsiteNI functionality
+- Changes future developers need to know about
