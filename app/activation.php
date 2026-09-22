@@ -10,17 +10,35 @@ defined('ABSPATH') || exit;
 
 /**
  * Create a Home page and set it as the static front page.
+ *
+ * Existing front-page settings are left untouched.
  */
 function websiteni_joints_theme_activation_setup() {
 
+	/**
+	 * Do not overwrite an existing static front page.
+	 */
+	$current_front_page = absint(
+		get_option('page_on_front')
+	);
+
+	if ($current_front_page) {
+		return;
+	}
+
+
+	/**
+	 * Look for an existing Home page.
+	 */
 	$home_page = get_page_by_path(
 		'home',
 		OBJECT,
 		'page'
 	);
 
+
 	/**
-	 * Create the Home page if it does not already exist.
+	 * Create the Home page if required.
 	 */
 	if (!$home_page) {
 
@@ -31,7 +49,8 @@ function websiteni_joints_theme_activation_setup() {
 				'post_name'    => 'home',
 				'post_content' => '',
 				'post_status'  => 'publish',
-			)
+			),
+			true
 		);
 
 		if (
@@ -45,6 +64,7 @@ function websiteni_joints_theme_activation_setup() {
 
 		$home_page_id = $home_page->ID;
 	}
+
 
 	/**
 	 * Set Home as the static front page.
