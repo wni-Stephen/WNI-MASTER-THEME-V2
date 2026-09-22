@@ -57,14 +57,14 @@ $custom_logo_id = get_theme_mod(
 				</div>
 			</div>
 		</div>
-		<div class="navigation-overlay">
+		<div id="mobile-navigation" class="navigation-overlay" aria-hidden="true">
 			<nav aria-label="Primary navigation">
-				<a class="close" href="#" aria-label="Close menu">
+				<button class="close" type="button" aria-label="Close menu">
 					<img src="<?php echo esc_url(
 						$theme_uri
 						. '/assets/images/header/close.svg'
 					); ?>" alt="">
-				</a>
+				</button>
 				<?php
 				wp_nav_menu(
 					array(
@@ -119,7 +119,8 @@ $custom_logo_id = get_theme_mod(
 										. '/assets/images/header/search.svg'
 									); ?>" alt="">
 								</button>
-								<button class="hamburger hamburger--slider-r" type="button" aria-label="Open menu">
+								<button class="hamburger hamburger--slider-r" type="button" aria-label="Open menu"
+									aria-controls="mobile-navigation" aria-expanded="false">
 									<span class="hamburger-box">
 										<span class="hamburger-inner"></span>
 									</span>
