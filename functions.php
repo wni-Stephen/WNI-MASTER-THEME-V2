@@ -14,46 +14,7 @@ defined('ABSPATH') || exit;
  */
 require_once get_template_directory() . '/app/assets.php';
 require_once get_template_directory() . '/app/admin.php';
-
-
-/**
- * Security.
- */
-add_filter(
-	'auto_update_plugin',
-	'__return_true'
-);
-
-add_filter(
-	'xmlrpc_enabled',
-	'__return_false'
-);
-
-
-/**
- * Hide WordPress version.
- */
-function websiteni_joints_hide_wordpress_version() {
-	return '';
-}
-
-add_filter(
-	'the_generator',
-	'websiteni_joints_hide_wordpress_version'
-);
-
-
-/**
- * Obscure WordPress login errors.
- */
-function websiteni_joints_obscure_login_errors() {
-	return 'Something wasn\'t quite right there, please try again.';
-}
-
-add_filter(
-	'login_errors',
-	'websiteni_joints_obscure_login_errors'
-);
+require_once get_template_directory() . '/app/security.php';
 
 
 /**
@@ -89,115 +50,6 @@ if (function_exists('acf_add_options_page')) {
 		)
 	);
 }
-
-
-/**
- * Disable Emoji Mess.
- */
-function websiteni_joints_disable_emoji_mess() {
-
-	remove_action(
-		'admin_print_styles',
-		'print_emoji_styles'
-	);
-
-	remove_action(
-		'wp_head',
-		'print_emoji_detection_script',
-		7
-	);
-
-	remove_action(
-		'admin_print_scripts',
-		'print_emoji_detection_script'
-	);
-
-	remove_action(
-		'wp_print_styles',
-		'print_emoji_styles'
-	);
-
-	remove_filter(
-		'wp_mail',
-		'wp_staticize_emoji_for_email'
-	);
-
-	remove_filter(
-		'the_content_feed',
-		'wp_staticize_emoji'
-	);
-
-	remove_filter(
-		'comment_text_rss',
-		'wp_staticize_emoji'
-	);
-
-	add_filter(
-		'emoji_svg_url',
-		'__return_false'
-	);
-}
-
-add_action(
-	'init',
-	'websiteni_joints_disable_emoji_mess'
-);
-
-
-/**
- * Disable emoji TinyMCE plugin.
- */
-function websiteni_joints_disable_emoji_tinymce($plugins) {
-
-	return is_array($plugins)
-		? array_diff($plugins, array('wpemoji'))
-		: array();
-}
-
-
-/**
- * Remove obsolete type attributes.
- */
-function websiteni_joints_remove_type_attributes($tag, $handle) {
-
-	return preg_replace(
-		"/type=['\"]text\/(javascript|css)['\"]/",
-		'',
-		$tag
-	);
-}
-
-add_filter(
-	'style_loader_tag',
-	'websiteni_joints_remove_type_attributes',
-	10,
-	2
-);
-
-add_filter(
-	'script_loader_tag',
-	'websiteni_joints_remove_type_attributes',
-	10,
-	2
-);
-
-
-/**
- * Disable jQuery Migrate.
- */
-add_action(
-	'wp_default_scripts',
-	function($scripts) {
-
-		if (!empty($scripts->registered['jquery'])) {
-
-			$scripts->registered['jquery']->deps = array_diff(
-				$scripts->registered['jquery']->deps,
-				array('jquery-migrate')
-			);
-		}
-	}
-);
 
 
 /**
@@ -524,15 +376,18 @@ add_action(
 // function websiteni_joints_create_taxonomy() {
 //
 // 	$labels = array(
-// 		'name'              => _x(
+// 		'name' => _x(
 // 			'Examples',
 // 			'Taxonomy General Name'
 // 		),
-// 		'menu_name'         => __('Examples'),
-// 		'singular_name'     => _x(
+//
+// 		'menu_name' => __('Examples'),
+//
+// 		'singular_name' => _x(
 // 			'Example',
 // 			'Taxonomy Singular Name'
 // 		),
+//
 // 		'add_new_item'      => __('Add New Example'),
 // 		'new_item_name'     => __('New Example Name'),
 // 		'edit_item'         => __('Edit Example'),
@@ -662,6 +517,7 @@ add_filter(
 // function websiteni_joints_exclude_post_type_from_search($query) {
 //
 // 	if ($query->is_search) {
+//
 // 		$query->set(
 // 			'post_type',
 // 			'example'
