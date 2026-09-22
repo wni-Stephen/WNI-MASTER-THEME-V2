@@ -20,25 +20,7 @@ require_once get_template_directory() . '/app/security.php';
 require_once get_template_directory() . '/app/acf.php';
 require_once get_template_directory() . '/app/plugins.php';
 require_once get_template_directory() . '/app/helpers.php';
-
-
-/**
- * Enable SVG uploads.
- */
-function websiteni_joints_add_svg_to_upload_mimes($upload_mimes) {
-
-	$upload_mimes['svg']  = 'image/svg+xml';
-	$upload_mimes['svgz'] = 'image/svg+xml';
-
-	return $upload_mimes;
-}
-
-add_filter(
-	'upload_mimes',
-	'websiteni_joints_add_svg_to_upload_mimes',
-	10,
-	1
-);
+require_once get_template_directory() . '/app/media.php';
 
 
 /**
