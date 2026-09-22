@@ -7,74 +7,49 @@ defined('ABSPATH') || exit;
 
 
 /**
- * Custom 404 page title.
- */
-function websiteni_joints_new_404_title($title) {
-
-	if (is_404()) {
-		$title = 'Error 404 | Not Found | Project Name';
-	}
-
-	return $title;
-}
-
-add_filter(
-	'wp_title',
-	'websiteni_joints_new_404_title',
-	50
-);
-
-
-/**
- * Custom post excerpt.
+ * Get a trimmed post excerpt.
  *
  * @param int $limit Number of words to return.
  *
  * @return string
  */
-function websiteni_joints_excerpt($limit) {
+function websiteni_joints_excerpt($limit = 20) {
 
-	$excerpt = explode(
-		' ',
-		get_the_excerpt(),
-		$limit
-	);
+	$limit = absint($limit);
 
-	if (count($excerpt) >= $limit) {
-
-		array_pop($excerpt);
-
-		$excerpt = implode(
-			' ',
-			$excerpt
-		);
-
-	} else {
-
-		$excerpt = implode(
-			' ',
-			$excerpt
-		);
+	if (!$limit) {
+		return '';
 	}
 
-	$excerpt = preg_replace(
-		'`\[[^\]]*\]`',
-		'',
+	$excerpt = get_the_excerpt();
+
+	$excerpt = strip_shortcodes(
 		$excerpt
 	);
 
-	return $excerpt;
+	$excerpt = wp_strip_all_tags(
+		$excerpt
+	);
+
+	return wp_trim_words(
+		$excerpt,
+		$limit,
+		''
+	);
 }
 
 
 /**
- * Move comment field to the bottom of the comment form.
+ * Move the comment field to the bottom
+ * of the WordPress comment form.
  *
  * @param array $fields Comment form fields.
  *
  * @return array
  */
-function websiteni_joints_comment_form_comment_field_to_bottom($fields) {
+function websiteni_joints_comment_form_comment_field_to_bottom(
+	$fields
+) {
 
 	if (empty($fields['comment'])) {
 		return $fields;
@@ -82,7 +57,9 @@ function websiteni_joints_comment_form_comment_field_to_bottom($fields) {
 
 	$comment_field = $fields['comment'];
 
-	unset($fields['comment']);
+	unset(
+		$fields['comment']
+	);
 
 	$fields['comment'] = $comment_field;
 
@@ -96,16 +73,14 @@ add_filter(
 
 
 /**
- * Get layout settings for the current Flexible Content row.
+ * Get layout settings for the current
+ * Flexible Content row.
  *
  * Supports:
  *
  * 1. ACF Extended Flexible Content Settings Modal.
  * 2. A manual ACF Clone field named "layout_options".
  * 3. No layout settings at all.
- *
- * This allows the starter theme to use layout settings
- * only on projects where they are required.
  *
  * @return array
  */
@@ -126,11 +101,25 @@ function websiteni_joints_get_layout_settings() {
 			the_setting();
 
 			$options = array(
-				'section_id'     => get_sub_field('section_id'),
-				'background'     => get_sub_field('background'),
-				'padding_top'    => get_sub_field('padding_top'),
-				'padding_bottom' => get_sub_field('padding_bottom'),
-				'extra_class'    => get_sub_field('extra_class'),
+				'section_id' => get_sub_field(
+					'section_id'
+				),
+
+				'background' => get_sub_field(
+					'background'
+				),
+
+				'padding_top' => get_sub_field(
+					'padding_top'
+				),
+
+				'padding_bottom' => get_sub_field(
+					'padding_bottom'
+				),
+
+				'extra_class' => get_sub_field(
+					'extra_class'
+				),
 			);
 		}
 
@@ -141,8 +130,8 @@ function websiteni_joints_get_layout_settings() {
 	/**
 	 * Standard ACF Clone field fallback.
 	 *
-	 * This allows older projects, or projects without
-	 * ACF Extended, to use a grouped Clone field called
+	 * Allows projects without ACF Extended
+	 * to use a grouped Clone field called
 	 * "layout_options".
 	 */
 	if (function_exists('get_sub_field')) {
@@ -158,23 +147,23 @@ function websiteni_joints_get_layout_settings() {
 
 
 	/**
-	 * No layout settings are configured.
+	 * No layout settings configured.
 	 */
 	return array();
 }
 
 
 /**
- * Build reusable layout attributes from Layout Options.
- *
- * Converts the shared layout settings into safe CSS
- * classes and an optional section ID.
+ * Build reusable layout attributes from
+ * Flexible Content Layout Options.
  *
  * @param array $options Layout settings.
  *
  * @return array
  */
-function websiteni_joints_get_layout_options($options = array()) {
+function websiteni_joints_get_layout_options(
+	$options = array()
+) {
 
 	if (!is_array($options)) {
 		$options = array();
@@ -205,7 +194,8 @@ function websiteni_joints_get_layout_options($options = array()) {
 			true
 		)
 	) {
-		$classes[] = 'bg-' . $options['background'];
+		$classes[] =
+			'bg-' . $options['background'];
 	}
 
 
@@ -222,9 +212,16 @@ function websiteni_joints_get_layout_options($options = array()) {
 
 	if (
 		!empty($options['padding_top'])
-		&& isset($padding_top[$options['padding_top']])
+		&& isset(
+			$padding_top[
+				$options['padding_top']
+			]
+		)
 	) {
-		$classes[] = $padding_top[$options['padding_top']];
+		$classes[] =
+			$padding_top[
+				$options['padding_top']
+			];
 	}
 
 
@@ -241,9 +238,16 @@ function websiteni_joints_get_layout_options($options = array()) {
 
 	if (
 		!empty($options['padding_bottom'])
-		&& isset($padding_bottom[$options['padding_bottom']])
+		&& isset(
+			$padding_bottom[
+				$options['padding_bottom']
+			]
+		)
 	) {
-		$classes[] = $padding_bottom[$options['padding_bottom']];
+		$classes[] =
+			$padding_bottom[
+				$options['padding_bottom']
+			];
 	}
 
 
@@ -254,7 +258,9 @@ function websiteni_joints_get_layout_options($options = array()) {
 
 		$extra_classes = preg_split(
 			'/\s+/',
-			trim($options['extra_class'])
+			trim(
+				$options['extra_class']
+			)
 		);
 
 		foreach ($extra_classes as $extra_class) {
@@ -284,10 +290,13 @@ function websiteni_joints_get_layout_options($options = array()) {
 
 
 	return array(
-		'id'      => $section_id,
+		'id' => $section_id,
+
 		'classes' => implode(
 			' ',
-			array_unique($classes)
+			array_unique(
+				$classes
+			)
 		),
 	);
 }
