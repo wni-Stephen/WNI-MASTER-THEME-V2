@@ -4,9 +4,9 @@
  * Created by WebsiteNI.
  */
 
-(function($) {
+(function ($) {
 
-	$(document).ready(function() {
+	$(document).ready(function () {
 		afterPageLoad();
 	});
 
@@ -16,7 +16,7 @@
 		/**
 		 * Responsive video embeds.
 		 */
-		$('iframe[src*="youtube.com"], iframe[src*="vimeo.com"]').each(function() {
+		$('iframe[src*="youtube.com"], iframe[src*="vimeo.com"]').each(function () {
 
 			if ($(this).parent().hasClass('responsive-embed')) {
 				return;
@@ -47,7 +47,7 @@
 		/**
 		 * Mobile navigation.
 		 */
-		$('.hamburger').on('click', function() {
+		$('.hamburger').on('click', function () {
 
 			const $button = $(this);
 			const $navigation = $('.navigation-overlay');
@@ -93,7 +93,7 @@
 		 */
 		$('.navigation-overlay .close').on(
 			'click',
-			function(event) {
+			function (event) {
 
 				event.preventDefault();
 
@@ -146,7 +146,7 @@
 		 */
 		$(document).on(
 			'keydown',
-			function(event) {
+			function (event) {
 
 				if (
 					event.key === 'Escape'
@@ -181,7 +181,7 @@
 
 		$mobileNavigation
 			.find('li.menu-item-has-children')
-			.each(function(index) {
+			.each(function (index) {
 
 				const $item = $(this);
 
@@ -242,7 +242,7 @@
 		$mobileNavigation.on(
 			'click',
 			'.submenu-toggle',
-			function() {
+			function () {
 
 				const $button = $(this);
 
@@ -276,41 +276,83 @@
 
 
 		/**
-		 * Search.
-		 */
+	 * Search.
+	 */
+		let searchTrigger = null;
+
+
 		$('.search-open').on(
 			'click',
-			function(event) {
+			function (event) {
 
 				event.preventDefault();
 
+				searchTrigger = this;
 
-				$('.wrapper').addClass(
+				$('.search')
+					.attr(
+						'aria-hidden',
+						'false'
+					);
+
+				$('body').addClass(
 					'search-is-active'
 				);
 
 
-				setTimeout(function() {
+				setTimeout(function () {
 
-					$('.search-input').trigger(
-						'focus'
-					);
+					$('.search-input')
+						.first()
+						.trigger('focus');
 
-				}, 500);
+				}, 100);
 			}
 		);
 
 
 		$('.search-close').on(
 			'click',
-			function(event) {
+			function () {
 
-				event.preventDefault();
+				$('.search')
+					.attr(
+						'aria-hidden',
+						'true'
+					);
 
-
-				$('.wrapper').removeClass(
+				$('body').removeClass(
 					'search-is-active'
 				);
+
+
+				if (searchTrigger) {
+					$(searchTrigger).trigger(
+						'focus'
+					);
+				}
+			}
+		);
+
+
+		/**
+		 * Close search with Escape.
+		 */
+		$(document).on(
+			'keydown',
+			function (event) {
+
+				if (
+					event.key === 'Escape'
+					&& $('body').hasClass(
+						'search-is-active'
+					)
+				) {
+
+					$('.search-close').trigger(
+						'click'
+					);
+				}
 			}
 		);
 
@@ -352,7 +394,7 @@
 		 * Usage:
 		 * <img class="editsvg" src="icon.svg" alt="">
 		 */
-		$('img.editsvg[src$=".svg"]').each(function() {
+		$('img.editsvg[src$=".svg"]').each(function () {
 
 			var $img = $(this);
 			var imgID = $img.attr('id');
@@ -362,7 +404,7 @@
 
 			$.get(
 				imgURL,
-				function(data) {
+				function (data) {
 
 					var $svg = $(data).find(
 						'svg'
@@ -430,35 +472,35 @@
 	 */
 	function initSmoothScroll() {
 
-	if (
-		!window.gsap
-		|| !window.ScrollTrigger
-		|| !window.ScrollSmoother
-	) {
-		return;
+		if (
+			!window.gsap
+			|| !window.ScrollTrigger
+			|| !window.ScrollSmoother
+		) {
+			return;
+		}
+
+		if (
+			window.matchMedia(
+				'(prefers-reduced-motion: reduce)'
+			).matches
+		) {
+			return;
+		}
+
+		gsap.registerPlugin(
+			ScrollTrigger,
+			ScrollSmoother
+		);
+
+		ScrollSmoother.create({
+			wrapper: '#smooth-wrapper',
+			content: '#smooth-content',
+			smooth: 1.3,
+			effects: true,
+			normalizeScroll: true
+		});
 	}
-
-	if (
-		window.matchMedia(
-			'(prefers-reduced-motion: reduce)'
-		).matches
-	) {
-		return;
-	}
-
-	gsap.registerPlugin(
-		ScrollTrigger,
-		ScrollSmoother
-	);
-
-	ScrollSmoother.create({
-		wrapper: '#smooth-wrapper',
-		content: '#smooth-content',
-		smooth: 1.3,
-		effects: true,
-		normalizeScroll: true
-	});
-}
 
 	/**
 	 * Reusable GSAP scroll animations.
@@ -541,7 +583,7 @@
 		const selectors = Object.keys(
 			animations
 		)
-			.map(function(animation) {
+			.map(function (animation) {
 				return '.' + animation;
 			})
 			.join(', ');
@@ -562,7 +604,7 @@
 		);
 
 
-		elements.forEach(function(element) {
+		elements.forEach(function (element) {
 
 			let animationName = null;
 
@@ -571,7 +613,7 @@
 			 * Find animation class.
 			 */
 			Object.keys(animations).some(
-				function(animation) {
+				function (animation) {
 
 					if (
 						element.classList.contains(

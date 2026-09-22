@@ -45,131 +45,117 @@ $company_phone_href = preg_replace(
     <!-- Main Footer Content -->
     <!-- Main Footer Content -->
 
-<div class="grid-container">
+    <div class="grid-container">
 
-	<div class="grid-x grid-padding-x footer-main">
+        <div class="grid-x grid-padding-x footer-main">
 
-		<div
-			class="cell small-12 medium-6 large-4 footer-company"
-		>
+            <div class="cell small-12 medium-6 large-4 footer-company">
 
-			<!-- Company Logo -->
+                <!-- Company Logo -->
 
-			<div class="footer-logo">
+                <div class="footer-logo">
 
-				<a
-					class="company-logo"
-					href="<?php echo esc_url(
-						home_url('/')
-					); ?>"
-					title="<?php echo esc_attr(
-						$site_name
-					); ?>"
-					rel="home"
-				>
+                    <a class="company-logo" href="<?php echo esc_url(
+                        home_url('/')
+                    ); ?>" title="<?php echo esc_attr(
+                         $site_name
+                     ); ?>" rel="home">
 
-					<?php if ($custom_logo_id) : ?>
+                        <?php if ($custom_logo_id): ?>
 
-						<?php
-						echo wp_get_attachment_image(
-							$custom_logo_id,
-							'full',
-							false,
-							array(
-								'class' => 'custom-logo',
-								'alt'   => $site_name,
-							)
-						);
-						?>
+                            <?php
+                            echo wp_get_attachment_image(
+                                $custom_logo_id,
+                                'full',
+                                false,
+                                array(
+                                    'class' => 'custom-logo',
+                                    'alt' => $site_name,
+                                )
+                            );
+                            ?>
 
-					<?php else : ?>
+                        <?php else: ?>
 
-						<img
-							src="<?php echo esc_url(
-								get_template_directory_uri()
-								. '/assets/images/header/companylogo.svg'
-							); ?>"
-							alt="<?php echo esc_attr(
-								$site_name
-							); ?>"
-						>
+                            <img src="<?php echo esc_url(
+                                get_template_directory_uri()
+                                . '/assets/images/header/companylogo.svg'
+                            ); ?>" alt="<?php echo esc_attr(
+                                 $site_name
+                             ); ?>">
 
-					<?php endif; ?>
+                        <?php endif; ?>
 
-				</a>
+                    </a>
 
-			</div>
+                </div>
 
 
-			<!-- Contact Details -->
+                <!-- Contact Details -->
 
-			<div class="footer-contact">
+                <div class="footer-contact">
 
-				<?php if ($company_address) : ?>
+                    <?php if ($company_address): ?>
 
-					<p class="footer-address">
+                        <p class="footer-address">
 
-						<?php echo wp_kses_post(
-							nl2br(
-								esc_html(
-									$company_address
-								)
-							)
-						); ?>
+                            <?php echo wp_kses_post(
+                                nl2br(
+                                    esc_html(
+                                        $company_address
+                                    )
+                                )
+                            ); ?>
 
-					</p>
+                        </p>
 
-				<?php endif; ?>
-
-
-				<?php if ($company_email) : ?>
-
-					<p class="footer-email">
-
-						Email:
-
-						<a
-							href="mailto:<?php echo esc_attr(
-								$company_email
-							); ?>"
-						>
-							<?php echo esc_html(
-								$company_email
-							); ?>
-						</a>
-
-					</p>
-
-				<?php endif; ?>
+                    <?php endif; ?>
 
 
-				<?php if ($company_phone) : ?>
+                    <?php if ($company_email): ?>
 
-					<p class="footer-phone">
+                        <p class="footer-email">
 
-						Phone:
+                            Email:
 
-						<a
-							href="tel:<?php echo esc_attr(
-								$company_phone_href
-							); ?>"
-						>
-							<?php echo esc_html(
-								$company_phone
-							); ?>
-						</a>
+                            <a href="mailto:<?php echo esc_attr(
+                                $company_email
+                            ); ?>">
+                                <?php echo esc_html(
+                                    $company_email
+                                ); ?>
+                            </a>
 
-					</p>
+                        </p>
 
-				<?php endif; ?>
+                    <?php endif; ?>
 
-			</div>
 
-		</div>
+                    <?php if ($company_phone): ?>
 
-	</div>
+                        <p class="footer-phone">
 
-</div>
+                            Phone:
+
+                            <a href="tel:<?php echo esc_attr(
+                                $company_phone_href
+                            ); ?>">
+                                <?php echo esc_html(
+                                    $company_phone
+                                ); ?>
+                            </a>
+
+                        </p>
+
+                    <?php endif; ?>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
     <!-- Sub Footer -->
     <div class="grid-container full sub-footer bg-secondary">
         <div class="grid-container">
@@ -226,11 +212,19 @@ $company_phone_href = preg_replace(
         </div>
     </div>
 </footer>
-<?php get_search_form(); ?>
 </div><!-- #wrapper-inner -->
+
 </div><!-- #wrapper -->
+
 </div><!-- #smooth-content -->
+
 </div><!-- #smooth-wrapper -->
+
+
+<?php get_search_form(); ?>
+
 <?php wp_footer(); ?>
+
 </body>
+
 </html>
