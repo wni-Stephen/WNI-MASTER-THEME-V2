@@ -19,6 +19,7 @@ require_once get_template_directory() . '/app/admin.php';
 require_once get_template_directory() . '/app/security.php';
 require_once get_template_directory() . '/app/acf.php';
 require_once get_template_directory() . '/app/plugins.php';
+require_once get_template_directory() . '/app/helpers.php';
 
 
 /**
@@ -37,25 +38,6 @@ add_filter(
 	'websiteni_joints_add_svg_to_upload_mimes',
 	10,
 	1
-);
-
-
-/**
- * Custom 404 Page Title.
- */
-function websiteni_joints_new_404_title($title) {
-
-	if (is_404()) {
-		$title = 'Error 404 | Not Found | Project Name';
-	}
-
-	return $title;
-}
-
-add_filter(
-	'wp_title',
-	'websiteni_joints_new_404_title',
-	50
 );
 
 
@@ -171,68 +153,6 @@ add_filter(
 // 	'widgets_init',
 // 	'websiteni_joints_register_widgets'
 // );
-
-
-/**
- * Custom Post Excerpt.
- */
-function websiteni_joints_excerpt($limit) {
-
-	$excerpt = explode(
-		' ',
-		get_the_excerpt(),
-		$limit
-	);
-
-	if (count($excerpt) >= $limit) {
-
-		array_pop($excerpt);
-
-		$excerpt = implode(
-			' ',
-			$excerpt
-		);
-
-	} else {
-
-		$excerpt = implode(
-			' ',
-			$excerpt
-		);
-	}
-
-	$excerpt = preg_replace(
-		'`\[[^\]]*\]`',
-		'',
-		$excerpt
-	);
-
-	return $excerpt;
-}
-
-
-/**
- * Move Comment Field.
- */
-function websiteni_joints_comment_form_comment_field_to_bottom($fields) {
-
-	if (empty($fields['comment'])) {
-		return $fields;
-	}
-
-	$comment_field = $fields['comment'];
-
-	unset($fields['comment']);
-
-	$fields['comment'] = $comment_field;
-
-	return $fields;
-}
-
-add_filter(
-	'comment_form_fields',
-	'websiteni_joints_comment_form_comment_field_to_bottom'
-);
 
 
 /**
