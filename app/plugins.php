@@ -59,6 +59,17 @@ function websiteni_joints_register_plugins() {
 		),
 
 		/**
+		 * Safe SVG.
+		 *
+		 * Handles SVG uploads and sanitisation.
+		 */
+		array(
+			'name'     => 'Safe SVG',
+			'slug'     => 'safe-svg',
+			'required' => false,
+		),
+
+		/**
 		 * Show Current Template.
 		 */
 		array(
@@ -66,6 +77,7 @@ function websiteni_joints_register_plugins() {
 			'slug'     => 'show-current-template',
 			'required' => false,
 		),
+
 	);
 
 	$config = array(
