@@ -2,140 +2,137 @@
 /**
  * WordPress admin customisations.
  *
- * Handles the login screen, TinyMCE configuration,
- * dashboard customisation and editor settings.
+ * Handles login branding, dashboard customisation
+ * and editor settings.
  */
 
 defined('ABSPATH') || exit;
 
 
 /**
- * Custom WordPress login logo.
+ * Get the logo used on the WordPress login screen.
+ *
+ * Uses the WordPress custom logo when available,
+ * falling back to the starter theme logo.
  */
-function websiteni_changelogin_logo() {
+function websiteni_joints_get_login_logo() {
 
-	$logo_url = get_template_directory_uri()
+	$custom_logo_id = get_theme_mod(
+		'custom_logo'
+	);
+
+	if ($custom_logo_id) {
+
+		$custom_logo = wp_get_attachment_image_url(
+			$custom_logo_id,
+			'full'
+		);
+
+		if ($custom_logo) {
+			return $custom_logo;
+		}
+	}
+
+	return get_template_directory_uri()
 		. '/assets/images/header/companylogo.svg';
+}
 
-	echo '<style type="text/css">
 
-		h1 a {
-			background-image: url("' . esc_url($logo_url) . '") !important;
+/**
+ * Custom WordPress login styling.
+ */
+function websiteni_joints_login_styles() {
+
+	$logo_url = websiteni_joints_get_login_logo();
+	?>
+
+	<style>
+		.login h1 a {
+			width: 100%;
+			height: 60px;
+			background-image:
+				url('<?php echo esc_url($logo_url); ?>');
 			background-position: center;
-			width: 100% !important;
-			height: 30px !important;
-			background-size: contain !important;
+			background-repeat: no-repeat;
+			background-size: contain;
 		}
 
-		body.login {
-			display: flex;
-			align-content: center;
-			justify-content: center;
+		.login #login {
+			padding-top: 40px;
+			padding-bottom: 40px;
 		}
 
-		#login {
-			padding: 40px 0;
+		.login .button-primary {
+			background: #000;
+			border-color: #000;
 		}
 
-		.wp-core-ui .button-primary {
-			background: #000000;
-			border-color: #000000;
+		.login .button-primary:hover,
+		.login .button-primary:focus {
+			background: #222;
+			border-color: #222;
 		}
+	</style>
 
-	</style>';
+	<?php
 }
 
 add_action(
-	'login_head',
-	'websiteni_changelogin_logo'
+	'login_enqueue_scripts',
+	'websiteni_joints_login_styles'
 );
 
 
 /**
- * TinyMCE colour palette.
+ * Make the login logo link back to the website.
  */
-function websiteni_joints_tinymce_colours($init) {
+function websiteni_joints_login_logo_url() {
 
-	/**
-	 * Update these colours for each project as required.
-	 */
-	$custom_colours = '
-		"242e5c", "Navy",
-		"e32121", "Red",
-		"ededed", "Grey"
-	';
-
-	$init['textcolor_map']  = '[' . $custom_colours . ']';
-	$init['textcolor_rows'] = 1;
-
-	return $init;
+	return home_url('/');
 }
 
 add_filter(
-	'tiny_mce_before_init',
-	'websiteni_joints_tinymce_colours'
+	'login_headerurl',
+	'websiteni_joints_login_logo_url'
 );
 
 
 /**
- * TinyMCE custom formats.
+ * Login logo accessible text.
  */
-function websiteni_joints_tinymce_formats($init_array) {
+function websiteni_joints_login_logo_text() {
 
-	$init_array['formats'] = wp_json_encode(
-		array(
-			'buttonprimary' => array(
-				'selector' => 'p',
-				'block'    => 'p',
-				'classes'  => 'buttonprimary',
-			),
-
-			'plarge' => array(
-				'selector' => 'p',
-				'block'    => 'p',
-				'classes'  => 'plarge',
-			),
-		)
+	return get_bloginfo(
+		'name',
+		'display'
 	);
-
-	$block_formats = array(
-		'Paragraph=p',
-		'Paragraph Large=plarge',
-		'Heading 1=h1',
-		'Heading 2=h2',
-		'Heading 3=h3',
-		'Heading 4=h4',
-		'Heading 5=h5',
-		'Heading 6=h6',
-		'Preformatted=pre',
-		'Button Underline=buttonunderline',
-	);
-
-	$init_array['block_formats'] = implode(
-		';',
-		$block_formats
-	);
-
-	return $init_array;
 }
 
 add_filter(
-	'tiny_mce_before_init',
-	'websiteni_joints_tinymce_formats'
+	'login_headertext',
+	'websiteni_joints_login_logo_text'
 );
 
 
 /**
- * Disable Gutenberg.
+ * Disable the Gutenberg block editor.
+ *
+ * WebsiteNI projects use ACF flexible content
+ * and the classic editing experience by default.
  */
 add_filter(
 	'use_block_editor_for_post',
 	'__return_false'
 );
 
+add_filter(
+	'use_block_editor_for_post_type',
+	'__return_false'
+);
+
 
 /**
- * Remove WordPress welcome panel.
+ * Remove the WordPress welcome panel.
  */
 remove_action(
 	'welcome_panel',
@@ -144,7 +141,7 @@ remove_action(
 
 
 /**
- * Remove default dashboard widgets.
+ * Remove unnecessary default dashboard widgets.
  */
 function websiteni_joints_remove_dashboard_widgets() {
 
@@ -174,13 +171,13 @@ function websiteni_joints_remove_dashboard_widgets() {
 }
 
 add_action(
-	'admin_init',
+	'wp_dashboard_setup',
 	'websiteni_joints_remove_dashboard_widgets'
 );
 
 
 /**
- * Add WebsiteNI dashboard widget.
+ * Add WebsiteNI support dashboard widget.
  */
 function websiteni_joints_custom_dashboard_widgets() {
 
@@ -201,10 +198,18 @@ add_action(
  * WebsiteNI dashboard widget content.
  */
 function websiteni_joints_widget_dashboard() {
+	?>
 
-	echo wp_kses_post(
-		'Welcome to your new WordPress website. We hope everything is going well, but if it\'s not and you need a hand, feel free to reach out for some support. The contact email for your project is <a href="mailto:support@websiteni.com">support@websiteni.com</a>.'
-	);
+	<p>
+		Welcome to your WordPress website.
+		If you need any help managing your website,
+		please contact
+		<a href="mailto:support@websiteni.com">
+			support@websiteni.com
+		</a>.
+	</p>
+
+	<?php
 }
 
 
