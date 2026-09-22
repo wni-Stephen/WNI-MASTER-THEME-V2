@@ -13,78 +13,12 @@ defined('ABSPATH') || exit;
  * Theme modules.
  */
 require_once get_template_directory() . '/app/setup.php';
+require_once get_template_directory() . '/app/activation.php';
 require_once get_template_directory() . '/app/assets.php';
 require_once get_template_directory() . '/app/admin.php';
 require_once get_template_directory() . '/app/security.php';
 require_once get_template_directory() . '/app/acf.php';
 require_once get_template_directory() . '/app/plugins.php';
-
-
-/**
- * Create Home page on theme activation.
- */
-if (isset($_GET['activated']) && is_admin()) {
-
-	$new_page_title    = 'Home';
-	$new_page_content  = '';
-	$new_page_template = '';
-
-	$page_check = get_page_by_title(
-		$new_page_title
-	);
-
-	$new_page = array(
-		'post_type'    => 'page',
-		'post_title'   => $new_page_title,
-		'post_content' => $new_page_content,
-		'post_status'  => 'publish',
-		'post_author'  => 1,
-	);
-
-	if (!isset($page_check->ID)) {
-
-		$new_page_id = wp_insert_post(
-			$new_page
-		);
-
-		if (!empty($new_page_template)) {
-
-			update_post_meta(
-				$new_page_id,
-				'_wp_page_template',
-				$new_page_template
-			);
-		}
-	}
-}
-
-
-/**
- * Set Home as the front page.
- */
-function websiteni_joints_set_front_page() {
-
-	$home = get_page_by_title('Home');
-
-	if (!$home) {
-		return;
-	}
-
-	update_option(
-		'page_on_front',
-		$home->ID
-	);
-
-	update_option(
-		'show_on_front',
-		'page'
-	);
-}
-
-add_action(
-	'after_setup_theme',
-	'websiteni_joints_set_front_page'
-);
 
 
 /**
