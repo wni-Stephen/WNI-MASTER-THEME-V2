@@ -11,12 +11,13 @@ defined('ABSPATH') || exit;
 /**
  * Enqueue front-end styles and scripts.
  */
-function websiteni_joints_styles_and_scripts() {
+function websiteni_joints_styles_and_scripts()
+{
 
-	$theme_uri  = get_template_directory_uri();
+	$theme_uri = get_template_directory_uri();
 	$theme_path = get_template_directory();
 
-	$style_path  = $theme_path . '/assets/dist/style.css';
+	$style_path = $theme_path . '/assets/dist/style.css';
 	$script_path = $theme_path . '/assets/dist/script.js';
 
 
@@ -65,44 +66,6 @@ function websiteni_joints_styles_and_scripts() {
 	);
 
 
-	/**
-	 * GSAP.
-	 */
-	wp_enqueue_script(
-		'wni-gsap',
-		'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js',
-		array(),
-		'3.12.2',
-		true
-	);
-
-
-	/**
-	 * GSAP ScrollTrigger.
-	 */
-	wp_enqueue_script(
-		'wni-gsap-scrolltrigger',
-		'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js',
-		array('wni-gsap'),
-		'3.12.2',
-		true
-	);
-
-
-	/**
-	 * GSAP ScrollSmoother.
-	 */
-	wp_enqueue_script(
-		'wni-gsap-scrollsmoother',
-		'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollSmoother.min.js',
-		array(
-			'wni-gsap',
-			'wni-gsap-scrolltrigger',
-		),
-		'3.12.2',
-		true
-	);
-
 
 	/**
 	 * Main Vite JavaScript bundle.
@@ -118,13 +81,11 @@ function websiteni_joints_styles_and_scripts() {
 		array(
 			'jquery',
 			'wni-magnific-popup',
-			'wni-gsap',
-			'wni-gsap-scrolltrigger',
-			'wni-gsap-scrollsmoother',
 		),
 		file_exists($script_path) ? filemtime($script_path) : null,
 		true
 	);
+
 }
 
 add_action(
@@ -136,7 +97,8 @@ add_action(
 /**
  * Load Google Fonts.
  */
-function websiteni_joints_google_fonts() {
+function websiteni_joints_google_fonts()
+{
 
 	wp_enqueue_style(
 		'wni-google-fonts',
@@ -155,7 +117,8 @@ add_action(
 /**
  * Add Google Fonts preconnect.
  */
-function websiteni_joints_preconnect_google_fonts($urls, $relation_type) {
+function websiteni_joints_preconnect_google_fonts($urls, $relation_type)
+{
 
 	if ('preconnect' !== $relation_type) {
 		return $urls;
@@ -166,7 +129,7 @@ function websiteni_joints_preconnect_google_fonts($urls, $relation_type) {
 	}
 
 	$urls[] = array(
-		'href'        => 'https://fonts.gstatic.com',
+		'href' => 'https://fonts.gstatic.com',
 		'crossorigin' => 'anonymous',
 	);
 

@@ -7,11 +7,11 @@
 (function($) {
 
 	$(document).ready(function() {
-		initThemeFunctions();
+		afterPageLoad();
 	});
 
 
-	function initThemeFunctions() {
+	function afterPageLoad() {
 
 		/**
 		 * Responsive video embeds.
@@ -52,27 +52,34 @@
 			const $button = $(this);
 			const $navigation = $('.navigation-overlay');
 
-			const isOpen = !$button.hasClass('is-active');
+			const isOpen = !$button.hasClass(
+				'is-active'
+			);
+
 
 			$button.toggleClass(
 				'is-active',
 				isOpen
 			);
 
+
 			$button.attr(
 				'aria-expanded',
 				isOpen ? 'true' : 'false'
 			);
+
 
 			$navigation.toggleClass(
 				'is-active',
 				isOpen
 			);
 
+
 			$navigation.attr(
 				'aria-hidden',
 				isOpen ? 'false' : 'true'
 			);
+
 
 			$('.wrapper').toggleClass(
 				'hamburger-is-active',
@@ -84,62 +91,185 @@
 		/**
 		 * Close mobile navigation.
 		 */
-		$('.navigation-overlay .close').on('click', function(event) {
-
-			event.preventDefault();
-
-			$('.navigation-overlay')
-				.removeClass('is-active')
-				.attr('aria-hidden', 'true');
-
-			$('.wrapper').removeClass(
-				'hamburger-is-active'
-			);
-
-			$('.hamburger')
-				.removeClass('is-active')
-				.attr('aria-expanded', 'false');
-		});
-
-
-		/**
-		 * Close mobile navigation with Escape key.
-		 */
-		$(document).on('keydown', function(event) {
-
-			if (
-				event.key === 'Escape'
-				&& $('.navigation-overlay').hasClass('is-active')
-			) {
-
-				$('.navigation-overlay .close').trigger(
-					'click'
-				);
-
-				$('.hamburger').trigger(
-					'focus'
-				);
-			}
-		});
-
-
-		/**
-		 * Mobile navigation submenus.
-		 */
-		$('.navigation-overlay li.menu-item-has-children > a').on(
+		$('.navigation-overlay .close').on(
 			'click',
 			function(event) {
 
 				event.preventDefault();
 
-				$(this).toggleClass(
-					'is-active'
+
+				$('.navigation-overlay')
+					.removeClass('is-active')
+					.attr(
+						'aria-hidden',
+						'true'
+					);
+
+
+				$('.wrapper').removeClass(
+					'hamburger-is-active'
 				);
 
-				$(this)
-					.next('.sub-menu')
-					.toggleClass(
+
+				$('.hamburger')
+					.removeClass('is-active')
+					.attr(
+						'aria-expanded',
+						'false'
+					);
+
+
+				/**
+				 * Reset open submenus when the
+				 * main navigation closes.
+				 */
+				$('.submenu-toggle').attr(
+					'aria-expanded',
+					'false'
+				);
+
+
+				$('.navigation-overlay .sub-menu')
+					.removeClass(
 						'sub-menu-is-active'
+					)
+					.attr(
+						'aria-hidden',
+						'true'
+					);
+			}
+		);
+
+
+		/**
+		 * Close mobile navigation with Escape.
+		 */
+		$(document).on(
+			'keydown',
+			function(event) {
+
+				if (
+					event.key === 'Escape'
+					&& $('.navigation-overlay').hasClass(
+						'is-active'
+					)
+				) {
+
+					$('.navigation-overlay .close').trigger(
+						'click'
+					);
+
+
+					$('.hamburger').trigger(
+						'focus'
+					);
+				}
+			}
+		);
+
+
+		/**
+		 * Mobile navigation submenus.
+		 *
+		 * Parent links remain clickable.
+		 * A separate button controls each submenu.
+		 */
+		const $mobileNavigation = $(
+			'.navigation-overlay'
+		);
+
+
+		$mobileNavigation
+			.find('li.menu-item-has-children')
+			.each(function(index) {
+
+				const $item = $(this);
+
+				const $link = $item
+					.children('a')
+					.first();
+
+				const $submenu = $item
+					.children('.sub-menu')
+					.first();
+
+
+				if (!$submenu.length) {
+					return;
+				}
+
+
+				const submenuId = (
+					'mobile-submenu-' + index
+				);
+
+
+				$submenu
+					.attr(
+						'id',
+						submenuId
+					)
+					.attr(
+						'aria-hidden',
+						'true'
+					);
+
+
+				const linkText = $.trim(
+					$link.text()
+				);
+
+
+				const $toggle = $('<button>', {
+					type: 'button',
+					class: 'submenu-toggle',
+					'aria-expanded': 'false',
+					'aria-controls': submenuId,
+					'aria-label':
+						'Toggle submenu for ' + linkText
+				});
+
+
+				$link.after(
+					$toggle
+				);
+			});
+
+
+		/**
+		 * Open / close mobile submenus.
+		 */
+		$mobileNavigation.on(
+			'click',
+			'.submenu-toggle',
+			function() {
+
+				const $button = $(this);
+
+				const $submenu = $button
+					.siblings('.sub-menu')
+					.first();
+
+				const isOpen = (
+					$button.attr('aria-expanded')
+					=== 'true'
+				);
+
+
+				$button.attr(
+					'aria-expanded',
+					isOpen ? 'false' : 'true'
+				);
+
+
+				$submenu
+					.toggleClass(
+						'sub-menu-is-active',
+						!isOpen
+					)
+					.attr(
+						'aria-hidden',
+						isOpen ? 'true' : 'false'
 					);
 			}
 		);
@@ -148,32 +278,41 @@
 		/**
 		 * Search.
 		 */
-		$('.search-open').on('click', function(event) {
+		$('.search-open').on(
+			'click',
+			function(event) {
 
-			event.preventDefault();
+				event.preventDefault();
 
-			$('.wrapper').addClass(
-				'search-is-active'
-			);
 
-			setTimeout(function() {
-
-				$('.search-input').trigger(
-					'focus'
+				$('.wrapper').addClass(
+					'search-is-active'
 				);
 
-			}, 500);
-		});
+
+				setTimeout(function() {
+
+					$('.search-input').trigger(
+						'focus'
+					);
+
+				}, 500);
+			}
+		);
 
 
-		$('.search-close').on('click', function(event) {
+		$('.search-close').on(
+			'click',
+			function(event) {
 
-			event.preventDefault();
+				event.preventDefault();
 
-			$('.wrapper').removeClass(
-				'search-is-active'
-			);
-		});
+
+				$('.wrapper').removeClass(
+					'search-is-active'
+				);
+			}
+		);
 
 
 		/**
@@ -220,6 +359,7 @@
 			var imgClass = $img.attr('class');
 			var imgURL = $img.attr('src');
 
+
 			$.get(
 				imgURL,
 				function(data) {
@@ -228,33 +368,276 @@
 						'svg'
 					);
 
+
 					if (
 						typeof imgID !== 'undefined'
 					) {
+
 						$svg.attr(
 							'id',
 							imgID
 						);
 					}
 
+
 					if (
 						typeof imgClass !== 'undefined'
 					) {
+
 						$svg.attr(
 							'class',
-							imgClass + ' replaced-svg'
+							imgClass
+							+ ' replaced-svg'
 						);
 					}
+
 
 					$svg.removeAttr(
 						'xmlns:a'
 					);
+
 
 					$img.replaceWith(
 						$svg
 					);
 				},
 				'xml'
+			);
+		});
+
+
+		/**
+		 * Optional GSAP smooth scrolling.
+		 *
+		 * Initialise before ScrollTrigger
+		 * entrance animations.
+		 */
+		initSmoothScroll();
+
+
+		/**
+		 * GSAP scroll animations.
+		 */
+		initAnimations();
+	}
+
+
+	/**
+	 * Optional GSAP ScrollSmoother.
+	 *
+	 * Enable by adding the "smooth-scroll"
+	 * class to the body.
+	 */
+	function initSmoothScroll() {
+
+	if (
+		!window.gsap
+		|| !window.ScrollTrigger
+		|| !window.ScrollSmoother
+	) {
+		return;
+	}
+
+	if (
+		window.matchMedia(
+			'(prefers-reduced-motion: reduce)'
+		).matches
+	) {
+		return;
+	}
+
+	gsap.registerPlugin(
+		ScrollTrigger,
+		ScrollSmoother
+	);
+
+	ScrollSmoother.create({
+		wrapper: '#smooth-wrapper',
+		content: '#smooth-content',
+		smooth: 1.3,
+		effects: true,
+		normalizeScroll: true
+	});
+}
+
+	/**
+	 * Reusable GSAP scroll animations.
+	 *
+	 * Usage:
+	 *
+	 * class="fade-up"
+	 * class="fade-in"
+	 * class="fade-left"
+	 * class="fade-right"
+	 * class="scale-in"
+	 *
+	 * Optional:
+	 *
+	 * data-animate-delay="0.2"
+	 * data-animate-duration="1"
+	 * data-animate-start="top 80%"
+	 */
+	function initAnimations() {
+
+		const gsap = window.gsap;
+		const ScrollTrigger = window.ScrollTrigger;
+
+
+		if (
+			!gsap
+			|| !ScrollTrigger
+		) {
+			return;
+		}
+
+
+		/**
+		 * Respect reduced-motion preferences.
+		 */
+		const prefersReducedMotion = window.matchMedia(
+			'(prefers-reduced-motion: reduce)'
+		).matches;
+
+
+		if (prefersReducedMotion) {
+			return;
+		}
+
+
+		/**
+		 * Available animation presets.
+		 */
+		const animations = {
+
+			'fade-up': {
+				opacity: 0,
+				y: 40
+			},
+
+			'fade-in': {
+				opacity: 0
+			},
+
+			'fade-left': {
+				opacity: 0,
+				x: -40
+			},
+
+			'fade-right': {
+				opacity: 0,
+				x: 40
+			},
+
+			'scale-in': {
+				opacity: 0,
+				scale: 0.95
+			}
+		};
+
+
+		/**
+		 * Build selector from animation classes.
+		 */
+		const selectors = Object.keys(
+			animations
+		)
+			.map(function(animation) {
+				return '.' + animation;
+			})
+			.join(', ');
+
+
+		const elements = document.querySelectorAll(
+			selectors
+		);
+
+
+		if (!elements.length) {
+			return;
+		}
+
+
+		gsap.registerPlugin(
+			ScrollTrigger
+		);
+
+
+		elements.forEach(function(element) {
+
+			let animationName = null;
+
+
+			/**
+			 * Find animation class.
+			 */
+			Object.keys(animations).some(
+				function(animation) {
+
+					if (
+						element.classList.contains(
+							animation
+						)
+					) {
+
+						animationName = animation;
+
+						return true;
+					}
+
+					return false;
+				}
+			);
+
+
+			if (!animationName) {
+				return;
+			}
+
+
+			const animation = animations[
+				animationName
+			];
+
+
+			const duration = parseFloat(
+				element.dataset.animateDuration
+			);
+
+
+			const delay = parseFloat(
+				element.dataset.animateDelay
+			);
+
+
+			const start = (
+				element.dataset.animateStart
+				|| 'top 85%'
+			);
+
+
+			gsap.from(
+				element,
+				{
+					...animation,
+
+					duration:
+						Number.isFinite(duration)
+							? duration
+							: 0.8,
+
+					delay:
+						Number.isFinite(delay)
+							? delay
+							: 0,
+
+					ease: 'power2.out',
+
+					scrollTrigger: {
+						trigger: element,
+						start: start,
+						once: true
+					}
+				}
 			);
 		});
 	}

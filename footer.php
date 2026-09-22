@@ -60,9 +60,19 @@
         </div>
     </div>
 </footer>
+
 <?php get_search_form(); ?>
-</div>
-</div>
+
+			</div><!-- #wrapper-inner -->
+
+	</div><!-- #wrapper -->
+
+</div><!-- #smooth-content -->
+
+</div><!-- #smooth-wrapper -->
+
 <?php wp_footer(); ?>
+
 </body>
+
 </html>
