@@ -7,16 +7,10 @@ defined('ABSPATH') || exit;
 
 
 /**
- * Enable automatic plugin updates.
- */
-add_filter(
-	'auto_update_plugin',
-	'__return_true'
-);
-
-
-/**
  * Disable XML-RPC.
+ *
+ * This reduces an unnecessary attack surface for WebsiteNI sites
+ * that do not use remote publishing or XML-RPC integrations.
  */
 add_filter(
 	'xmlrpc_enabled',
@@ -25,9 +19,10 @@ add_filter(
 
 
 /**
- * Hide WordPress version.
+ * Hide the WordPress version generator.
  */
 function websiteni_joints_hide_wordpress_version() {
+
 	return '';
 }
 
@@ -39,8 +34,11 @@ add_filter(
 
 /**
  * Obscure WordPress login errors.
+ *
+ * Avoid revealing whether a username or email address exists.
  */
 function websiteni_joints_obscure_login_errors() {
+
 	return 'Something wasn\'t quite right there, please try again.';
 }
 
@@ -52,13 +50,11 @@ add_filter(
 
 /**
  * Disable WordPress emoji assets.
+ *
+ * Modern browsers support emoji natively, so the additional
+ * WordPress emoji scripts and styles are unnecessary.
  */
-function websiteni_joints_disable_emoji_mess() {
-
-	remove_action(
-		'admin_print_styles',
-		'print_emoji_styles'
-	);
+function websiteni_joints_disable_emoji_assets() {
 
 	remove_action(
 		'wp_head',
@@ -73,6 +69,11 @@ function websiteni_joints_disable_emoji_mess() {
 
 	remove_action(
 		'wp_print_styles',
+		'print_emoji_styles'
+	);
+
+	remove_action(
+		'admin_print_styles',
 		'print_emoji_styles'
 	);
 
@@ -99,64 +100,5 @@ function websiteni_joints_disable_emoji_mess() {
 
 add_action(
 	'init',
-	'websiteni_joints_disable_emoji_mess'
-);
-
-
-/**
- * Emoji TinyMCE helper.
- *
- * Retained from the existing starter theme.
- */
-function websiteni_joints_disable_emoji_tinymce($plugins) {
-
-	return is_array($plugins)
-		? array_diff($plugins, array('wpemoji'))
-		: array();
-}
-
-
-/**
- * Remove obsolete type attributes from enqueued CSS/JS.
- */
-function websiteni_joints_remove_type_attributes($tag, $handle) {
-
-	return preg_replace(
-		"/type=['\"]text\/(javascript|css)['\"]/",
-		'',
-		$tag
-	);
-}
-
-add_filter(
-	'style_loader_tag',
-	'websiteni_joints_remove_type_attributes',
-	10,
-	2
-);
-
-add_filter(
-	'script_loader_tag',
-	'websiteni_joints_remove_type_attributes',
-	10,
-	2
-);
-
-
-/**
- * Remove jQuery Migrate from the front end.
- */
-add_action(
-	'wp_default_scripts',
-	function($scripts) {
-
-		if (empty($scripts->registered['jquery'])) {
-			return;
-		}
-
-		$scripts->registered['jquery']->deps = array_diff(
-			$scripts->registered['jquery']->deps,
-			array('jquery-migrate')
-		);
-	}
+	'websiteni_joints_disable_emoji_assets'
 );
