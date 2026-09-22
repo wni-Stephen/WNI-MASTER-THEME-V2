@@ -8,12 +8,35 @@ defined('ABSPATH') || exit;
 $heading = get_sub_field('heading');
 $content = get_sub_field('content');
 
+/**
+ * Shared layout settings.
+ *
+ * Works with:
+ * - ACF Extended Settings Modal
+ * - Manual layout_options clone fallback
+ * - No layout settings
+ */
+$layout_options = websiteni_joints_get_layout_settings();
+
+$layout = websiteni_joints_get_layout_options(
+	$layout_options
+);
+
+$section_classes = trim(
+	'content-block ' . $layout['classes']
+);
+
 if (!$heading && !$content) {
 	return;
 }
 ?>
 
-<section class="content-block paddingtopmed paddingbottommed">
+<section
+	<?php if ($layout['id']) : ?>
+		id="<?php echo esc_attr($layout['id']); ?>"
+	<?php endif; ?>
+	class="<?php echo esc_attr($section_classes); ?>"
+>
 
 	<div class="grid-container">
 
