@@ -19,6 +19,7 @@ function websiteni_joints_styles_and_scripts() {
 	$style_path  = $theme_path . '/assets/dist/style.css';
 	$script_path = $theme_path . '/assets/dist/script.js';
 
+
 	/**
 	 * Main Vite stylesheet.
 	 */
@@ -28,6 +29,7 @@ function websiteni_joints_styles_and_scripts() {
 		array(),
 		file_exists($style_path) ? filemtime($style_path) : null
 	);
+
 
 	/**
 	 * Hamburger menu styles.
@@ -39,6 +41,7 @@ function websiteni_joints_styles_and_scripts() {
 		'1.1.3'
 	);
 
+
 	/**
 	 * Magnific Popup styles.
 	 */
@@ -48,6 +51,7 @@ function websiteni_joints_styles_and_scripts() {
 		array(),
 		'1.1.0'
 	);
+
 
 	/**
 	 * Magnific Popup.
@@ -60,6 +64,7 @@ function websiteni_joints_styles_and_scripts() {
 		true
 	);
 
+
 	/**
 	 * GSAP.
 	 */
@@ -71,6 +76,10 @@ function websiteni_joints_styles_and_scripts() {
 		true
 	);
 
+
+	/**
+	 * GSAP ScrollTrigger.
+	 */
 	wp_enqueue_script(
 		'wni-gsap-scrolltrigger',
 		'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js',
@@ -79,6 +88,10 @@ function websiteni_joints_styles_and_scripts() {
 		true
 	);
 
+
+	/**
+	 * GSAP ScrollSmoother.
+	 */
 	wp_enqueue_script(
 		'wni-gsap-scrollsmoother',
 		'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollSmoother.min.js',
@@ -89,6 +102,7 @@ function websiteni_joints_styles_and_scripts() {
 		'3.12.2',
 		true
 	);
+
 
 	/**
 	 * Main Vite JavaScript bundle.
@@ -120,19 +134,41 @@ add_action(
 
 
 /**
- * Add resource hints for Google Fonts.
+ * Load Google Fonts.
+ */
+function websiteni_joints_google_fonts() {
+
+	wp_enqueue_style(
+		'wni-google-fonts',
+		'https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap',
+		array(),
+		null
+	);
+}
+
+add_action(
+	'wp_enqueue_scripts',
+	'websiteni_joints_google_fonts'
+);
+
+
+/**
+ * Add Google Fonts preconnect.
  */
 function websiteni_joints_preconnect_google_fonts($urls, $relation_type) {
 
-	if (
-		wp_style_is('OpenSans', 'queue')
-		&& 'preconnect' === $relation_type
-	) {
-		$urls[] = array(
-			'href'        => 'https://fonts.gstatic.com',
-			'crossorigin' => 'anonymous',
-		);
+	if ('preconnect' !== $relation_type) {
+		return $urls;
 	}
+
+	if (!wp_style_is('wni-google-fonts', 'queue')) {
+		return $urls;
+	}
+
+	$urls[] = array(
+		'href'        => 'https://fonts.gstatic.com',
+		'crossorigin' => 'anonymous',
+	);
 
 	return $urls;
 }
@@ -142,23 +178,4 @@ add_filter(
 	'websiteni_joints_preconnect_google_fonts',
 	10,
 	2
-);
-
-
-/**
- * Load Google Fonts.
- */
-function websiteni_joints_google_fonts() {
-
-	wp_enqueue_style(
-		'OpenSans',
-		'https://fonts.googleapis.com/css?family=Open+Sans:100,200,300,400,500,600,700,800,900',
-		array(),
-		null
-	);
-}
-
-add_action(
-	'wp_enqueue_scripts',
-	'websiteni_joints_google_fonts'
 );
