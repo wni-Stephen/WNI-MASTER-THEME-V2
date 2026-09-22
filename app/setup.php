@@ -11,7 +11,8 @@ defined('ABSPATH') || exit;
 /**
  * Configure theme features.
  */
-function websiteni_joints_theme_setup() {
+function websiteni_joints_theme_setup()
+{
 
 	/**
 	 * Let WordPress manage the document title.
@@ -22,6 +23,20 @@ function websiteni_joints_theme_setup() {
 	 * Enable featured images.
 	 */
 	add_theme_support('post-thumbnails');
+
+	/**
+	 * Enable WordPress custom logo support.
+	 */
+	add_theme_support(
+		'custom-logo',
+		array(
+			'height' => 120,
+			'width' => 400,
+			'flex-height' => true,
+			'flex-width' => true,
+			'unlink-homepage-logo' => false,
+		)
+	);
 
 	/**
 	 * WooCommerce support.
