@@ -23,11 +23,8 @@
 			</a>
 		</div>
 		<div class="cookie-policy" style="display: none;">
-			<div class="grid-x grid-padding-x flex align-center paddingtopsml paddingbottomsml">
-				<div class="small-2 cell marginbottomxsml cookie">
-					<img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/header/cookie.svg'); ?>"
-						alt="Cookie">
-				</div>
+			<div class="grid-x grid-padding-x flex paddingtopsml paddingbottomsml">
+
 				<div class="cell small-10 marginbottomxsml">
 					<h5>Your privacy is important to us.</h5>
 				</div>

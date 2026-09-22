@@ -135,14 +135,17 @@ function websiteni_joints_styles_and_scripts() {
 	$theme_uri  = get_template_directory_uri();
 	$theme_path = get_template_directory();
 
+	$style_path  = $theme_path . '/assets/dist/style.css';
+	$script_path = $theme_path . '/assets/dist/script.js';
+
 	/**
-	 * Main theme stylesheet.
+	 * Main Vite stylesheet.
 	 */
 	wp_enqueue_style(
 		'wni-main',
-		$theme_uri . '/assets/styles/style.css',
+		$theme_uri . '/assets/dist/style.css',
 		array(),
-		filemtime($theme_path . '/assets/styles/style.css')
+		file_exists($style_path) ? filemtime($style_path) : null
 	);
 
 	/**
@@ -163,17 +166,6 @@ function websiteni_joints_styles_and_scripts() {
 		'https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css',
 		array(),
 		'1.1.0'
-	);
-
-	/**
-	 * Core theme / Foundation bundle.
-	 */
-	wp_enqueue_script(
-		'wni-main',
-		$theme_uri . '/assets/scripts/script.js',
-		array('jquery'),
-		filemtime($theme_path . '/assets/scripts/script.js'),
-		true
 	);
 
 	/**
@@ -218,25 +210,29 @@ function websiteni_joints_styles_and_scripts() {
 	);
 
 	/**
-	 * WebsiteNI theme functionality.
+	 * Main Vite JavaScript bundle.
+	 *
+	 * Includes:
+	 * - Foundation
+	 * - What Input
+	 * - WebsiteNI functions.js
 	 */
 	wp_enqueue_script(
-		'wni-functions',
-		$theme_uri . '/assets/scripts/functions.js',
+		'wni-main',
+		$theme_uri . '/assets/dist/script.js',
 		array(
 			'jquery',
-			'wni-main',
 			'wni-magnific-popup',
+			'wni-gsap',
 			'wni-gsap-scrolltrigger',
 			'wni-gsap-scrollsmoother',
 		),
-		filemtime($theme_path . '/assets/scripts/functions.js'),
+		file_exists($script_path) ? filemtime($script_path) : null,
 		true
 	);
 }
 
 add_action('wp_enqueue_scripts', 'websiteni_joints_styles_and_scripts');
-
 
 /**
 * Preconnect and Enqueue Google Fonts.
