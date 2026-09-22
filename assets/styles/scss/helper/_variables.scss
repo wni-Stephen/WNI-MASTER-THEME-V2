@@ -1,212 +1,297 @@
 /**
-* WebsiteNI Joints
-* WebsiteNI Starter Theme built on JointsWP; http://jointswp.com/.
-* Created by WebsiteNI.
-*/
+ * WebsiteNI Joints
+ * WebsiteNI Starter Theme built on JointsWP; http://jointswp.com/.
+ * Created by WebsiteNI.
+ */
+
+
 /**
-* _variables - Small.
-*/
+ * _variables - Small.
+ */
+
 $spacingXSmall: 40px;
 $spacingSmall: 50px;
 $spacingMedium: 70px;
 $spacingLarge: 85px;
 $spacingXLarge: 140px;
 
-$transition: 0.4s cubic-bezier(0.51,0.18,0,0.88);
-$imgTransition: .6s cubic-bezier(0.51,0.18,0,0.88);
+$transition: 0.4s cubic-bezier(0.51, 0.18, 0, 0.88);
+$imgTransition: 0.6s cubic-bezier(0.51, 0.18, 0, 0.88);
 
-//PADDING SPACING
+
+/* ==========================================================================
+   Padding spacing
+   ========================================================================== */
 
 .paddingtopxsml {
 	padding-top: $spacingXSmall;
 }
+
 .paddingbottomxsml {
 	padding-bottom: $spacingXSmall;
 }
+
 .paddingtopsml {
 	padding-top: $spacingSmall;
 }
+
 .paddingbottomsml {
 	padding-bottom: $spacingSmall;
 }
+
 .paddingtopmed {
 	padding-top: $spacingSmall;
 }
+
 .paddingbottommed {
 	padding-bottom: $spacingSmall;
 }
+
 .paddingtoplrg {
 	padding-top: $spacingSmall;
 }
+
 .paddingbottomlrg {
 	padding-bottom: $spacingSmall;
 }
+
 .paddingtopxlrg {
 	padding-top: $spacingSmall;
 }
+
 .paddingbottomxlrg {
 	padding-bottom: $spacingSmall;
 }
 
-//MARGIN SPACING
+
+/* ==========================================================================
+   Margin spacing
+   ========================================================================== */
+
 .margintopsml {
 	margin-top: $spacingSmall;
 }
+
 .marginbottomsml {
 	margin-bottom: $spacingSmall;
 }
+
 .margintopmed {
 	margin-top: $spacingSmall;
 }
+
 .marginbottommed {
 	margin-bottom: $spacingSmall;
 }
+
 .margintoplrg {
 	margin-top: $spacingSmall;
 }
+
 .marginbottomlrg {
 	margin-bottom: $spacingSmall;
 }
+
 .margintopxlrg {
 	margin-top: $spacingSmall;
 }
+
 .marginbottomxlrg {
 	margin-bottom: $spacingSmall;
 }
+
 .nomarginbottom {
 	margin-bottom: 0;
 }
 
-//USEFUL FOR MOBILE RESPONSIVENESS
+
+/* ==========================================================================
+   Small-screen responsive helpers
+   ========================================================================== */
+
 .marginbottomsmlscreens {
 	margin-bottom: $spacingSmall;
 }
+
 .margintopsmlscreens {
 	margin-top: $spacingSmall;
 }
+
 .marginbottomsmlscreensonly {
 	margin-bottom: $spacingSmall;
 }
+
 .margintopsmlscreensonly {
 	margin-top: $spacingSmall;
 }
+
+
 /**
-* _variables - Medium.
-*/
+ * _variables - Medium.
+ */
+
 @media screen and (min-width: 640px) {
-	//USEFUL FOR MOBILE RESPONSIVENESS
+
+	/* Small-screen-only helpers */
+
 	.marginbottomsmlscreensonly {
 		margin-bottom: 0;
 	}
+
 	.margintopsmlscreensonly {
 		margin-top: 0;
 	}
-	//PADDING SPACING
+
+
+	/* Padding spacing */
+
 	.paddingtopmed {
 		padding-top: $spacingMedium;
 	}
+
 	.paddingbottommed {
 		padding-bottom: $spacingMedium;
 	}
+
 	.paddingtoplrg {
 		padding-top: $spacingMedium;
 	}
+
 	.paddingbottomlrg {
 		padding-bottom: $spacingMedium;
 	}
+
 	.paddingtopxlrg {
 		padding-top: $spacingMedium;
 	}
+
 	.paddingbottomxlrg {
 		padding-bottom: $spacingMedium;
 	}
+
 	.paddingbottomlrglrgscreen {
 		padding-bottom: $spacingMedium;
 	}
 
-	//MARGIN SPACING
+
+	/* Margin spacing */
+
 	.margintopmed {
 		margin-top: $spacingMedium;
 	}
+
 	.marginbottommed {
 		margin-bottom: $spacingMedium;
 	}
+
 	.margintoplrg {
 		margin-top: $spacingMedium;
 	}
+
 	.marginbottomlrg {
 		margin-bottom: $spacingMedium;
 	}
+
 	.margintopxlrg {
 		margin-top: $spacingMedium;
 	}
+
 	.marginbottomxlrg {
 		margin-bottom: $spacingMedium;
 	}
 }
+
+
 /**
-* _variables - Large.
-*/
+ * _variables - Large.
+ */
+
 @media screen and (min-width: 1024px) {
-	//USEFUL FOR MOBILE RESPONSIVENESS
+
+	/* Small-screen responsive helpers */
+
 	.marginbottomsmlscreens {
 		margin-bottom: 0;
 	}
+
 	.margintopsmlscreens {
 		margin-top: 0;
 	}
-	//PADDING SPACING
+
+
+	/* Padding spacing */
+
 	.paddingtoplrg {
 		padding-top: $spacingLarge;
 	}
+
 	.paddingbottomlrg {
 		padding-bottom: $spacingLarge;
 	}
+
 	.paddingtopxlrg {
 		padding-top: $spacingXLarge;
 	}
+
 	.paddingbottomxlrg {
 		padding-bottom: $spacingXLarge;
 	}
 
-	//MARGIN SPACING
+
+	/* Margin spacing */
+
 	.margintoplrg {
 		margin-top: $spacingLarge;
 	}
+
 	.marginbottomlrg {
 		margin-bottom: $spacingLarge;
 	}
+
 	.margintopxlrg {
 		margin-top: $spacingXLarge;
 	}
+
 	.marginbottomxlrg {
 		margin-bottom: $spacingXLarge;
 	}
-	.margingbottomlrglrgscreenonly {
+
+	.marginbottomlrglrgscreenonly {
 		margin-bottom: $spacingLarge;
 	}
 
-	//USEFUL FOR DESKTOP RESPONSIVENESS
+
+	/* Desktop-only responsive helpers */
+
 	.marginbottomsml_lrgscreensonly {
 		margin-bottom: $spacingSmall;
 	}
+
 	.margintopsml_lrgscreensonly {
-		margin-bottom: $spacingSmall;
+		margin-top: $spacingSmall;
 	}
+
 	.marginbottomlrg_lrgscreensonly {
 		margin-bottom: $spacingLarge;
 	}
+
 	.margintoplrg_lrgscreensonly {
-		margin-bottom: $spacingLarge;
+		margin-top: $spacingLarge;
 	}
 }
+
+
 /**
-* _variables - XL.
-*/
+ * _variables - XL.
+ */
+
 @media screen and (min-width: 1200px) {
 }
+
+
 /**
-* _variables - XXL.
-*/
+ * _variables - XXL.
+ */
+
 @media screen and (min-width: 1440px) {
 }
