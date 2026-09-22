@@ -61,20 +61,11 @@ function websiteni_joints_register_plugins() {
 		/**
 		 * Safe SVG.
 		 *
-		 * Handles SVG uploads and sanitisation.
+		 * Provides sanitised SVG upload support.
 		 */
 		array(
 			'name'     => 'Safe SVG',
 			'slug'     => 'safe-svg',
-			'required' => false,
-		),
-
-		/**
-		 * Show Current Template.
-		 */
-		array(
-			'name'     => 'Show Current Template',
-			'slug'     => 'show-current-template',
 			'required' => false,
 		),
 
