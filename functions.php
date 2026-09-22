@@ -12,16 +12,10 @@ defined('ABSPATH') || exit;
 /**
  * Theme modules.
  */
+require_once get_template_directory() . '/app/setup.php';
 require_once get_template_directory() . '/app/assets.php';
 require_once get_template_directory() . '/app/admin.php';
 require_once get_template_directory() . '/app/security.php';
-
-
-/**
- * Theme support.
- */
-add_theme_support('title-tag');
-add_theme_support('post-thumbnails');
 
 
 /**
@@ -305,32 +299,7 @@ add_filter(
 );
 
 
-/**
- * Navigation Menus.
- */
-function websiteni_joints_register_navigation_menus() {
 
-	register_nav_menu(
-		'primary-navigation',
-		__(
-			'Primary Navigation',
-			'websiteni-foundation'
-		)
-	);
-
-	register_nav_menu(
-		'secondary-navigation',
-		__(
-			'Secondary Navigation',
-			'websiteni-foundation'
-		)
-	);
-}
-
-add_action(
-	'init',
-	'websiteni_joints_register_navigation_menus'
-);
 
 
 /**
