@@ -1,210 +1,176 @@
 /**
-* WebsiteNI Joints
-* WebsiteNI Starter Theme built on JointsWP; http://jointswp.com/.
-* Created by WebsiteNI.
-*/
+ * WebsiteNI Starter Theme
+ * Built on JointsWP.
+ * Created by WebsiteNI.
+ */
+
 (function($) {
+
 	$(document).ready(function() {
-		afterPageLoad();
-		//blacklist();
+		initThemeFunctions();
 	});
 
-	function afterPageLoad() {
+	function initThemeFunctions() {
 
-		  // Initialize all your animations
-        if (window.initAnimations) {
-            initAnimations();
-        }
-
-		 // --- GSAP Smooth Scroll ---
-        if (typeof gsap !== 'undefined' && typeof ScrollSmoother !== 'undefined') {
-            gsap.registerPlugin(ScrollSmoother);
-
-            if (ScrollSmoother.isSupported()) {
-                ScrollSmoother.create({
-                    wrapper: '.wrapper',         // outer container
-                    content: '.wrapper-inner',   // inner content container
-                    smooth: 1.2,                 // smoothness factor
-                    effects: true                // enable data-speed / data-lag effects
-                });
-            }
-		}
-		
-
-		  // First Swiper - banner-swiper
-				if ($('.bannerSwiper').length) {
-					var swiper1 = new Swiper('.bannerSwiper', {
-						slidesPerView: 1,
-						spaceBetween: 20,
-						loop: true,
-						 effect: 'fade', // Add fade effect
-							fadeEffect: {
-								crossFade: true // Smooth crossfade
-							},
-						pagination: {
-							el: '.bannerSwiper .swiper-pagination',
-							clickable: true,
-						},
-						navigation: {
-							nextEl: '.bannerSwiper .swiper-button-next',
-							prevEl: '.bannerSwiper .swiper-button-prev',
-						},
-						autoplay:false
-					});
-    }
-
-					// Second Swiper - mySwiper-2
-					// if ($('.mySwiper-2').length) {
-					//     var swiper2 = new Swiper('.mySwiper-2', {
-					//         slidesPerView: 3,
-					//         spaceBetween: 30,
-					//         loop: false,
-					//         pagination: {
-					//             el: '.mySwiper-2 .swiper-pagination',
-					//             clickable: true,
-					//         },
-					//         navigation: {
-					//             nextEl: '.mySwiper-2 .swiper-button-next',
-					//             prevEl: '.mySwiper-2 .swiper-button-prev',
-					//         },
-					//         breakpoints: {
-					//             640: {
-					//                 slidesPerView: 2,
-					//                 spaceBetween: 20,
-					//             },
-					//             1024: {
-					//                 slidesPerView: 3,
-					//                 spaceBetween: 30,
-					//             },
-					//         },
-					//     });
-					// }
-
-
-		/* Make WordPress, Foundation and AJAX (Page Transition) play nice together. */
-		var body = $('body'), _window = $(window);
-
-		$('.accordion').foundation();
-
-		$('.accordion p:empty, .orbit p:empty').remove();
-
+		/**
+		 * Responsive video embeds.
+		 */
 		$('iframe[src*="youtube.com"], iframe[src*="vimeo.com"]').each(function() {
-			if ($(this).innerWidth() / $(this).innerHeight() > 1.5) {
-				$(this).wrap("<div class='widescreen responsive-embed'/>");
-			} else {
-				$(this).wrap("<div class='responsive-embed'/>");
+
+			if ($(this).parent().hasClass('responsive-embed')) {
+				return;
 			}
+
+			if ($(this).innerWidth() / $(this).innerHeight() > 1.5) {
+				$(this).wrap('<div class="widescreen responsive-embed"></div>');
+			} else {
+				$(this).wrap('<div class="responsive-embed"></div>');
+			}
+
 		});
 
-		/* Hamburger. */
-		// $('.hamburger').on('click', function() {
-		// 	$(this).toggleClass('is-active');
-		// 	$('.navigation-overlay').toggleClass('is-active');
-		// 	$('.wrapper').toggleClass('hamburger-is-active');
-		// });
 
-		$('.navigation-overlay .close').click(function() {
+		/**
+		 * Remove empty paragraphs generated inside
+		 * Foundation components.
+		 */
+		$('.accordion p:empty, .orbit p:empty').remove();
+
+
+		/**
+		 * Mobile navigation.
+		 */
+		$('.hamburger').on('click', function() {
+
+			$(this).toggleClass('is-active');
+
+			$('.navigation-overlay').toggleClass('is-active');
+			$('.wrapper').toggleClass('hamburger-is-active');
+
+		});
+
+
+		/**
+		 * Close mobile navigation.
+		 */
+		$('.navigation-overlay .close').on('click', function(event) {
+
+			event.preventDefault();
+
 			$('.navigation-overlay').removeClass('is-active');
 			$('.wrapper').removeClass('hamburger-is-active');
 			$('.hamburger').removeClass('is-active');
+
 		});
 
-		$('.hamburger').on('click', function() {
-			$(this).toggleClass('is-active');
-			$('.navigation-overlay').toggleClass('is-active');
-			$('.wrapper').toggleClass('hamburger-is-active');
-		});
 
-		$('li.menu-item-has-children a').on('click', function() {
+		/**
+		 * Mobile navigation submenus.
+		 */
+		$('.navigation-overlay li.menu-item-has-children > a').on('click', function(event) {
+
+			event.preventDefault();
+
 			$(this).toggleClass('is-active');
 			$(this).next('.sub-menu').toggleClass('sub-menu-is-active');
+
 		});
 
-		/* Cookie Policy. */
-		if (localStorage.getItem('popState') != 'shown') {
-			$('.cookie-policy').delay(2500).fadeIn();
-			localStorage.setItem('popState', 'shown');
-		}
 
-		$('.cookie-policy, .cookie-policy-close').click(function(event) {
-			$('.cookie-policy').fadeOut();
-		});
+		/**
+		 * Search.
+		 */
+		$('.search-open').on('click', function(event) {
 
-		/* Search (including Voice Search). */
-		$('.search-open').on('click', function() {
+			event.preventDefault();
+
 			$('.wrapper').addClass('search-is-active');
 
 			setTimeout(function() {
-    			$('.search-input').focus();
-    		}, 500);
+				$('.search-input').trigger('focus');
+			}, 500);
+
 		});
 
-		$('.search-close').on('click', function() {
+
+		$('.search-close').on('click', function(event) {
+
+			event.preventDefault();
+
 			$('.wrapper').removeClass('search-is-active');
+
 		});
 
 
-		$('.mfp_gallery_image').magnificPopup({
-			type: 'image',
-			image: {
-				titleSrc: 'name' 
-			},
-			gallery: {
-				enabled:true
-			}
+		/**
+		 * Magnific Popup image gallery.
+		 */
+		if ($.fn.magnificPopup) {
+
+			$('.mfp_gallery_image').magnificPopup({
+				type: 'image',
+
+				image: {
+					titleSrc: 'name'
+				},
+
+				gallery: {
+					enabled: true
+				}
+			});
+
+
+			/**
+			 * Magnific Popup inline content.
+			 */
+			$('.mfp-instance').magnificPopup({
+				preloader: false,
+				mainClass: 'mfp-fade',
+				type: 'inline',
+				removalDelay: 250,
+				fixedContentPos: true
+			});
+
+		}
+
+
+		/**
+		 * Convert editable SVG images into inline SVG.
+		 *
+		 * Usage:
+		 * <img class="editsvg" src="icon.svg" alt="">
+		 */
+		$('img.editsvg[src$=".svg"]').each(function() {
+
+			var $img     = $(this);
+			var imgID    = $img.attr('id');
+			var imgClass = $img.attr('class');
+			var imgURL   = $img.attr('src');
+
+
+			$.get(imgURL, function(data) {
+
+				var $svg = $(data).find('svg');
+
+
+				if (typeof imgID !== 'undefined') {
+					$svg.attr('id', imgID);
+				}
+
+
+				if (typeof imgClass !== 'undefined') {
+					$svg.attr('class', imgClass + ' replaced-svg');
+				}
+
+
+				$svg.removeAttr('xmlns:a');
+
+				$img.replaceWith($svg);
+
+			}, 'xml');
+
 		});
 
-		$(function(){
-		    activate('img[src*=".svg"]');
-
-		    function activate(string){		    	
-		        jQuery(string).each(function(){
-		            var $img = jQuery(this);
-		            var imgID = $img.attr('id');
-		            var imgClass = $img.attr('class');
-		            var imgURL = $img.attr('src');
-				
-				if ($(this).hasClass("editsvg")) {
-
-		            jQuery.get(imgURL, function(data) {
-		                // Get the SVG tag, ignore the rest
-		                var $svg = jQuery(data).find('svg');
-
-		                // Add replaced image's ID to the new SVG
-		                if(typeof imgID !== 'undefined') {
-		                    $svg = $svg.attr('id', imgID);
-		                }
-		                // Add replaced image's classes to the new SVG
-		                if(typeof imgClass !== 'undefined') {
-		                    $svg = $svg.attr('class', imgClass+' replaced-svg');
-		                }
-
-		                // Remove any invalid XML tags as per http://validator.w3.org
-		                $svg = $svg.removeAttr('xmlns:a');
-
-		                // Replace image with new SVG
-		                $img.replaceWith($svg);
-
-		            }, 'xml');
-		        }
-		        });
-		    }
-		});
-
-		/* Magnific Popup. */
-		$('.mfp-instance').magnificPopup({
-			preloader: false,
-			mainClass: 'mfp-fade',
-			type: 'inline',
-			removalDelay: 250,
-			fixedContentPos: true
-		});
-
-		// /* Wow. */
-		// var wow = new WOW({mobile: false});
-
-		// wow.init();
 	}
 
-	
-}) (jQuery);
+})(jQuery);
