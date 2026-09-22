@@ -16,34 +16,7 @@ require_once get_template_directory() . '/app/setup.php';
 require_once get_template_directory() . '/app/assets.php';
 require_once get_template_directory() . '/app/admin.php';
 require_once get_template_directory() . '/app/security.php';
-
-
-/**
- * ACF Options.
- */
-if (function_exists('acf_add_options_page')) {
-
-	acf_add_options_page(
-		array(
-			'page_title' => 'Global Settings',
-			'menu_slug'  => 'general-settings',
-		)
-	);
-
-	acf_add_options_sub_page(
-		array(
-			'page_title'  => 'General Settings',
-			'parent_slug' => 'general-settings',
-		)
-	);
-
-	acf_add_options_sub_page(
-		array(
-			'page_title'  => 'Footer Settings',
-			'parent_slug' => 'general-settings',
-		)
-	);
-}
+require_once get_template_directory() . '/app/acf.php';
 
 
 /**
@@ -297,9 +270,6 @@ add_filter(
 	'websiteni_joints_new_404_title',
 	50
 );
-
-
-
 
 
 /**
