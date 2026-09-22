@@ -13,7 +13,7 @@ get_header();
 <main id="content" class="wow fadeIn">
     <div class="grid-container full">
         <div class="grid-container">
-            <div class="grid-x grid-padding-x ptopxlrg pbottomxlrg">
+            <div class="grid-x grid-padding-x">
                 <div class="cell">
 					<?php the_content(); ?>
                 </div>

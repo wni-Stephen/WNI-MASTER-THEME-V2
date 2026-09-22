@@ -1,59 +1,871 @@
-# WebsiteNI Master Theme 
+# WebsiteNI Master Theme
+
+WebsiteNI WordPress starter theme used as the base for new website builds.
+
+The theme uses WordPress, Foundation, SCSS and JavaScript, with Vite handling front-end asset compilation.
 
 ---
 
-## ⚙️ Default Theme Settings
+## Development Setup
 
-- **Grid Width** → `1740px` max width  
-- **Gutters** → `20px` default across all screen sizes  
-- **Breakpoints** → Added **xlarge (≥1200px)** and **xxlarge (≥1440px)**  
+### Requirements
 
----
+- WordPress
+- Node.js
+- npm
 
-## 🎨 Colours
+After cloning the theme, install dependencies:
 
-- Define colour variables in `settings.scss`:
-  - `primary`
-  - `secondary`
-  - `tertiary`
-- Default utility classes in `colours.scss`:
-  - `.primarybg` → sets background to `get-color(primary)`
-  - `.secondarybg` → sets background to `get-color(secondary)`
-  - `.twocolour` → linear gradient: **half primary / half white** (template for split backgrounds)
+```bash
+npm install
+```
 
----
+### Development
 
-## 📐 Spacing
+Run Vite in watch mode while developing:
 
-- **Utilities**: `.ptopsml`, `.pbottomxlrg`, `.mtopmed`, etc.    
-- **Mobile-only classes**: `.mtopsml-only`, `.mbottomxsml-only` reset at `sm` breakpoint  
+```bash
+npm run dev
+```
 
----
+Vite will rebuild the CSS and JavaScript whenever the source SCSS or JavaScript files are changed.
 
-## 🔘 Buttons
+### Production Build
 
-- `.spacingtop` → adds top margin across all screen sizes  
-- `.spacingtop-res` → margin increases from mobile → larger screens  
-- `.resbutton` → full-width buttons on mobile (`width: 100%`), revert to `auto` on ≥640px (or 1024px if preferred)  
+Create a production build with:
 
----
+```bash
+npm run build
+```
 
-## ✍️ Typography
+Compiled assets are generated inside:
 
-- `.fontcolourwhite` → now applies white text to **all nested elements** (`h1, h2, p, a`, etc.)
+```text
+assets/dist/
+```
 
----
+The `assets/dist` directory is committed to Git so deployed WordPress websites do not require Node.js or npm to build the theme.
 
-## 📑 Forms
-
-- New `forms.scss` file added 
-- Styled select, inputs, textareas, checkboxes, and dropzones  
-- Includes ACF/Formidable form styling support  
+Do not manually edit files inside `assets/dist`.
 
 ---
 
-## 🍪 Navigation & Effects
+## Front-end Build System
 
-- **Close button** in `functions.js` updated with `alt` tag for accessibility  
-- **Cookie notice** carried over (HTML + SVG styled like Down Developments)  
-- **Mobile Nav Fix** (`effects.scss`): prevent scroll when hamburger is active:  
+WebsiteNI Master Theme V3 uses **Vite** instead of the previous Gulp build process.
+
+### Main SCSS Source
+
+```text
+assets/styles/scss/style.scss
+```
+
+This loads Foundation and the custom WebsiteNI SCSS.
+
+### Main JavaScript Entry Point
+
+```text
+assets/scripts/src/main.js
+```
+
+This imports:
+
+- Foundation
+- What Input
+- WebsiteNI theme JavaScript
+- Main SCSS
+
+WebsiteNI-specific JavaScript remains in:
+
+```text
+assets/scripts/functions.js
+```
+
+### Compiled Assets
+
+Vite generates:
+
+```text
+assets/dist/style.css
+assets/dist/script.js
+assets/dist/script.js.map
+```
+
+WordPress loads the compiled CSS and JavaScript through `functions.php`.
+
+---
+
+## Foundation
+
+Foundation is the base front-end framework used by the starter theme.
+
+Foundation currently provides:
+
+- XY Grid
+- Flex utilities
+- Typography
+- Forms
+- Buttons
+- Accordions
+- Accordion menus
+- Button groups
+- Close buttons
+- Labels
+- Tables
+- Tabs
+- Visibility classes
+- Float classes
+
+Foundation is installed through npm and bundled into the Vite build.
+
+Foundation settings are configured in:
+
+```text
+assets/styles/scss/_settings.scss
+```
+
+---
+
+## Grid & Breakpoints
+
+### Maximum Grid Width
+
+```text
+1740px
+```
+
+### Grid Gutters
+
+```text
+Small:  20px
+Medium: 30px
+```
+
+### Breakpoints
+
+```text
+small:     0
+medium:    640px
+large:     1024px
+xlarge:    1200px
+xxlarge:   1440px
+xxxlarge:  1740px
+```
+
+The available Foundation breakpoint classes are:
+
+```text
+small
+medium
+large
+xlarge
+xxlarge
+xxxlarge
+```
+
+---
+
+## SCSS Structure
+
+The main custom SCSS file is:
+
+```text
+assets/styles/scss/custom.scss
+```
+
+It currently loads:
+
+```text
+helper/variables
+helper/colours
+helper/fonts
+helper/classes
+helper/effects
+helper/forms
+helper/search
+
+partial/front-page
+partial/404
+
+layout/footer
+layout/header
+```
+
+Additional project-specific partials can be added as required.
+
+---
+
+## Colours
+
+Theme colours are defined through `$foundation-palette` inside:
+
+```text
+assets/styles/scss/_settings.scss
+```
+
+The starter palette currently includes:
+
+### Brand Colours
+
+```text
+primary
+secondary
+tertiary
+quaternary
+quinary
+senary
+```
+
+### Semantic Colours
+
+```text
+success
+warning
+alert
+info
+```
+
+### Neutral Colours
+
+```text
+black
+white
+gray-light
+gray
+gray-dark
+```
+
+Colour utilities are generated automatically in:
+
+```text
+assets/styles/scss/helper/_colours.scss
+```
+
+### Background Colours
+
+```text
+.bg-primary
+.bg-secondary
+.bg-tertiary
+```
+
+The same pattern applies to every colour in `$foundation-palette`.
+
+### Text Colours
+
+```text
+.text-primary
+.text-secondary
+.text-white
+.text-black
+```
+
+### Border Colours
+
+```text
+.border-primary
+.border-secondary
+```
+
+### Individual Border Colours
+
+```text
+.border-t-primary
+.border-r-primary
+.border-b-primary
+.border-l-primary
+```
+
+### Hover Colours
+
+```text
+.hover:bg-primary
+.hover:text-primary
+.hover:border-primary
+```
+
+### Gradients
+
+```text
+.bg-gradient-primary
+.bg-gradient-secondary
+```
+
+### Combined Background/Text Utilities
+
+```text
+.bg-primary-text-white
+.bg-primary-text-black
+```
+
+### Underline Colours
+
+```text
+.underline-primary
+```
+
+### White Typography
+
+```text
+.fontcolourwhite
+```
+
+This applies white text styling to common nested typography elements including headings, paragraphs, links, spans and list items.
+
+---
+
+## Spacing
+
+Spacing values are defined in:
+
+```text
+assets/styles/scss/helper/_variables.scss
+```
+
+Current spacing tokens are:
+
+```text
+$spacingXSmall: 40px
+$spacingSmall:  50px
+$spacingMedium: 70px
+$spacingLarge:  85px
+$spacingXLarge: 140px
+```
+
+### Padding Utilities
+
+Examples include:
+
+```text
+.paddingtopxsml
+.paddingbottomxsml
+
+.paddingtopsml
+.paddingbottomsml
+
+.paddingtopmed
+.paddingbottommed
+
+.paddingtoplrg
+.paddingbottomlrg
+
+.paddingtopxlrg
+.paddingbottomxlrg
+```
+
+The medium, large and extra-large utilities increase responsively at their relevant breakpoints.
+
+### Margin Utilities
+
+Examples include:
+
+```text
+.margintopsml
+.marginbottomsml
+
+.margintopmed
+.marginbottommed
+
+.margintoplrg
+.marginbottomlrg
+
+.margintopxlrg
+.marginbottomxlrg
+```
+
+### Responsive Margin Helpers
+
+The theme also includes helpers such as:
+
+```text
+.marginbottomsmlscreens
+.margintopsmlscreens
+
+.marginbottomsmlscreensonly
+.margintopsmlscreensonly
+
+.marginbottomsml_lrgscreensonly
+.margintopsml_lrgscreensonly
+
+.marginbottomlrg_lrgscreensonly
+.margintoplrg_lrgscreensonly
+```
+
+There is also:
+
+```text
+.nomarginbottom
+```
+
+---
+
+## General Utility Classes
+
+General utilities are defined in:
+
+```text
+assets/styles/scss/helper/_classes.scss
+```
+
+### Background
+
+```text
+.bg-center
+```
+
+Sets a background image to cover, no-repeat and centred.
+
+### Width & Position
+
+```text
+.width100
+.relative
+.absolute
+```
+
+### Flexbox
+
+```text
+.wni-flex
+.wni-flex-col
+```
+
+### Flex Justification
+
+```text
+.wni-flex-justify-start
+.wni-flex-justify-center
+.wni-flex-justify-between
+.wni-flex-justify-end
+```
+
+### Flex Alignment
+
+```text
+.wni-flex-align-start
+.wni-flex-align-center
+.wni-flex-align-end
+```
+
+### Flex Content Alignment
+
+```text
+.wni-flex-content-start
+.wni-flex-content-center
+.wni-flex-content-end
+.wni-flex-content-between
+.wni-flex-content-around
+.wni-flex-content-evenly
+```
+
+### Text Alignment
+
+```text
+.text-left
+.text-center
+.text-right
+```
+
+Large-screen variants include:
+
+```text
+.text-left-lg
+.text-center-lg
+.text-right-lg
+```
+
+### Visibility
+
+Custom XL and XXL visibility helpers include:
+
+```text
+.hide-for-xl
+.show-for-xl
+
+.hide-for-xxl
+.show-for-xxl
+```
+
+Foundation's standard visibility classes are also compiled into the theme.
+
+---
+
+## Buttons
+
+Global button styling is located in:
+
+```text
+assets/styles/scss/custom.scss
+```
+
+The default `.button` includes the WebsiteNI starter styling.
+
+Available modifiers include:
+
+```text
+.button.center
+.button.right
+.button.spacingtop
+.button.spacingtop-res
+.button.resbutton
+.button.inverse
+.button.inverseoutline
+.button.whiteoutline
+```
+
+### `.spacingtop`
+
+Adds a fixed top margin.
+
+### `.spacingtop-res`
+
+Uses responsive top spacing.
+
+### `.resbutton`
+
+Displays full-width on smaller screens and returns to content width from the large breakpoint.
+
+### `.inverse`
+
+Uses the secondary colour as the button background.
+
+### `.inverseoutline`
+
+Transparent button with a secondary-colour outline.
+
+### `.whiteoutline`
+
+Transparent button with a white outline.
+
+---
+
+## Typography
+
+Typography helper styles are located in:
+
+```text
+assets/styles/scss/helper/_fonts.scss
+```
+
+Heading helpers include:
+
+```text
+.uppercase
+.nomarginbottom
+.marginbottomsml
+.marginbottomlrg
+```
+
+Additional typography utilities include:
+
+```text
+.pfirstof
+.plastof
+.fontcolourwhite
+```
+
+Foundation typography defaults are configured inside:
+
+```text
+assets/styles/scss/_settings.scss
+```
+
+---
+
+## Forms
+
+The starter form partial is located at:
+
+```text
+assets/styles/scss/helper/_forms.scss
+```
+
+This file currently acts as a placeholder for project-specific form styling.
+
+Foundation's standard form styles are compiled into the main stylesheet.
+
+Custom Formidable Forms or other plugin styling should be added here when required by an individual project.
+
+---
+
+## Navigation
+
+The starter theme contains responsive desktop and mobile navigation.
+
+Two WordPress menu locations are registered:
+
+```text
+primary-navigation
+secondary-navigation
+```
+
+### Mobile Navigation
+
+The mobile navigation includes:
+
+- Hamburger menu
+- Sliding navigation overlay
+- Close control
+- Nested submenu toggles
+- Page movement while the mobile navigation is active
+
+The menu behaviour is controlled from:
+
+```text
+assets/scripts/functions.js
+```
+
+The navigation markup is output from:
+
+```text
+header.php
+```
+
+The close icon is included directly in the PHP markup rather than being injected using JavaScript.
+
+### Desktop Navigation
+
+Desktop navigation includes:
+
+- Horizontal navigation
+- Dropdown submenus
+- Animated hover states
+- Search trigger
+
+Navigation styles are located in:
+
+```text
+assets/styles/scss/layout/_header.scss
+```
+
+---
+
+## Search
+
+The theme includes a full-screen search interface.
+
+Search styling is located in:
+
+```text
+assets/styles/scss/helper/_search.scss
+```
+
+JavaScript handles:
+
+- Opening the search
+- Closing the search
+- Focusing the search input after opening
+
+The search form is output through:
+
+```php
+get_search_form();
+```
+
+---
+
+## JavaScript Features
+
+WebsiteNI-specific JavaScript is located in:
+
+```text
+assets/scripts/functions.js
+```
+
+Current functionality includes:
+
+- Responsive YouTube/Vimeo wrappers
+- Empty paragraph cleanup inside Foundation components
+- Mobile navigation
+- Mobile submenu toggles
+- Search opening and closing
+- Magnific Popup galleries
+- Magnific Popup inline content
+- Inline editable SVG conversion
+
+---
+
+## GSAP
+
+GSAP is included globally through WordPress.
+
+The following libraries are currently loaded:
+
+```text
+GSAP
+ScrollTrigger
+ScrollSmoother
+```
+
+These are available for project-specific animation work.
+
+GSAP is not currently bundled into the main Vite bundle.
+
+---
+
+## Magnific Popup
+
+Magnific Popup is loaded separately through WordPress.
+
+The theme includes support for:
+
+```text
+.mfp_gallery_image
+```
+
+for image galleries and:
+
+```text
+.mfp-instance
+```
+
+for inline popup content.
+
+---
+
+## Images & SVGs
+
+Theme image assets are stored inside:
+
+```text
+assets/images/
+```
+
+In PHP templates, build image URLs using WordPress:
+
+```php
+<?php echo esc_url(
+	get_template_directory_uri() . '/assets/images/example.svg'
+); ?>
+```
+
+Do not hard-code the theme folder URL.
+
+SVG and SVGZ uploads are currently enabled by the theme.
+
+Images with the class:
+
+```text
+.editsvg
+```
+
+can be converted into inline SVG markup by the theme JavaScript.
+
+---
+
+## Cookie Notice
+
+Basic cookie notice markup exists inside:
+
+```text
+header.php
+```
+
+and its styling is located inside:
+
+```text
+assets/styles/scss/layout/_header.scss
+```
+
+Project-specific cookie behaviour and consent requirements should be reviewed for each website.
+
+---
+
+## WordPress Features
+
+The starter theme currently includes:
+
+- WordPress title support
+- Featured image support
+- Primary navigation
+- Secondary navigation
+- ACF options pages
+- Custom WordPress login styling
+- Custom dashboard content
+- Gutenberg disabled
+- XML-RPC disabled
+- WordPress version hidden
+- Emoji assets disabled
+- jQuery Migrate removed from front-end dependencies
+- Automatic plugin updates enabled
+- SVG uploads enabled
+
+---
+
+## ACF Options
+
+When Advanced Custom Fields Pro is available, the theme creates:
+
+```text
+Global Settings
+├── General Settings
+└── Footer Settings
+```
+
+These can be extended for each project.
+
+---
+
+## Asset Workflow
+
+The current front-end workflow is:
+
+```text
+SCSS
+       ┐
+Foundation
+       ├── Vite ──> assets/dist/style.css
+What Input
+       ├──────────> assets/dist/script.js
+functions.js
+       ┘
+```
+
+While developing:
+
+```bash
+npm run dev
+```
+
+For a final build:
+
+```bash
+npm run build
+```
+
+Always make changes to the source files rather than editing `assets/dist` directly.
+
+---
+
+## Git
+
+Do not commit:
+
+```text
+node_modules/
+.DS_Store
+```
+
+The following should be committed:
+
+```text
+package.json
+package-lock.json
+vite.config.mjs
+postcss.config.mjs
+assets/dist/
+```
+
+Compiled Vite assets are deliberately kept in Git so the theme can be deployed directly to WordPress without running a production build on the server.
+
+---
+
+## Changelog
+
+Major starter-theme changes should be documented in:
+
+```text
+CHANGELOG.md
+```
+
+Use the changelog for architectural changes, dependency upgrades and changes that future WebsiteNI developers need to know about.

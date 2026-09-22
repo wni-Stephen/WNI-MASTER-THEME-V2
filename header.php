@@ -25,7 +25,7 @@
 		<div class="cookie-policy" style="display: none;">
 			<div class="grid-x grid-padding-x flex paddingtopsml paddingbottomsml">
 
-				<div class="cell small-10 marginbottomxsml">
+				<div class="cell small-10 ">
 					<h5>Your privacy is important to us.</h5>
 				</div>
 				<div class="cell small-12">

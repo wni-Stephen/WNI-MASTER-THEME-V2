@@ -10,7 +10,7 @@ get_header();
 <main id="content">
     <div class="grid-container full">
         <div class="grid-container">
-            <div class="grid-x grid-padding-x ptopxlrg pbottomxlrg">
+            <div class="grid-x grid-padding-x">
                 <div class="cell text-center">
                     <h1>Oops! Page not found.</h2>
                     <p>
