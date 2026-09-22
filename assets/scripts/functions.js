@@ -358,42 +358,14 @@
 
 
 		/**
-		 * Magnific Popup image gallery.
-		 */
-		if ($.fn.magnificPopup) {
-
-			$('.mfp_gallery_image').magnificPopup({
-				type: 'image',
-
-				image: {
-					titleSrc: 'name'
-				},
-
-				gallery: {
-					enabled: true
-				}
-			});
-
-
-			/**
-			 * Magnific Popup inline content.
-			 */
-			$('.mfp-instance').magnificPopup({
-				preloader: false,
-				mainClass: 'mfp-fade',
-				type: 'inline',
-				removalDelay: 250,
-				fixedContentPos: true
-			});
-		}
-
+		
 
 		/**
-		 * Convert editable SVG images into inline SVG.
-		 *
-		 * Usage:
-		 * <img class="editsvg" src="icon.svg" alt="">
-		 */
+ * Convert editable SVG images into inline SVG.
+ *
+ * Usage:
+ * <img class="editsvg" src="icon.svg" alt="">
+ */
 		$('img.editsvg[src$=".svg"]').each(function () {
 
 			var $img = $(this);
@@ -449,11 +421,8 @@
 
 
 		/**
-		 * Optional GSAP smooth scrolling.
-		 *
-		 * Initialise before ScrollTrigger
-		 * entrance animations.
-		 */
+		 * GSAP ScrollSmoother.
+		 */	
 		initSmoothScroll();
 
 

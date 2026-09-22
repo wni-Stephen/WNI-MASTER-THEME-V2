@@ -2,7 +2,6 @@ import { defineConfig } from 'vite';
 import { resolve } from 'node:path';
 
 export default defineConfig({
-
 	base: './',
 
 	css: {
@@ -12,7 +11,11 @@ export default defineConfig({
 	},
 
 	build: {
-		outDir: resolve(process.cwd(), 'assets/dist'),
+		outDir: resolve(
+			process.cwd(),
+			'assets/dist'
+		),
+
 		emptyOutDir: true,
 		sourcemap: true,
 		target: 'es2018',
@@ -25,12 +28,19 @@ export default defineConfig({
 
 			name: 'WebsiteNITheme',
 			formats: ['iife'],
+
 			fileName: () => 'script.js',
 			cssFileName: 'style',
 		},
 
+		/**
+		 * Use WordPress's jQuery rather than
+		 * bundling another copy.
+		 */
 		rolldownOptions: {
-			external: ['jquery'],
+			external: [
+				'jquery',
+			],
 
 			output: {
 				globals: {

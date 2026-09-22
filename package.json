@@ -25,6 +25,7 @@
     "what-input": "^5.2.12"
   },
   "dependencies": {
-    "gsap": "^3.15.0"
+    "gsap": "^3.15.0",
+    "hamburgers": "^1.2.1"
   }
 }

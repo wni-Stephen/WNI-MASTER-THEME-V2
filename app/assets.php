@@ -11,60 +11,33 @@ defined('ABSPATH') || exit;
 /**
  * Enqueue front-end styles and scripts.
  */
-function websiteni_joints_styles_and_scripts()
-{
+function websiteni_joints_styles_and_scripts() {
 
 	$theme_uri = get_template_directory_uri();
 	$theme_path = get_template_directory();
 
-	$style_path = $theme_path . '/assets/dist/style.css';
-	$script_path = $theme_path . '/assets/dist/script.js';
+	$style_path = $theme_path
+		. '/assets/dist/style.css';
+
+	$script_path = $theme_path
+		. '/assets/dist/script.js';
 
 
 	/**
 	 * Main Vite stylesheet.
+	 *
+	 * Includes:
+	 * - WebsiteNI theme styles
+	 * - Hamburgers
 	 */
 	wp_enqueue_style(
 		'wni-main',
 		$theme_uri . '/assets/dist/style.css',
 		array(),
-		file_exists($style_path) ? filemtime($style_path) : null
+		file_exists($style_path)
+			? filemtime($style_path)
+			: null
 	);
-
-
-	/**
-	 * Hamburger menu styles.
-	 */
-	wp_enqueue_style(
-		'wni-hamburgers',
-		'https://cdnjs.cloudflare.com/ajax/libs/hamburgers/1.1.3/hamburgers.min.css',
-		array(),
-		'1.1.3'
-	);
-
-
-	/**
-	 * Magnific Popup styles.
-	 */
-	wp_enqueue_style(
-		'wni-magnific-popup',
-		'https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css',
-		array(),
-		'1.1.0'
-	);
-
-
-	/**
-	 * Magnific Popup.
-	 */
-	wp_enqueue_script(
-		'wni-magnific-popup',
-		'https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js',
-		array('jquery'),
-		'1.1.0',
-		true
-	);
-
 
 
 	/**
@@ -73,19 +46,25 @@ function websiteni_joints_styles_and_scripts()
 	 * Includes:
 	 * - Foundation
 	 * - What Input
+	 * - GSAP
+	 * - ScrollTrigger
+	 * - ScrollSmoother
 	 * - WebsiteNI theme JavaScript
+	 *
+	 * jQuery is provided by WordPress and is
+	 * externalised from the Vite bundle.
 	 */
 	wp_enqueue_script(
 		'wni-main',
 		$theme_uri . '/assets/dist/script.js',
 		array(
 			'jquery',
-			'wni-magnific-popup',
 		),
-		file_exists($script_path) ? filemtime($script_path) : null,
+		file_exists($script_path)
+			? filemtime($script_path)
+			: null,
 		true
 	);
-
 }
 
 add_action(
@@ -97,8 +76,7 @@ add_action(
 /**
  * Load Google Fonts.
  */
-function websiteni_joints_google_fonts()
-{
+function websiteni_joints_google_fonts() {
 
 	wp_enqueue_style(
 		'wni-google-fonts',
@@ -117,19 +95,26 @@ add_action(
 /**
  * Add Google Fonts preconnect.
  */
-function websiteni_joints_preconnect_google_fonts($urls, $relation_type)
-{
+function websiteni_joints_preconnect_google_fonts(
+	$urls,
+	$relation_type
+) {
 
 	if ('preconnect' !== $relation_type) {
 		return $urls;
 	}
 
-	if (!wp_style_is('wni-google-fonts', 'queue')) {
+	if (
+		!wp_style_is(
+			'wni-google-fonts',
+			'queue'
+		)
+	) {
 		return $urls;
 	}
 
 	$urls[] = array(
-		'href' => 'https://fonts.gstatic.com',
+		'href'        => 'https://fonts.gstatic.com',
 		'crossorigin' => 'anonymous',
 	);
 
