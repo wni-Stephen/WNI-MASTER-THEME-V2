@@ -2,36 +2,10 @@
 /**
  * Theme plugin configuration.
  *
- * Handles bundled plugin registration and
- * starter-theme plugin housekeeping.
+ * Registers plugins recommended for WebsiteNI projects.
  */
 
 defined('ABSPATH') || exit;
-
-
-/**
- * Goodbye Dolly.
- */
-function website_joints_goodbye_dolly() {
-
-	if (!file_exists(WP_PLUGIN_DIR . '/hello.php')) {
-		return;
-	}
-
-	require_once ABSPATH . 'wp-admin/includes/plugin.php';
-	require_once ABSPATH . 'wp-admin/includes/file.php';
-
-	delete_plugins(
-		array(
-			'hello.php',
-		)
-	);
-}
-
-add_action(
-	'admin_init',
-	'website_joints_goodbye_dolly'
-);
 
 
 /**
@@ -42,7 +16,7 @@ require_once get_template_directory()
 
 
 /**
- * Register bundled plugins.
+ * Register WebsiteNI starter plugins.
  */
 function websiteni_joints_bundled_plugins() {
 
@@ -98,7 +72,7 @@ function websiteni_joints_bundled_plugins() {
 		),
 
 		array(
-			'name'   => 'Litespeed Cache',
+			'name'   => 'LiteSpeed Cache',
 			'slug'   => 'litespeed-cache',
 			'source' => get_stylesheet_directory()
 				. '/modules/tgm/litespeed-cache.zip',
@@ -110,11 +84,10 @@ function websiteni_joints_bundled_plugins() {
 			'source' => get_stylesheet_directory()
 				. '/modules/tgm/show-current-template.zip',
 		),
-
 	);
 
 	$config = array(
-		'id'           => 'tgmpa',
+		'id'           => 'websiteni-plugins',
 		'default_path' => '',
 		'menu'         => 'tgmpa-install-plugins',
 		'parent_slug'  => 'themes.php',
@@ -135,23 +108,4 @@ function websiteni_joints_bundled_plugins() {
 add_action(
 	'tgmpa_register',
 	'websiteni_joints_bundled_plugins'
-);
-
-
-/**
- * Activate Akismet Anti-Spam.
- */
-function websiteni_joints_activate_akismet_anti_spam($plugin) {
-
-	if (!function_exists('activate_plugin')) {
-		require_once ABSPATH . 'wp-admin/includes/plugin.php';
-	}
-
-	if (!is_plugin_active($plugin)) {
-		activate_plugin($plugin);
-	}
-}
-
-websiteni_joints_activate_akismet_anti_spam(
-	'akismet/akismet.php'
 );
