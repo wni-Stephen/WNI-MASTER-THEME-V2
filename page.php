@@ -1,15 +1,35 @@
 <?php
 /**
-* WebsiteNI Joints
-* WebsiteNI Starter Theme built on JointsWP; http://jointswp.com/.
-* Created by WebsiteNI.
-*/
-
+ * WebsiteNI Joints
+ *
+ * WebsiteNI Starter Theme built on JointsWP.
+ * Created by WebsiteNI.
+ */
+defined('ABSPATH') || exit;
 get_header();
 ?>
-	<main id="content" class="">
-		<?php if (have_posts()) : ?>
-			<?php while (have_posts()) : the_post(); ?>
+<main id="content" class="content">
+	<?php if (have_posts()) : ?>
+		<?php while (have_posts()) : the_post(); ?>
+			<?php
+			/**
+			 * Flexible Content page builder.
+			 *
+			 * If the page has Flexible Content layouts,
+			 * render those instead of the standard editor.
+			 */
+			$has_flexible_content = (
+				function_exists('get_field')
+				&& get_field('page_content')
+			);
+			?>
+			<?php if ($has_flexible_content) : ?>
+				<?php
+				get_template_part(
+					'components/flexible-content'
+				);
+				?>
+			<?php else : ?>
 				<div class="grid-container full">
 					<div class="grid-container">
 						<div class="grid-x grid-padding-x">
@@ -19,21 +39,8 @@ get_header();
 						</div>
 					</div>
 				</div>
-			<?php endwhile; ?>
-		<?php endif; ?>
-	</main>
-<?php get_footer(); ?>
-
-<?php /*
-	// page.php frequently used methods
-
-	<?php if (have_posts()) : ?>
-		<?php while (have_posts()) : the_post(); ?>
-
+			<?php endif; ?>
 		<?php endwhile; ?>
 	<?php endif; ?>
-
-	<?php endif; wp_reset_postdata(); ?> // immediately after every custom WP_Query()
-
-	<?php endif; wp_reset_query(); ?> // immediately after every loop using query_posts()
-*/ ?>
+</main>
+<?php get_footer(); ?>
