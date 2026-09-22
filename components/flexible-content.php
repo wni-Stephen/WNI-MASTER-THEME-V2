@@ -8,7 +8,6 @@
 
 defined('ABSPATH') || exit;
 
-
 if (!function_exists('have_rows')) {
 	return;
 }
@@ -17,26 +16,41 @@ if (!have_rows('page_content')) {
 	return;
 }
 
-
 while (have_rows('page_content')) {
 
 	the_row();
 
-	$layout = get_row_layout();
+	$layout_name = get_row_layout();
 
-	if (!$layout) {
+	if (!$layout_name) {
 		continue;
 	}
 
 	/**
-	 * ACF layout names should be simple slugs,
-	 * but sanitise before using as a template path.
+	 * Get shared layout settings.
+	 *
+	 * Supports:
+	 * - ACF Extended Settings Modal
+	 * - Standard layout_options Clone field
+	 * - No settings at all
 	 */
-	$layout = sanitize_file_name($layout);
+	$layout_options = websiteni_joints_get_layout_settings();
+
+	$layout = websiteni_joints_get_layout_options(
+		$layout_options
+	);
+
+	/**
+	 * Sanitise the ACF layout name before
+	 * using it as a template path.
+	 */
+	$layout_name = sanitize_file_name(
+		$layout_name
+	);
 
 	$template = get_template_directory()
 		. '/components/layouts/'
-		. $layout
+		. $layout_name
 		. '.php';
 
 	if (file_exists($template)) {
