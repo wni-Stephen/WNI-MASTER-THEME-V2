@@ -1,98 +1,181 @@
 <?php
 /**
-* WebsiteNI Joints
-* WebsiteNI Starter Theme built on JointsWP; http://jointswp.com/.
-* Created by WebsiteNI.
-*/
-
+ * WebsiteNI Starter Theme
+ *
+ * Archive template.
+ */
+defined('ABSPATH') || exit;
 get_header();
 ?>
-				<main id="content" class="content">
-					<section class="grid-container full internal-banner wow fadeIn" style="background-image:url('<?php the_field('image', get_option('page_for_posts')); ?>');" data-wow-delay=".2s">
-						<div class="grid-container">
-							<div class="grid-x grid-padding-x">
-								<div class="cell">
-									<a class="internal-breadcrumb text-link" href="<?php echo esc_url(home_url('/')); ?>">Home</a>
-									<span>&nbsp;&gt;&nbsp;</span>
-									<a class="internal-breadcrumb text-link" href="<?php echo esc_url(home_url('/news/')); ?>">News</a>
-								</div>
-								<div class="cell">
-									<h1><?php the_field('title', get_option('page_for_posts')); ?></h1>
-								</div>
-								<div class="small-12 medium-9 large-5 cell">
-									<p><?php // the_field('internal_banner_blurb', get_option('page_for_posts')); ?></p>
-								</div>
-							</div>
+<main
+	id="content"
+	class="content"
+>
+	<section class="archive-header">
+		<div class="grid-container">
+			<div class="grid-x grid-padding-x">
+				<div class="cell small-12">
+					<h1 class="archive-title">
+						<?php
+						the_archive_title();
+						?>
+					</h1>
+					<?php if (get_the_archive_description()) : ?>
+						<div class="archive-description">
+							<?php
+							the_archive_description();
+							?>
 						</div>
-					</section>
-					<section class="grid-container full internal-content padding-top padding-bottom wow fadeIn" data-wow-delay=".4s">
-						<div class="grid-container">
-							<div class="grid-x grid-padding-x">
-								<div class="small-12 medium-9 large-6 cell">
-									<?php if (have_posts()) : ?>
-										<div class="grid-x grid-margin-x grid-margin-y">
-											<?php while (have_posts()) : the_post(); ?>
-												<a class="cell post" href="<?php the_permalink(); ?>">
-													<h4><?php the_title(); ?></h4>
-													<p><strong>Posted On:</strong> <?php echo get_the_date(); ?></p>
-													<hr>
-													<p><?php echo websiteni_joints_excerpt(25); ?>&hellip;</p>
-													<div class="materialize-button">read more&nbsp;&nbsp;&nbsp;&gt;</div>
-												</a>
-											<?php endwhile; ?>
-										</div>
-										<div class="grid-x pagination padding-top">
-											<div class="auto cell websiteni-flex-sm websiteni-flex-hs-sm">
-												<?php previous_posts_link('
-													&lt;&nbsp;&nbsp;&nbsp;Previous
-												'); ?>
+					<?php endif; ?>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="archive-content">
+		<div class="grid-container">
+			<div class="grid-x grid-padding-x">
+				<div class="cell small-12 large-8">
+					<?php if (have_posts()) : ?>
+						<div class="posts-list">
+							<?php
+							while (have_posts()) :
+								the_post();
+								?>
+								<article
+									id="post-<?php the_ID(); ?>"
+									<?php post_class('post-card'); ?>
+								>
+									<a
+										class="post-card-link"
+										href="<?php the_permalink(); ?>"
+									>
+										<?php if (has_post_thumbnail()) : ?>
+											<div class="post-card-image">
+												<?php
+												the_post_thumbnail(
+													'large'
+												);
+												?>
 											</div>
-											<div class="auto cell websiteni-flex-sm websiteni-flex-he-sm">
-												<?php next_posts_link('
-													Next&nbsp;&nbsp;&nbsp;&gt;
-												'); ?>
+										<?php endif; ?>
+										<div class="post-card-content">
+											<h2 class="post-card-title">
+												<?php the_title(); ?>
+											</h2>
+											<p class="post-card-date">
+												<?php
+												echo esc_html(
+													get_the_date()
+												);
+												?>
+											</p>
+											<div class="post-card-excerpt">
+												<p>
+													<?php
+													echo esc_html(
+														websiteni_joints_excerpt(
+															25
+														)
+													);
+													?>
+												</p>
 											</div>
+											<span class="post-card-read-more">
+												<?php
+												esc_html_e(
+													'Read more',
+													'websiteni-foundation'
+												);
+												?>
+											</span>
 										</div>
-									<?php endif; ?>
-								</div>
-								<aside class="small-12 medium-3 large-offset-1 cell categories-archives">
-									<div class="categories">
-										<h4>Categories</h4>
-										<hr>
-										<?php
-											$args = array(
-												'title_li'	=>	'',
-												'exclude'	=>	'1'
-											);
-										?>
-										<ul>
-											<?php wp_list_categories($args); ?>
-										</ul>
-									</div>
-									<div class="archives">
-										<h4>Archives</h4>
-										<hr>
-										<ul>
-											<?php wp_get_archives('type=monthly'); ?>
-										</ul>
-									</div>
-								</aside>
-							</div>
+									</a>
+								</article>
+							<?php endwhile; ?>
 						</div>
-					</section>
-				</main>
-<?php get_footer(); ?>
-
-<?php /*
-	// archive.php frequently used methods
-
-	<?php if (have_posts()) : ?>
-		<?php while (have_posts()) : the_post(); ?>
-
-		<?php endwhile; ?>
-	<?php endif; ?>
-
-	<?php endif; wp_reset_postdata(); ?> // immediately after every custom WP_Query()
-
-	<?php endif; wp_reset_query(); ?> // immediately after every loop using query_posts()
-*/ ?>
+						<nav
+							class="pagination"
+							aria-label="<?php esc_attr_e(
+								'Archive pagination',
+								'websiteni-foundation'
+							); ?>"
+						>
+							<?php
+							the_posts_pagination(
+								array(
+									'mid_size'  => 2,
+									'prev_text' => __(
+										'Previous',
+										'websiteni-foundation'
+									),
+									'next_text' => __(
+										'Next',
+										'websiteni-foundation'
+									),
+								)
+							);
+							?>
+						</nav>
+					<?php else : ?>
+						<p>
+							<?php
+							esc_html_e(
+								'No posts were found.',
+								'websiteni-foundation'
+							);
+							?>
+						</p>
+					<?php endif; ?>
+				</div>
+				<aside
+					class="cell small-12 large-4 posts-sidebar"
+					aria-label="<?php esc_attr_e(
+						'Post archive',
+						'websiteni-foundation'
+					); ?>"
+				>
+					<div class="posts-categories">
+						<h2>
+							<?php
+							esc_html_e(
+								'Categories',
+								'websiteni-foundation'
+							);
+							?>
+						</h2>
+						<ul>
+							<?php
+							wp_list_categories(
+								array(
+									'title_li' => '',
+								)
+							);
+							?>
+						</ul>
+					</div>
+					<div class="posts-archives">
+						<h2>
+							<?php
+							esc_html_e(
+								'Archives',
+								'websiteni-foundation'
+							);
+							?>
+						</h2>
+						<ul>
+							<?php
+							wp_get_archives(
+								array(
+									'type' => 'monthly',
+								)
+							);
+							?>
+						</ul>
+					</div>
+				</aside>
+			</div>
+		</div>
+	</section>
+</main>
+<?php
+get_footer();
