@@ -42,7 +42,7 @@ $company_phone_href = preg_replace(
 );
 ?>
 <footer class="footer bg-primary">
-    <!-- Main Footer Content -->
+
     <!-- Main Footer Content -->
 
     <div class="grid-container">
