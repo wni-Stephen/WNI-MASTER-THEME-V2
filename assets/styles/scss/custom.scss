@@ -36,8 +36,10 @@
  * Import Partials.
  */
 @import "partial/front-page";
-// @import "partial/page-contact";
+@import "partial/page-contact";
 @import "partial/404";
+@import 'partial/archive';
+@import 'partial/single';
 
 /**
  * Import Layouts.

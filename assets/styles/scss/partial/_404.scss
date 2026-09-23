@@ -1,38 +1,49 @@
 /**
-* WebsiteNI Joints
-* WebsiteNI Starter Theme built on JointsWP; http://jointswp.com/.
-* Created by WebsiteNI.
-*/
+ * WebsiteNI Starter Theme
+ * 404 page.
+ */
+
+.error-404 {
+	padding-top: 100px;
+	padding-bottom: 100px;
+}
+
+.error-404-content {
+	max-width: 700px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.error-404-title {
+	margin-bottom: 20px;
+}
+
+.error-404-text {
+	margin-bottom: 30px;
+}
+
 
 /**
-* _404 - Small.
-*/
+ * Medium.
+ */
 
-
-/**
-* _404 - Medium.
-*/
 @media screen and (min-width: 640px) {
-	
+
+	.error-404 {
+		padding-top: 130px;
+		padding-bottom: 130px;
+	}
 }
 
+
 /**
-* _404 - Large.
-*/
+ * Large.
+ */
+
 @media screen and (min-width: 1024px) {
-	
-}
 
-/**
-* _404 - XL.
-*/
-@media screen and (min-width: 1200px) {
-    
-}
-
-/**
-* _404 - XXL.
-*/
-@media screen and (min-width: 1440px) {
-    
+	.error-404 {
+		padding-top: 160px;
+		padding-bottom: 160px;
+	}
 }
