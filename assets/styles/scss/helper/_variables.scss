@@ -1,12 +1,11 @@
 /**
- * WebsiteNI Joints
- * WebsiteNI Starter Theme built on JointsWP; http://jointswp.com/.
- * Created by WebsiteNI.
+ * WebsiteNI Starter Theme
+ * Variables and spacing utilities.
  */
 
 
 /**
- * _variables - Small.
+ * Spacing.
  */
 
 $spacingXSmall: 40px;
@@ -15,13 +14,34 @@ $spacingMedium: 70px;
 $spacingLarge: 85px;
 $spacingXLarge: 140px;
 
-$transition: 0.4s cubic-bezier(0.51, 0.18, 0, 0.88);
-$imgTransition: 0.6s cubic-bezier(0.51, 0.18, 0, 0.88);
+
+/**
+ * Transitions.
+ */
+
+$transition:
+	.4s cubic-bezier(
+		.51,
+		.18,
+		0,
+		.88
+	);
+
+$imgTransition:
+	.6s cubic-bezier(
+		.51,
+		.18,
+		0,
+		.88
+	);
 
 
-/* ==========================================================================
-   Padding spacing
-   ========================================================================== */
+/**
+ * Padding.
+ *
+ * Larger spacing utilities scale progressively
+ * as the viewport increases.
+ */
 
 .paddingtopxsml {
 	padding-top: $spacingXSmall;
@@ -64,9 +84,9 @@ $imgTransition: 0.6s cubic-bezier(0.51, 0.18, 0, 0.88);
 }
 
 
-/* ==========================================================================
-   Margin spacing
-   ========================================================================== */
+/**
+ * Margin.
+ */
 
 .margintopsml {
 	margin-top: $spacingSmall;
@@ -105,9 +125,9 @@ $imgTransition: 0.6s cubic-bezier(0.51, 0.18, 0, 0.88);
 }
 
 
-/* ==========================================================================
-   Small-screen responsive helpers
-   ========================================================================== */
+/**
+ * Responsive margin helpers.
+ */
 
 .marginbottomsmlscreens {
 	margin-bottom: $spacingSmall;
@@ -127,12 +147,14 @@ $imgTransition: 0.6s cubic-bezier(0.51, 0.18, 0, 0.88);
 
 
 /**
- * _variables - Medium.
+ * Medium.
  */
 
 @media screen and (min-width: 640px) {
 
-	/* Small-screen-only helpers */
+	/**
+	 * Small-screen-only helpers.
+	 */
 
 	.marginbottomsmlscreensonly {
 		margin-bottom: 0;
@@ -143,7 +165,9 @@ $imgTransition: 0.6s cubic-bezier(0.51, 0.18, 0, 0.88);
 	}
 
 
-	/* Padding spacing */
+	/**
+	 * Padding.
+	 */
 
 	.paddingtopmed {
 		padding-top: $spacingMedium;
@@ -174,7 +198,9 @@ $imgTransition: 0.6s cubic-bezier(0.51, 0.18, 0, 0.88);
 	}
 
 
-	/* Margin spacing */
+	/**
+	 * Margin.
+	 */
 
 	.margintopmed {
 		margin-top: $spacingMedium;
@@ -203,12 +229,14 @@ $imgTransition: 0.6s cubic-bezier(0.51, 0.18, 0, 0.88);
 
 
 /**
- * _variables - Large.
+ * Large.
  */
 
 @media screen and (min-width: 1024px) {
 
-	/* Small-screen responsive helpers */
+	/**
+	 * Small-screen responsive helpers.
+	 */
 
 	.marginbottomsmlscreens {
 		margin-bottom: 0;
@@ -219,7 +247,9 @@ $imgTransition: 0.6s cubic-bezier(0.51, 0.18, 0, 0.88);
 	}
 
 
-	/* Padding spacing */
+	/**
+	 * Padding.
+	 */
 
 	.paddingtoplrg {
 		padding-top: $spacingLarge;
@@ -238,7 +268,9 @@ $imgTransition: 0.6s cubic-bezier(0.51, 0.18, 0, 0.88);
 	}
 
 
-	/* Margin spacing */
+	/**
+	 * Margin.
+	 */
 
 	.margintoplrg {
 		margin-top: $spacingLarge;
@@ -261,7 +293,9 @@ $imgTransition: 0.6s cubic-bezier(0.51, 0.18, 0, 0.88);
 	}
 
 
-	/* Desktop-only responsive helpers */
+	/**
+	 * Desktop-only margin helpers.
+	 */
 
 	.marginbottomsml_lrgscreensonly {
 		margin-bottom: $spacingSmall;
@@ -278,20 +312,4 @@ $imgTransition: 0.6s cubic-bezier(0.51, 0.18, 0, 0.88);
 	.margintoplrg_lrgscreensonly {
 		margin-top: $spacingLarge;
 	}
-}
-
-
-/**
- * _variables - XL.
- */
-
-@media screen and (min-width: 1200px) {
-}
-
-
-/**
- * _variables - XXL.
- */
-
-@media screen and (min-width: 1440px) {
 }
