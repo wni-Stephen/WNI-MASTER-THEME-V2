@@ -10,7 +10,7 @@
 
 get_header();
 ?>
-<main id="content" class="wow fadeIn">
+<main id="content" class="content">
     <div class="grid-container full">
         <div class="grid-container">
             <div class="grid-x grid-padding-x">

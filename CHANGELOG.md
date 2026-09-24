@@ -2,7 +2,8 @@
 
 This file records significant changes made to the WebsiteNI master WordPress starter theme.
 
-The `README.md` documents how the current theme works.  
+The `README.md` documents how the current theme works.
+
 This changelog documents what changed between versions.
 
 ---
@@ -16,27 +17,41 @@ Development started September 2026.
 ### Build System
 
 - Replaced the legacy Gulp build process with Vite.
+
 - Removed `gulpfile.js`.
+
 - Removed legacy Gulp dependencies from `package.json`.
+
 - Added `vite.config.mjs`.
+
 - Added `postcss.config.mjs`.
+
 - Added `assets/scripts/src/main.js` as the main JavaScript entry point.
+
 - SCSS is now compiled through Vite.
+
 - Foundation is bundled through Vite.
+
 - What Input is bundled through Vite.
+
 - WebsiteNI `functions.js` is bundled into the main JavaScript output.
 
 Compiled assets are now generated inside:
 
 ```text
+
 assets/dist/
+
 ```
 
 WordPress now loads:
 
 ```text
+
 assets/dist/style.css
+
 assets/dist/script.js
+
 ```
 
 instead of the previous Gulp-generated files.
@@ -48,9 +63,13 @@ instead of the previous Gulp-generated files.
 Added the following npm commands:
 
 ```bash
+
 npm run dev
+
 npm run watch
+
 npm run build
+
 ```
 
 `npm run dev` and `npm run watch` both run Vite in watch mode.
@@ -58,20 +77,27 @@ npm run build
 The standard WebsiteNI client-site workflow can continue using:
 
 ```bash
+
 npm install
+
 npm run watch
+
 ```
 
 For a one-off build:
 
 ```bash
+
 npm run build
+
 ```
 
 For a timed seven-hour watch session:
 
 ```bash
+
 timeout -k 10 7h npm run watch
+
 ```
 
 Git is used for maintaining the master starter theme but is not required for normal client-site development.
@@ -83,52 +109,79 @@ Git is used for maintaining the master starter theme but is not required for nor
 Removed the old Gulp-generated assets:
 
 ```text
+
 assets/styles/style.css
+
 assets/styles/style.css.map
+
 assets/scripts/script.js
+
 assets/scripts/script.js.map
+
 ```
 
 Vite now generates:
 
 ```text
+
 assets/dist/style.css
+
 assets/dist/script.js
-assets/dist/script.js.map
+
 ```
 
 The `assets/dist` directory is retained in the master starter theme so it can be deployed with working compiled assets without requiring Node.js or npm on the production server.
 
-Files inside `assets/dist` should not be edited manually.
+Files inside `assets/dist` should not be edited manually. Production source maps are disabled in the Vite configuration.
 
 ---
 
 ### Foundation Upgrade
 
 - Upgraded Foundation from `6.4.3` to `6.9.0`.
+
 - Updated `package.json` and `package-lock.json`.
+
 - Rebuilt all compiled theme assets through Vite.
+
 - Confirmed Foundation JavaScript initialisation continues to work through the Vite entry point.
 
 The following were tested after the upgrade:
 
 - Grid/container widths
+
 - Grid gutters
+
 - Responsive columns
+
 - `grid-x`
+
 - `cell`
+
 - `small-*` classes
+
 - `medium-*` classes
+
 - `large-*` classes
+
 - Header/navigation
+
 - Mobile navigation
+
 - Dropdown menus
+
 - Accordions
+
 - Tabs
+
 - Buttons
+
 - Form fields
+
 - Select fields
+
 - Responsive visibility classes
+
 - Foundation flex/alignment behaviour
 
 No visual or functional regressions were found during local testing.
@@ -140,19 +193,25 @@ No visual or functional regressions were found during local testing.
 Removed the separate Foundation initialisation file:
 
 ```text
+
 assets/scripts/js/init-foundation.js
+
 ```
 
 Foundation is now initialised from:
 
 ```text
+
 assets/scripts/src/main.js
+
 ```
 
 Removed the legacy SmoothState script:
 
 ```text
+
 assets/scripts/js/jquery.smoothState.min.js
+
 ```
 
 Removed the previous separate animation JavaScript file.
@@ -160,50 +219,58 @@ Removed the previous separate animation JavaScript file.
 WebsiteNI-specific functionality remains in:
 
 ```text
+
 assets/scripts/functions.js
+
 ```
 
 Current theme JavaScript includes:
 
 - Responsive YouTube/Vimeo wrappers
+
 - Foundation content cleanup
+
 - Mobile navigation
+
 - Mobile submenu toggles
+
 - Search overlay
-- Magnific Popup galleries
-- Magnific Popup inline content
+
 - Editable inline SVG conversion
+
+- ScrollSmoother initialisation
+
+- Reusable GSAP animation helpers
 
 ---
 
 ### GSAP
 
-GSAP has been retained as part of the WebsiteNI starter theme.
+GSAP remains part of the WebsiteNI starter theme and is now installed through npm and bundled through Vite.
 
-The following libraries are currently loaded globally through WordPress:
+The starter theme includes:
 
 ```text
+
 GSAP
+
 ScrollTrigger
+
 ScrollSmoother
+
 ```
 
-These remain available for project-specific animation work.
+These are registered in `assets/scripts/src/main.js` and remain available globally for project-specific animation work.
 
-GSAP is currently loaded separately rather than being bundled into the main Vite JavaScript file.
+Reusable animation helpers and ScrollSmoother initialisation are handled in `assets/scripts/functions.js`.
 
 ---
 
 ### Magnific Popup
 
-Magnific Popup has been retained.
+Magnific Popup has been removed from the starter theme.
 
-It is loaded separately through WordPress and remains available for:
-
-```text
-.mfp_gallery_image
-.mfp-instance
-```
+The legacy gallery and inline-popup initialisation, styles and dependency are no longer included.
 
 ---
 
@@ -214,8 +281,11 @@ Removed old compiled stylesheet files that are no longer part of the active buil
 Removed:
 
 ```text
+
 assets/styles/custom.css
+
 assets/styles/custom.css.map
+
 ```
 
 Updated SCSS image paths so referenced theme images resolve correctly through the Vite build.
@@ -227,38 +297,55 @@ Cleaned up old spacing class usage in theme templates.
 Current spacing utilities use descriptive names such as:
 
 ```text
+
 .paddingtopxsml
+
 .paddingbottomxsml
 
 .paddingtopsml
+
 .paddingbottomsml
 
 .paddingtopmed
+
 .paddingbottommed
 
 .paddingtoplrg
+
 .paddingbottomlrg
 
 .paddingtopxlrg
+
 .paddingbottomxlrg
+
 ```
 
 Margin helpers use naming such as:
 
 ```text
+
 .margintopsml
+
 .marginbottomsml
+
 .margintopmed
+
 .marginbottommed
+
 ```
 
 The older abbreviated naming such as:
 
 ```text
+
 ptopsml
+
 pbottomsml
+
 ptopmed
+
 pbottommed
+
 ```
 
 is no longer part of the active utility system.
@@ -272,23 +359,35 @@ Colour utilities are generated from the Foundation colour palette.
 The theme supports utility patterns including:
 
 ```text
+
 .bg-primary
+
 .text-primary
+
 .border-primary
 
 .border-t-primary
+
 .border-r-primary
+
 .border-b-primary
+
 .border-l-primary
 
 .hover:bg-primary
+
 .hover:text-primary
+
 .hover:border-primary
 
 .bg-gradient-primary
+
 .bg-primary-text-white
+
 .bg-primary-text-black
+
 .underline-primary
+
 ```
 
 The same pattern applies to colours defined in `$foundation-palette`.
@@ -302,16 +401,23 @@ Removed JavaScript-generated mobile navigation close markup.
 The mobile navigation close control is now output directly from:
 
 ```text
+
 header.php
+
 ```
 
 Retained:
 
 - Hamburger navigation
+
 - Mobile navigation overlay
+
 - Nested mobile submenu toggles
+
 - Desktop dropdown navigation
+
 - Search trigger
+
 - Search overlay
 
 ---
@@ -321,40 +427,60 @@ Retained:
 Updated `header.php` with:
 
 - Correct viewport metadata.
+
 - WordPress `body_class()`.
+
 - WordPress `wp_body_open()`.
+
 - Improved accessibility attributes.
+
 - Escaped theme image URLs.
+
 - Cleaner navigation markup.
+
 - Mobile navigation close markup moved into PHP.
+
 - Removal of legacy JavaScript-generated markup.
 
 ---
 
 ### Asset Loading
 
-Updated `functions.php` so WordPress now loads the Vite-generated assets.
+Asset loading is now handled from:
+
+```text
+
+app/assets.php
+
+```
 
 The main compiled assets are:
 
 ```text
+
 assets/dist/style.css
+
 assets/dist/script.js
+
 ```
 
 The main JavaScript bundle includes:
 
 - Foundation
+
 - What Input
+
+- GSAP
+
+- ScrollTrigger
+
+- ScrollSmoother
+
 - WebsiteNI theme JavaScript
 
-The following remain loaded separately through WordPress:
+Hamburgers CSS is imported through the Vite entry point and compiled into the main stylesheet.
 
-- Magnific Popup
-- GSAP
-- ScrollTrigger
-- ScrollSmoother
-- Hamburger menu CSS
+jQuery is externalised from the Vite bundle so WordPress supplies the runtime copy.
 
 Asset versions for the compiled Vite files use file modification times so browsers receive updated files after rebuilds.
 
@@ -365,7 +491,9 @@ Asset versions for the compiled Vite files use file modification times so browse
 Added:
 
 ```text
+
 assets/scripts/src/main.js
+
 ```
 
 This is now the main front-end JavaScript entry point.
@@ -373,10 +501,19 @@ This is now the main front-end JavaScript entry point.
 It is responsible for:
 
 - Importing the main SCSS file.
+
 - Importing What Input.
+
 - Importing Foundation.
+
+- Importing GSAP, ScrollTrigger and ScrollSmoother.
+
+- Importing Hamburgers CSS.
+
 - Importing WebsiteNI `functions.js`.
-- Making Foundation available globally where required.
+
+- Externalising jQuery so WordPress provides the runtime copy.
+
 - Initialising Foundation.
 
 ---
@@ -388,10 +525,12 @@ Foundation form styling remains part of the compiled theme.
 The WebsiteNI project form partial remains at:
 
 ```text
+
 assets/styles/scss/helper/_forms.scss
+
 ```
 
-This currently acts as a starting point for project-specific form styling.
+This provides a small global form baseline while leaving plugin-specific styling to individual projects.
 
 ---
 
@@ -402,18 +541,22 @@ Updated theme image references where required to work correctly with the new bui
 Theme assets remain stored in:
 
 ```text
+
 assets/images/
+
 ```
 
 PHP template image URLs should use:
 
 ```php
+
 get_template_directory_uri()
+
 ```
 
 rather than hard-coded WordPress theme paths.
 
-SVG uploads remain enabled by the theme.
+Unrestricted SVG uploads are no longer enabled directly by the theme. Safe SVG is recommended when SVG uploads are required.
 
 ---
 
@@ -428,7 +571,9 @@ Removed the accidental self-referencing theme symlink.
 Updated `.gitignore` so compiled Vite assets inside:
 
 ```text
+
 assets/dist/
+
 ```
 
 can be committed.
@@ -436,8 +581,11 @@ can be committed.
 The following remain ignored:
 
 ```text
+
 node_modules/
+
 .DS_Store
+
 ```
 
 ---
@@ -459,28 +607,37 @@ Normal WebsiteNI client websites continue to be developed directly on the Websit
 Typical theme locations include:
 
 ```text
+
 public_html/site/wp-content/themes/web
+
 ```
 
 and:
 
 ```text
+
 public_html/newsite/wp-content/themes/web
+
 ```
 
 Typical setup:
 
 ```bash
+
 cd public_html/site/wp-content/themes/web
 
 npm install
+
 npm run watch
+
 ```
 
 or:
 
 ```bash
+
 npm run build
+
 ```
 
 Git is not required for normal WebsiteNI client-site development.
@@ -494,26 +651,47 @@ Expanded `README.md` to document the current starter-theme setup.
 Documentation now includes:
 
 - Development setup
+
 - WebsiteNI server workflow
+
 - Vite workflow
+
 - SCSS structure
+
 - JavaScript structure
+
 - Compiled assets
+
 - Foundation
+
 - Grid and breakpoints
+
 - Colour utilities
+
 - Spacing utilities
+
 - General utility classes
+
 - Buttons
+
 - Typography
+
 - Forms
+
 - Navigation
+
 - Search
+
 - GSAP
-- Magnific Popup
+
 - Images and SVGs
+
+- Design tokens and brand settings
+
 - WordPress features
+
 - ACF options
+
 - Master-theme Git workflow
 
 Added this `CHANGELOG.md` to record major changes between starter-theme versions.
@@ -527,20 +705,29 @@ Previous WebsiteNI master starter theme.
 ### Build System
 
 - Gulp-based SCSS compilation.
+
 - Gulp-based JavaScript compilation.
+
 - Foundation `6.4.x`.
+
 - JavaScript concatenation through Gulp.
+
 - Legacy Babel/Gulp dependencies.
+
 - Generated CSS stored inside:
 
 ```text
+
 assets/styles/
+
 ```
 
 - Generated JavaScript stored inside:
 
 ```text
+
 assets/scripts/
+
 ```
 
 ### Development
@@ -548,7 +735,9 @@ assets/scripts/
 Typical development relied on commands such as:
 
 ```bash
+
 gulp watch
+
 ```
 
 or project-specific npm watch commands.
