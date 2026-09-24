@@ -420,7 +420,7 @@
 
 		/**
 		 * GSAP ScrollSmoother.
-		 */	
+		 */
 		initSmoothScroll();
 
 
@@ -438,20 +438,26 @@
 	 * class to the body.
 	 */
 	function initSmoothScroll() {
+		const gsap = window.gsap;
+		const ScrollTrigger = window.ScrollTrigger;
+		const ScrollSmoother = window.ScrollSmoother;
 
 		if (
-			!window.gsap
-			|| !window.ScrollTrigger
-			|| !window.ScrollSmoother
+			!gsap
+			|| !ScrollTrigger
+			|| !ScrollSmoother
 		) {
 			return;
 		}
 
-		if (
-			window.matchMedia(
-				'(prefers-reduced-motion: reduce)'
-			).matches
-		) {
+		/**
+		 * Respect reduced-motion preferences.
+		 */
+		const prefersReducedMotion = window.matchMedia(
+			'(prefers-reduced-motion: reduce)'
+		).matches;
+
+		if (prefersReducedMotion) {
 			return;
 		}
 
@@ -460,12 +466,60 @@
 			ScrollSmoother
 		);
 
-		ScrollSmoother.create({
+		const smoother = ScrollSmoother.create({
 			wrapper: '#smooth-wrapper',
 			content: '#smooth-content',
 			smooth: 1.3,
 			effects: true,
 			normalizeScroll: true
+		});
+
+		/**
+		 * Smooth anchor links.
+		 *
+		 * Add data-smooth-scroll to any internal anchor
+		 * that should be handled by ScrollSmoother.
+		 */
+		document.querySelectorAll(
+			'a[data-smooth-scroll][href^="#"]'
+		).forEach(function (link) {
+			link.addEventListener(
+				'click',
+				function (event) {
+					const href = link.getAttribute(
+						'href'
+					);
+
+					if (
+						!href
+						|| href === '#'
+					) {
+						return;
+					}
+
+					const target = document.getElementById(
+						href.substring(1)
+					);
+
+					if (!target) {
+						return;
+					}
+
+					event.preventDefault();
+
+					smoother.scrollTo(
+						target,
+						true,
+						'top top'
+					);
+
+					history.pushState(
+						null,
+						'',
+						href
+					);
+				}
+			);
 		});
 	}
 
@@ -487,10 +541,8 @@
 	 * data-animate-start="top 80%"
 	 */
 	function initAnimations() {
-
 		const gsap = window.gsap;
 		const ScrollTrigger = window.ScrollTrigger;
-
 
 		if (
 			!gsap
@@ -499,7 +551,6 @@
 			return;
 		}
 
-
 		/**
 		 * Respect reduced-motion preferences.
 		 */
@@ -507,89 +558,58 @@
 			'(prefers-reduced-motion: reduce)'
 		).matches;
 
-
 		if (prefersReducedMotion) {
 			return;
 		}
-
 
 		/**
 		 * Available animation presets.
 		 */
 		const animations = {
-
 			'fade-up': {
 				opacity: 0,
 				y: 40
 			},
-
 			'fade-in': {
 				opacity: 0
 			},
-
 			'fade-left': {
 				opacity: 0,
 				x: -40
 			},
-
 			'fade-right': {
 				opacity: 0,
 				x: 40
 			},
-
 			'scale-in': {
 				opacity: 0,
 				scale: 0.95
 			}
 		};
 
-
 		/**
 		 * Build selector from animation classes.
 		 */
-		const selectors = Object.keys(
-			animations
-		)
+		const selectors = Object.keys(animations)
 			.map(function (animation) {
 				return '.' + animation;
 			})
 			.join(', ');
 
-
-		const elements = document.querySelectorAll(
-			selectors
-		);
-
-
-		if (!elements.length) {
-			return;
-		}
-
-
-		gsap.registerPlugin(
-			ScrollTrigger
-		);
-
-
-		elements.forEach(function (element) {
-
+		/**
+		 * Find the animation preset applied to an element.
+		 */
+		function getAnimationName(element) {
 			let animationName = null;
 
-
-			/**
-			 * Find animation class.
-			 */
 			Object.keys(animations).some(
 				function (animation) {
-
 					if (
 						element.classList.contains(
 							animation
 						)
 					) {
-
 						animationName = animation;
-
 						return true;
 					}
 
@@ -597,32 +617,150 @@
 				}
 			);
 
+			return animationName;
+		}
+
+		gsap.registerPlugin(
+			ScrollTrigger
+		);
+
+		/**
+		 * Grouped stagger animations.
+		 *
+		 * Example:
+		 *
+		 * <div
+		 *     class="animation-stagger"
+		 *     data-animate-stagger="0.2"
+		 * >
+		 *     <div class="fade-up"></div>
+		 *     <div class="fade-up"></div>
+		 *     <div class="fade-up"></div>
+		 * </div>
+		 */
+		const staggerGroups = document.querySelectorAll(
+			'.animation-stagger'
+		);
+
+		const groupedElements = new Set();
+
+		staggerGroups.forEach(function (group) {
+			const elements = group.querySelectorAll(
+				selectors
+			);
+
+			if (!elements.length) {
+				return;
+			}
+
+			const stagger = parseFloat(
+				group.dataset.animateStagger
+			);
+
+			const duration = parseFloat(
+				group.dataset.animateDuration
+			);
+
+			const start = (
+				group.dataset.animateStart
+				|| 'top 85%'
+			);
+
+			const timeline = gsap.timeline({
+				scrollTrigger: {
+					trigger: group,
+					start: start,
+					once: true
+				}
+			});
+
+			elements.forEach(function (element, index) {
+				const animationName = getAnimationName(
+					element
+				);
+
+				if (!animationName) {
+					return;
+				}
+
+				groupedElements.add(
+					element
+				);
+
+				const elementDuration = parseFloat(
+					element.dataset.animateDuration
+				);
+
+				timeline.from(
+					element,
+					{
+						...animations[animationName],
+
+						duration:
+							Number.isFinite(
+								elementDuration
+							)
+								? elementDuration
+								: Number.isFinite(
+									duration
+								)
+									? duration
+									: 0.8,
+
+						ease: 'power2.out'
+					},
+					index * (
+						Number.isFinite(stagger)
+							? stagger
+							: 0.2
+					)
+				);
+			});
+		});
+
+		/**
+		 * Individual animations.
+		 */
+		const elements = document.querySelectorAll(
+			selectors
+		);
+
+		elements.forEach(function (element) {
+			/**
+			 * Elements inside a stagger group are handled above.
+			 */
+			if (
+				groupedElements.has(
+					element
+				)
+			) {
+				return;
+			}
+
+			const animationName = getAnimationName(
+				element
+			);
 
 			if (!animationName) {
 				return;
 			}
 
-
 			const animation = animations[
 				animationName
 			];
-
 
 			const duration = parseFloat(
 				element.dataset.animateDuration
 			);
 
-
 			const delay = parseFloat(
 				element.dataset.animateDelay
 			);
-
 
 			const start = (
 				element.dataset.animateStart
 				|| 'top 85%'
 			);
-
 
 			gsap.from(
 				element,
