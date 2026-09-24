@@ -8,7 +8,7 @@ This changelog documents what changed between versions.
 
 ---
 
-## V3 — Unreleased
+## V3 — 24 September 2026
 
 Development started September 2026.
 
