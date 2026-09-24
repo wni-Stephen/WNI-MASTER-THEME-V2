@@ -131,3 +131,6 @@ dist
 # Keep compiled Vite assets for WordPress deployments
 !assets/dist/
 !assets/dist/**
+
+# Generated theme release packages
+releases/
