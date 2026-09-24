@@ -1,8 +1,5 @@
 <?php
 /**
- * WebsiteNI Joints
- *
- * WebsiteNI Starter Theme built on JointsWP.
  * Created by WebsiteNI.
  */
 

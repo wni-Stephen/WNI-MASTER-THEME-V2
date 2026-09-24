@@ -2,7 +2,6 @@
 /**
  * WebsiteNI Starter Theme
  *
- * Built on JointsWP.
  * Created by WebsiteNI.
  */
 

@@ -1,7 +1,6 @@
 <?php
 /**
-* WebsiteNI Joints
-* WebsiteNI Starter Theme built on JointsWP; http://jointswp.com/.
+
 * Created by WebsiteNI.
 *
 * Template Name: Privacy Policy
