@@ -17,7 +17,7 @@ export default defineConfig({
 		),
 
 		emptyOutDir: true,
-		sourcemap: true,
+		sourcemap: false,
 		target: 'es2018',
 
 		lib: {
