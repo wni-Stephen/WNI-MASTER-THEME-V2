@@ -100,7 +100,7 @@ $white: $foundation-white;
 
 $body-background: $white;
 $body-font-color: $black;
-$body-font-family: 'Open Sans', sans-serif;
+$body-font-family: var(--font-body);
 $body-antialiased: true;
 $global-margin: 1rem;
 $global-padding: 1rem;
@@ -151,10 +151,10 @@ $block-grid-max: 8;
 
 // 4. Base Typography
 // ------------------
-$header-font-family: $body-font-family;
+$header-font-family: var(--font-heading);
 $header-font-weight: $global-weight-normal;
 $header-font-style: normal;
-$font-family-monospace: 'Open Sans', sans-serif;
+$font-family-monospace: Consolas, 'Liberation Mono', Courier, monospace;
 $header-color: inherit;
 $header-lineheight: 1.4;
 $header-margin-bottom: 0.5rem;
