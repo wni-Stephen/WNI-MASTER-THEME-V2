@@ -131,3 +131,4 @@ dist
 # Keep compiled Vite assets for WordPress deployments
 !assets/dist/
 !assets/dist/**
+vendor/

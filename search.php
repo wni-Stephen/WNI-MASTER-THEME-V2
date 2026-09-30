@@ -8,10 +8,7 @@ defined('ABSPATH') || exit;
 get_header();
 $search_query = get_search_query();
 ?>
-<main
-	id="content"
-	class="content"
->
+<main id="content" class="content">
 	<section class="search-results-header">
 		<div class="grid-container">
 			<div class="grid-x grid-padding-x">
@@ -45,36 +42,22 @@ $search_query = get_search_query();
 	</section>
 	<section class="search-results-content">
 		<div class="grid-container">
-			<?php if (have_posts()) : ?>
+			<?php if (have_posts()): ?>
 				<div class="grid-x grid-padding-x search-results-grid">
 					<?php
-					while (have_posts()) :
+					while (have_posts()):
 						the_post();
 						?>
 						<div class="cell small-12 medium-6 large-4">
-							<article
-								id="post-<?php the_ID(); ?>"
-								<?php post_class('search-result-card'); ?>
-							>
-								<a
-									class="search-result-link"
-									href="<?php the_permalink(); ?>"
-								>
+							<article id="post-<?php the_ID(); ?>" <?php post_class('search-result-card'); ?>>
+								<a class="search-result-link" href="<?php the_permalink(); ?>">
 									<div class="search-result-image">
-										<?php if (has_post_thumbnail()) : ?>
+										<?php if (has_post_thumbnail()): ?>
 											<?php
 											the_post_thumbnail(
 												'large'
 											);
 											?>
-										<?php else : ?>
-											<img
-												src="<?php echo esc_url(
-													get_template_directory_uri()
-													. '/assets/images/main/placeholder.jpg'
-												); ?>"
-												alt=""
-											>
 										<?php endif; ?>
 									</div>
 									<div class="search-result-content">
@@ -87,17 +70,14 @@ $search_query = get_search_query();
 						</div>
 					<?php endwhile; ?>
 				</div>
-				<nav
-					class="search-pagination"
-					aria-label="<?php esc_attr_e(
-						'Search results pagination',
-						'websiteni-foundation'
-					); ?>"
-				>
+				<nav class="search-pagination" aria-label="<?php esc_attr_e(
+					'Search results pagination',
+					'websiteni-foundation'
+				); ?>">
 					<?php
 					the_posts_pagination(
 						array(
-							'mid_size'  => 2,
+							'mid_size' => 2,
 							'prev_text' => __(
 								'Previous',
 								'websiteni-foundation'
@@ -110,7 +90,7 @@ $search_query = get_search_query();
 					);
 					?>
 				</nav>
-			<?php else : ?>
+			<?php else: ?>
 				<div class="search-no-results">
 					<h2 class="search-no-results-title">
 						<?php
@@ -128,12 +108,9 @@ $search_query = get_search_query();
 						);
 						?>
 					</p>
-					<a
-						class="button"
-						href="<?php echo esc_url(
-							home_url('/')
-						); ?>"
-					>
+					<a class="button" href="<?php echo esc_url(
+						home_url('/')
+					); ?>">
 						<?php
 						esc_html_e(
 							'Return Home',
