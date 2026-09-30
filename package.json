@@ -10,8 +10,7 @@
   "scripts": {
     "dev": "vite build --watch",
     "watch": "vite build --watch",
-    "build": "vite build",
-    "package": "npm run build && node scripts/package-theme.mjs"
+    "build": "vite build"
   },
   "browserslist": [
     "> 0.5%",
