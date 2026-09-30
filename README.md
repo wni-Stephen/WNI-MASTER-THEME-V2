@@ -12,9 +12,11 @@ The theme uses WordPress, Foundation, SCSS and JavaScript, with Vite handling fr
 
 - WordPress
 
-- Node.js
+- Node.js 20.19.0 or later in the 20.x series, or Node.js 22.12.0 or later (`^20.19.0 || >=22.12.0`), matching Vite's requirement
 
 - npm
+
+Node.js and npm are required to install dependencies and compile assets. Check `node --version` in the terminal where you will run npm; for WebsiteNI client sites, use the VS Code SSH terminal on the Guru server. Ensure that Node.js meets the requirement above before installing dependencies or running a build.
 
 After adding the theme to a project, install the front-end dependencies:
 
